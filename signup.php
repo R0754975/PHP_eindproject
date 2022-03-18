@@ -7,6 +7,14 @@
         $repeatPassword = $_POST['passwordRepeat'];
 
 
+        //checks if email contains @student.thomasmore.be or @thomasmore.be
+        if(str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
+            $emailVerified = true ;
+        }else{
+            $error = true;
+            $errorEmail = true;
+        }
+
         //checks if password has at least 6 characters
         if(strlen($initialPassword) >= 6){
             $passwordLength = true;
@@ -17,7 +25,7 @@
 
         //checks if InitialPassword en RepeatPassword are the same
         if($initialPassword === $repeatPassword){
-            $password = true;
+            $passwordVerified = true;
         }else{
             $error = true;
             $errorPassword = true;
@@ -45,6 +53,9 @@
 
             <?php if(isset($error)): ?>
                 <div class="formError">
+                <?php if(isset($errorEmail)):?>
+                        <p>Sign up with your Thomas More mailadres. </p>
+                    <?php endif; ?>
                     <?php if(isset($errorPasswordLength)):?>
                         <p>Your password should at least contain 6 characters.</p>
                     <?php endif; ?>
