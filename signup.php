@@ -1,4 +1,6 @@
 <?php
+    include_once(__DIR__ . "/classes/DB.php");
+
     //check if form is filled in when submitted
     if(!empty($_POST)){
         $username = $_POST['username'];
@@ -26,7 +28,7 @@
                         var_dump($password);
 
                         //make database connection
-                        $conn = new PDO("mysql:host=localhost;dbname=imdmedia", "root", "");
+                        $conn = DB::getConnection();
                         $statement = $conn->prepare("insert into users (username, email, password) values (:username, :email, :password)");
                         $statement->bindValue("username", $username);
                         $statement->bindValue("email", $email);
