@@ -1,3 +1,7 @@
+# IMDMedia project
+## trello link
+https://trello.com/b/cFvYkC5C/php-team-14
+
 ## miro link
 https://miro.com/app/board/uXjVOEMUSEc=/?invite_link_id=920150867488
 
