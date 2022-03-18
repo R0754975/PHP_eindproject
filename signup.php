@@ -6,35 +6,41 @@
         $initialPassword = $_POST['password'];
         $repeatPassword = $_POST['passwordRepeat'];
 
+        //checks if usernames is not empty
         if(!empty($username)){
 
+            //checks if email contains @student.thomasmore.be or @thomasmore.be
+            if(str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
+
+                //checks if password has at least 6 characters
+                if(strlen($initialPassword) >= 6){
+
+                     //checks if InitialPassword en RepeatPassword are the same
+                    if($initialPassword === $repeatPassword){
+
+                        //password hashen
+                        $options=[
+                            'cost' => 12,
+                        ];
+                        $password = password_hash($initialPassword, PASSWORD_DEFAULT, $options);
+                        var_dump($password);
+
+                        
+                    }else{
+                        $error = true;
+                        $errorPassword = true;
+                    }
+                }else{
+                    $error = true;
+                    $errorPasswordLength = true;
+                }
+            }else{
+                $error = true;
+                $errorEmail = true;
+            }
         }else{
             $error = true;
             $errorUsername = true;
-        }
-
-        //checks if email contains @student.thomasmore.be or @thomasmore.be
-        if(str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
-            $emailVerified = true ;
-        }else{
-            $error = true;
-            $errorEmail = true;
-        }
-
-        //checks if password has at least 6 characters
-        if(strlen($initialPassword) >= 6){
-            $passwordLength = true;
-        }else{
-            $error = true;
-            $errorPasswordLength = true;
-        }
-
-        //checks if InitialPassword en RepeatPassword are the same
-        if($initialPassword === $repeatPassword){
-            $passwordVerified = true;
-        }else{
-            $error = true;
-            $errorPassword = true;
         }
 
     }
@@ -59,7 +65,6 @@
 
             <?php if(isset($error)): ?>
                 <div class="formError">
-               
                     <?php if(isset($errorUsername)):?>
                         <p>Your username is not long enough.</p>
                     <?php endif; ?>
