@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+<?php
+    //check if form is filled in when submitted
+    if(!empty($_POST)){
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $initialPassword = $_POST['password'];
+        $repeatPassword = $_POST['passwordRepeat'];
+
+        //checks if password has at least 6 characters
+        if(strlen($initialPassword) >= 6){
+            $passwordLength = true;
+        }else{
+            $error = true;
+            $errorPasswordLength = true;
+        }
+
+    }
+    //error when one of the input fields aren't fild in
+    
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +34,14 @@
             <h2>Signup to IMDMedia</h2>
             <p>Get inspired by your fellow students!</p>
 
+            <?php if(isset($error)): ?>
+                <div class="formError">
+                    <?php if(isset($errorPasswordLength)):?>
+                        <p>Your password should at least containt 6 characters.</p>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>     
+
             <div class="form__field">
                 <label for="Username">Username</label>
                 <input autocomplete="off" type="text" name="username">
@@ -20,7 +49,7 @@
 
             <div class="form__field">
                 <label for="Email">Email</label>
-                <input autocomplete="on" type="text" name="email">
+                <input type="text" name="email">
             </div>
 
             <div class="form__field">
