@@ -1,6 +1,13 @@
 <?php
 
     class User{
+        /*
+        protected $username;
+        protected $email;
+        protected $initialPassword;
+        protected $repeatPassword;
+        */
+        
         public function save(){
             $conn = DB::getConnection();
             $statement = $conn->prepare("insert into users (username, email, password) values (:username, :email, :password)");
