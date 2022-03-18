@@ -25,7 +25,13 @@
                         $password = password_hash($initialPassword, PASSWORD_DEFAULT, $options);
                         var_dump($password);
 
-                        
+                        //make database connection
+                        $conn = new PDO("mysql:host=localhost;dbname=imdmedia", "root", "");
+                        $statement = $conn->prepare("insert into users (username, email, password) values (:username, :email, :password)");
+                        $statement->bindValue("username", $username);
+                        $statement->bindValue("email", $email);
+                        $statement->bindValue("password", $password);
+                        $result = $statement->execute();
                     }else{
                         $error = true;
                         $errorPassword = true;
