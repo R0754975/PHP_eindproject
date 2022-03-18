@@ -6,6 +6,12 @@
         $initialPassword = $_POST['password'];
         $repeatPassword = $_POST['passwordRepeat'];
 
+        if(!empty($username)){
+
+        }else{
+            $error = true;
+            $errorUsername = true;
+        }
 
         //checks if email contains @student.thomasmore.be or @thomasmore.be
         if(str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
@@ -53,7 +59,11 @@
 
             <?php if(isset($error)): ?>
                 <div class="formError">
-                <?php if(isset($errorEmail)):?>
+               
+                    <?php if(isset($errorUsername)):?>
+                        <p>Your username is not long enough.</p>
+                    <?php endif; ?>
+                    <?php if(isset($errorEmail)):?>
                         <p>Sign up with your Thomas More mailadres. </p>
                     <?php endif; ?>
                     <?php if(isset($errorPasswordLength)):?>
