@@ -1,5 +1,6 @@
 <?php
     include_once(__DIR__ . "/classes/DB.php");
+    include_once(__DIR__ . "/classes/User.php");
 
     //check if form is filled in when submitted
     if(!empty($_POST)){
@@ -28,12 +29,19 @@
                         var_dump($password);
 
                         //make database connection
-                        $conn = DB::getConnection();
+                        /*$conn = DB::getConnection();
                         $statement = $conn->prepare("insert into users (username, email, password) values (:username, :email, :password)");
                         $statement->bindValue("username", $username);
                         $statement->bindValue("email", $email);
                         $statement->bindValue("password", $password);
-                        $result = $statement->execute();
+                        $result = $statement->execute();*/
+
+                        //
+                        $user = new User();
+                        $user->username = $username;
+                        $user->email = $email;
+                        $user->password = $password;
+                        $user->save();
                     }else{
                         $error = true;
                         $errorPassword = true;
