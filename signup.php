@@ -6,6 +6,7 @@
         $initialPassword = $_POST['password'];
         $repeatPassword = $_POST['passwordRepeat'];
 
+
         //checks if password has at least 6 characters
         if(strlen($initialPassword) >= 6){
             $passwordLength = true;
@@ -14,8 +15,16 @@
             $errorPasswordLength = true;
         }
 
+        //checks if InitialPassword en RepeatPassword are the same
+        if($initialPassword === $repeatPassword){
+            $password = true;
+        }else{
+            $error = true;
+            $errorPassword = true;
+        }
+
     }
-    //error when one of the input fields aren't fild in
+
     
 
 
@@ -37,7 +46,10 @@
             <?php if(isset($error)): ?>
                 <div class="formError">
                     <?php if(isset($errorPasswordLength)):?>
-                        <p>Your password should at least containt 6 characters.</p>
+                        <p>Your password should at least contain 6 characters.</p>
+                    <?php endif; ?>
+                    <?php if(isset($errorPassword)):?>
+                        <p>The two given passwords are not the same.</p>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>     
