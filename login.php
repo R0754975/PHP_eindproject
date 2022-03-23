@@ -1,16 +1,23 @@
 <?php
 
-include_once(__DIR__ . "/classes/DB.php");
-include_once(__DIR__ . "/classes/User.php");
 
 	function canLogin($email, $password) {
+        $conn = new PDO('mysql:host=localhost;dbname=imdmedia', "root", "root");
         $statement = $conn->prepare("select * from users where email = :email");
         $statement->bindValue(":email", $email);
         $statement->execute();
         $email = $statement->fetch();
-        echo $email["password"];
-        die();
+        if(!$email) {
+            return false;
+        }
 
+        $hash = $email["password"];
+        if ( password_verify($password, $hash) ) {
+            return true;
+        }
+        else {
+            return false;
+        }
 	}
 
 
