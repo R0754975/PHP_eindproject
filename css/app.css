@@ -12,11 +12,11 @@ body
   font-family: Helvetica;
 }
 
-#app
+.IMDMediaSignIn
 {
   max-width: 500px;
   margin: 2em auto;
-  background-color: #fff;
+  background-color: #FFF;
   padding: 1em;
   border-radius: 10px;
 }
@@ -66,13 +66,23 @@ h1
   border-radius: 5px;
 }
 
-.btn
+.formError
+{
+  background-color: red;
+  color: white;
+  font-weight: lighter;
+  padding: 0.3em 1em;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+}
+
+.primarybtn
 {
   margin: 1em 0;
-  background-color: #F4F4F4;
+  background-color: white;
   color: #B0ADB5;
   text-align: center;
-  display: block;
+  display: inline-block;
   padding: 0.5em;
   text-decoration: none;
   border-radius: 5px;
