@@ -5,16 +5,15 @@
     //check if form is filled in when submitted
     if(!empty($_POST)){
         try{
-            var_dump("okayyyy");
             $user = new User();
             $user->setUsername($_POST['username']);
             $user->setEmail($_POST['email']);
             $user->setInitialPassword($_POST['password']);
             $user->setRepeatPassword($_POST['passwordRepeat']);
             $user->save();
+            header("Location: index.php");
         }catch (Throwable $e){
             $error = $e->getMessage();
-            var_dump($error);
         }
 
        

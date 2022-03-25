@@ -121,6 +121,7 @@
             $statement->bindValue("email", $this->email);
             $statement->bindValue("password", $passwordHash);
             return $statement->execute();
+            
         }
 
         public function __toString()
