@@ -60,9 +60,12 @@
          */ 
         public function setEmail($email)
         {
-                $this->email = $email;
-
-                return $this;
+                if(str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
+                        $this->email = $email;
+                        return $this;
+                }else{
+                        throw new Exception("Sign up with your Thomas More mailadres.");
+                }
         }
 
         /**
