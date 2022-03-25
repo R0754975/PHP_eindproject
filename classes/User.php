@@ -60,12 +60,11 @@
          */ 
         public function setEmail($email)
         {
-                if(str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
-                        $this->email = $email;
-                        return $this;
-                }else{
+                if(!str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
                         throw new Exception("Sign up with your Thomas More mailadres.");
-                }
+                }     
+                $this->email = $email;
+                return $this;
         }
 
         /**
@@ -82,9 +81,11 @@
          * @return  self
          */ 
         public function setInitialPassword($initialPassword)
-        {
+        {               
+                if(!strlen($initialPassword) >= 6){
+                        throw new Exception("Your password should at least contain 6 characters.");
+                }
                 $this->initialPassword = $initialPassword;
-
                 return $this;
         }
         /**
