@@ -44,7 +44,8 @@
          */ 
         public function setEmail($email)
         {
-                if(!str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
+
+                if(!strpos($email, '@student.thomasmore.be') || strpos($email, '@thomasmore.be')) {
                         throw new Exception("Sign up with your Thomas More mailadres.");
                 }     
                 $this->email = $email;
