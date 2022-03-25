@@ -4,60 +4,20 @@
 
     //check if form is filled in when submitted
     if(!empty($_POST)){
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $initialPassword = $_POST['password'];
-        $repeatPassword = $_POST['passwordRepeat'];
-
-        //checks if usernames is not empty
-        if(!empty($username)){
-
-            //checks if email contains @student.thomasmore.be or @thomasmore.be
-            if(str_contains($email, '@student.thomasmore.be') || str_contains($email, '@thomasmore.be')) {
-
-                //checks if password has at least 6 characters
-                if(strlen($initialPassword) >= 6){
-
-                     //checks if InitialPassword en RepeatPassword are the same
-                    if($initialPassword === $repeatPassword){
-
-                        //password hashen
-                        $options=[
-                            'cost' => 12,
-                        ];
-                        $password = password_hash($initialPassword, PASSWORD_DEFAULT, $options);
-                        var_dump($password);
-
-                        //make database connection
-                        /*$conn = DB::getConnection();
-                        $statement = $conn->prepare("insert into users (username, email, password) values (:username, :email, :password)");
-                        $statement->bindValue("username", $username);
-                        $statement->bindValue("email", $email);
-                        $statement->bindValue("password", $password);
-                        $result = $statement->execute();*/
-
-                        //
-                        $user = new User();
-                        $user->username = $username;
-                        $user->email = $email;
-                        $user->password = $password;
-                        $user->save();
-                    }else{
-                        $error = true;
-                        $errorPassword = true;
-                    }
-                }else{
-                    $error = true;
-                    $errorPasswordLength = true;
-                }
-            }else{
-                $error = true;
-                $errorEmail = true;
-            }
-        }else{
-            $error = true;
-            $errorUsername = true;
+        try{
+            var_dump("okayyyy");
+            $user = new User();
+            $user->setUsername($_POST['username']);
+            $user->setEmail($_POST['email']);
+            $user->setInitialPassword($_POST['password']);
+            $user->setRepeatPassword($_POST['passwordRepeat']);
+            $user->save();
+        }catch (Throwable $e){
+            $error = $e->getMessage();
+            var_dump($error);
         }
+
+       
 
     }
 
@@ -81,18 +41,7 @@
 
             <?php if(isset($error)): ?>
                 <div class="formError">
-                    <?php if(isset($errorUsername)):?>
-                        <p>Your username is not long enough.</p>
-                    <?php endif; ?>
-                    <?php if(isset($errorEmail)):?>
-                        <p>Sign up with your Thomas More mailadres. </p>
-                    <?php endif; ?>
-                    <?php if(isset($errorPasswordLength)):?>
-                        <p>Your password should at least contain 6 characters.</p>
-                    <?php endif; ?>
-                    <?php if(isset($errorPassword)):?>
-                        <p>The two given passwords are not the same.</p>
-                    <?php endif; ?>
+                        <p><?php echo $error; ?></p>
                 </div>
             <?php endif; ?>     
 
