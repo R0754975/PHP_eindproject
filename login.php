@@ -1,35 +1,66 @@
 <?php
 
-
 	function canLogin($email, $password) {
-        $conn = new PDO('mysql:host=localhost;dbname=imdmedia', "root", "root");
-        $statement = $conn->prepare("select * from users where email = :email");
-        $statement->bindValue(":email", $email);
-        $statement->execute();
-        $email = $statement->fetch();
-        if(!$email) {
-            return false;
-        }
+		/*if($email === "dummy" && $password === "12345" ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		*/
 
-        $hash = $email["password"];
-        if ( password_verify($password, $hash) ) {
-            return true;
-        }
-        else {
-            return false;
-        }
+		// 1 - connectie databank
+		// 2 - query schrijven
+		try{
+			$conn = new PDO("mysql:host=localhost;dbname=imdmedia", "root", "root");
+			/*$password = md5($password);
+			$sql = "select * from users where email = '$email' and password = '$password'";
+			//hack query
+			//"selecht * from users where email = 'x' OR 1=1 LIMIT 1; --' //-- rest query in comentaar zetten
+			echo $sql;
+			exit();
+			$result = $conn->query($sql);
+			var_dump($result->rowCount());
+
+			$count = $result->rowCount();
+			if($count === 1){
+				return true;
+			}else{
+				return false;
+			}*/
+
+			$statement = $conn->prepare("select * from users where email = :email");
+			$statement->bindValue("email", $email);
+			$statement->execute();
+			$user = $statement->fetch(PDO::FETCH_ASSOC);
+			var_dump($user);
+			
+			$hash = $user['password'];
+			if( password_verify($password, $hash)){
+				echo "juist password";
+				return true;
+			}else{
+				echo "fout password";
+				return false;
+			}
+		}
+		catch(Throwable $e){
+			echo $e->getMessage();
+			return false;
+		}
+		// 3 - 
 	}
 
 
 	if( !empty($_POST) ) {
 		// er is iéts gepost!
-		$email = $_POST['email'];
+		$email = $_POST['email']; //name in form
 		$password = $_POST['password'];
 		
-		// check if email and password are correct
+		// checken of user mag aanloggen
 		if( canLogin($email, $password) ) {
 			session_start();
-			$_SESSION['email'] = $email; // Op de server !!!
+			// $_SESSION['username'] = $email; // Op de server !!!
 
 			// doorsturen naar index.php
 			header("Location: index.php");
