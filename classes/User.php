@@ -38,8 +38,9 @@
          */ 
         public function setUsername($username)
         {
-               
-
+                if(empty($username)){
+                        throw new Exception("Your username is not long enough.");
+                }
                 $this->username = $username;
                 return $this;
         }
