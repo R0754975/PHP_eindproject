@@ -11,6 +11,7 @@
             $user->setEmail($_POST['email']);
             $user->setInitialPassword($_POST['password']);
             $user->setRepeatPassword($_POST['passwordRepeat']);
+            $user->save();
         }catch (Throwable $e){
             $error = $e->getMessage();
             var_dump($error);
