@@ -1,8 +1,4 @@
-<?php
-      include_once("functions.inc.php");
-    
-    header("Location: login.php");
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +8,6 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-    <input type="submit" value="Log out" class="primarybtn">	
+    <a href="logout.php" class="navbar__logout">Hi, logout?</a>	
 </body>
 </html>
