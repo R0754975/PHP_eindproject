@@ -27,6 +27,7 @@
 				return true;
 			}else{
 				return false;
+				
 			}*/
 
 			$statement = $conn->prepare("select * from users where email = :email");
@@ -49,7 +50,7 @@
 			return false;
 		}
 	
-	}
+	} 
 
 
 	if( !empty($_POST) ) {
