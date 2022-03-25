@@ -1,5 +1,5 @@
 <?php
-
+require 'classes/DB.php';
 	function canLogin($email, $password) {
 		/*if($email === "dummy" && $password === "12345" ) {
 			return true;
@@ -12,7 +12,7 @@
 		// 1 - connectie databank
 		// 2 - query schrijven
 		try{
-			$conn = new PDO("mysql:host=localhost;dbname=imdmedia", "root", "root");
+			$conn = DB::getConnection();
 			/*$password = md5($password);
 			$sql = "select * from users where email = '$email' and password = '$password'";
 			//hack query
@@ -34,7 +34,7 @@
 			$statement->bindValue("email", $email);
 			$statement->execute();
 			$user = $statement->fetch(PDO::FETCH_ASSOC);
-			var_dump($user);
+
 			
 			$hash = $user['password'];
 			if( password_verify($password, $hash)){
@@ -96,15 +96,21 @@
 					</p>
 				</div>
 				<?php endif; ?>
-
+				<?php if (isset ($_GET["newpassword"])):?>
+					<p>
+					please make sure your password is at least 6 characters in length, includes at least one upper case letter, one number, and one special character.
+					</p>
+				<?php endif ?>
 				<div class="form__field">
 					<label for="Email">Thomas More Email</label>
-					<input autocomplete="off" type="text" name="email">
+					<input autocomplete="on" type="text" name="email">
 				</div>
 				<div class="form__field">
 					<label for="Password">Password</label>
 					<input type="password" name="password">
 				</div>
+				<div><a href="signup.php">Register now</a></div>
+				<div><a href="reset-password.php">Forgot your password?</a></div>
 
 				
 					<input type="submit" value="Sign in" class="primarybtn">	
