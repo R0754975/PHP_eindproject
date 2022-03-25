@@ -44,8 +44,16 @@
          */ 
         public function setEmail($email)
         {
+                $conn = DB::getConnection();
+                $statement = $conn->prepare("select * from users where email = :email");
+                $statement->bindValue("email", $email);
+                $statement->execute();
+                $emailDB = $statement->fetch();
 
-                if(!strpos($email, '@student.thomasmore.be') || strpos($email, '@thomasmore.be')) {
+                if($emailDB != false){
+                        throw new Exception("dqfdqf");
+                }
+                else if(!strpos($email, '@student.thomasmore.be') && !strpos($email, '@thomasmore.be')) {
                         throw new Exception("Sign up with your Thomas More mailadres.");
                 }     
                 $this->email = $email;
@@ -66,9 +74,14 @@
          * @return  self
          */ 
         public function setInitialPassword($initialPassword)
-        {               
-                if(!strlen($initialPassword) >= 6){
-                        throw new Exception("Your password should at least contain 6 characters.");
+        {       
+                $uppercase = preg_match('@[A-Z]@', $initialPassword);
+                $lowercase = preg_match('@[a-z]@', $initialPassword);
+                $number = preg_match('@[0-9]@', $initialPassword);
+                $specialChars = preg_match('@[^\w]@', $initialPassword);  
+
+                if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($initialPassword) < 6){
+                        throw new Exception("Password should be at least 6 characters in length and should include at least one upper case letter, one number, and one special character.");
                 }
                 $this->initialPassword = $initialPassword;
                 return $this;
@@ -98,11 +111,15 @@
                 
                 
         public function save(){
+                                $options=[
+                                        'cost' => 12,
+                                ];      
+        $passwordHash = password_hash($this->repeatPassword, PASSWORD_DEFAULT, $options);
             $conn = DB::getConnection();
             $statement = $conn->prepare("insert into users (username, email, password) values (:username, :email, :password)");
             $statement->bindValue("username", $this->username);
             $statement->bindValue("email", $this->email);
-            $statement->bindValue("password", $this->repeatPassword);
+            $statement->bindValue("password", $passwordHash);
             return $statement->execute();
         }
 
