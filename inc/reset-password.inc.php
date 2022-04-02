@@ -62,7 +62,7 @@ if (isset($_POST["reset-password-submit"])) {
         $statementFour = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
         $statementFour->bindValue(":email", $tokenEmail);
         $statementFour->execute();
-        header("Location: ../login.php?newpwd=passwordupdated");
+        header("Location: ../login.php?succes=passwordupdated");
 
     }
     
