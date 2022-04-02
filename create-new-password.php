@@ -1,5 +1,18 @@
 <?php
+require 'classes/ErrorGenerator.php';
+if(isset($_GET['error'])) {
+$msg = $_GET['error'];
 
+    try {
+        
+        $errorGen = ErrorGenerator::getError($msg);
+    }
+    catch(Throwable $e){
+        $error = $e->getMessage();
+    
+    }
+
+}
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +26,13 @@
 	</div>
 	<div id="main">
 		<h1>Reset your password</h1>
-        
+        <?php if( isset($e) ) : ?>
+				<div class="formError">
+					<p>
+						<?php echo $error; ?>
+					</p>
+				</div>
+		<?php endif; ?>
         <?php
             $selector = $_GET["selector"];
             $validator = $_GET["validator"];
