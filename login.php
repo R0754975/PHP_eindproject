@@ -101,6 +101,11 @@ require 'classes/DB.php';
 					please make sure your password is at least 6 characters in length, includes at least one upper case letter, one number, and one special character.
 					</p>
 				<?php endif ?>
+				<?php if (isset ($_GET["succes"])):?>
+					<p>
+					Your password has been succesfully updated.
+					</p>
+				<?php endif ?>
 				<div class="form__field">
 					<label for="Email">Thomas More Email</label>
 					<input autocomplete="on" type="text" name="email">
