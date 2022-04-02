@@ -14,14 +14,14 @@ if (isset($_POST["reset-password-submit"])) {
     $specialChars = preg_match('@[^\w]@', $passwordRepeat);  
 
     if (empty($password) || empty($passwordRepeat)) {
-        header("Location: http://localhost:8888/PHP_eindproject/login.php?newpassword=empty");
+        header("Location: http://localhost:8888/PHP_eindproject/create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&error=empty");
         exit();
     } else if($password != $passwordRepeat) {
-        header("Location: http://localhost:8888/PHP_eindproject/login.php?newpassword=doesnotmatch");
+        header("Location: http://localhost:8888/PHP_eindproject/create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&error=doesnotmatch");
         exit();
     }
     else if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($passwordRepeat) < 6){
-        header("Location: http://localhost:8888/PHP_eindproject/login.php?newpassword=Incorrect");
+        header("Location: http://localhost:8888/PHP_eindproject/create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&error=Incorrect");
         exit();
     }
 
@@ -62,7 +62,7 @@ if (isset($_POST["reset-password-submit"])) {
         $statementFour = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
         $statementFour->bindValue(":email", $tokenEmail);
         $statementFour->execute();
-        header("Location: ../login.php?newpwd=passwordupdated");
+        header("Location: ../login.php?succes=passwordupdated");
 
     }
     
