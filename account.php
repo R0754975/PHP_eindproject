@@ -13,7 +13,7 @@
         <button class="changePic userSession"></button>
     </div>
     <div class="bio">
-        <p class="bioInput">Bla bla bla bla bla bla bla</p>
+        <p class="bioInput">Bla bla bla bla bla bla </p>
         <button class="changeButton userSession"></button>
     </div>
     <div class="socials">
