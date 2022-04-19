@@ -6,6 +6,7 @@
         protected $email;
         protected $initialPassword;
         protected $repeatPassword;
+        protected $profile_pic;
         
         /**
          * Get the value of username
@@ -109,7 +110,26 @@
         return $this;
             }
                 
-                
+             
+        /**
+         * Get the value of profile_pic
+         */ 
+        public function getProfile_pic()
+        {
+                return $this->repeatPassword;
+        }
+
+        /**
+         * Set the value of profile_pic
+         */ 
+        public function setProfile_pic($profile_pic)
+        {
+
+        $this->profile_pic = $profile_pic;
+        return $this;
+               
+        }
+
         public function save(){
                                 $options=[
                                         'cost' => 12,
