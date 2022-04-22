@@ -150,10 +150,10 @@
                 return $this->username . " " . $this->email;
         }
 
-        public function deleteUser(){
+        public static function deleteUser(){
                 $conn = DB::getConnection();
                 $statement=$conn->prepare("DELETE FROM users where username = :username");
-                $statement->bindValue("username", $this->username);
+                $statement->bindValue("username", self::$username);
                 return $statement->execute();
         }
 
