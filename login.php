@@ -1,78 +1,22 @@
 <?php
 require 'classes/DB.php';
-	function canLogin($email, $password) {
-		/*if($email === "dummy" && $password === "12345" ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		*/
+include_once("bootstrap.php");
 
-		// 1 - connectie databank
-		// 2 - query schrijven
-		try{
-			$conn = DB::getConnection();
-			/*$password = md5($password);
-			$sql = "select * from users where email = '$email' and password = '$password'";
-			//hack query
-			//"selecht * from users where email = 'x' OR 1=1 LIMIT 1; --' //-- rest query in comentaar zetten
-			echo $sql;
-			exit();
-			$result = $conn->query($sql);
-			var_dump($result->rowCount());
-
-			$count = $result->rowCount();
-			if($count === 1){
-				return true;
-			}else{
-				return false;
-				
-			}*/
-
-			$statement = $conn->prepare("select * from users where email = :email");
-			$statement->bindValue("email", $email);
-			$statement->execute();
-			$user = $statement->fetch(PDO::FETCH_ASSOC);
-
-			
-			$hash = $user['password'];
-			if( password_verify($password, $hash)){
-				echo "juist password";
-				return true;
-			}else{
-				echo "fout password";
-				return false;
-			}
-		}
-		catch(Throwable $e){
-			echo $e->getMessage();
-			return false;
-		}
+if(!empty($_POST)) {
+	try {
+	$user = new User();
+	$user->setEmail($_POST['email']);
+	$user->setPassword($_POST['password']);
+	if($user->canLogin()){
+	session_start();
+	$_SESSION['user'] = $user;
+	header("Location: index.php");
 	
-	} 
-
-
-	if( !empty($_POST) ) {
-		// er is iéts gepost!
-		$email = $_POST['email']; //name in form
-		$password = $_POST['password'];
-		
-		// checken of user mag aanloggen
-		if( canLogin($email, $password) ) {
-			session_start();
-			// $_SESSION['username'] = $email; // Op de server !!!
-
-			// doorsturen naar index.php
-			header("Location: index.php");
-
-		}
-		else 
-		{
-			// error tonen
-			$error = true;
-		}
-
+	}
+	}
+	catch ( Throwable $e) {
+	$error = $e->getMessage();
+	}
 	}
 
 ?><!DOCTYPE html>
@@ -92,7 +36,7 @@ require 'classes/DB.php';
 				<?php if( isset($error) ) : ?>
 				<div class="formError">
 					<p>
-						Sorry, we can't log you in with that email address and password. Can you try again?
+						<?php echo $error; ?>
 					</p>
 				</div>
 				<?php endif; ?>
