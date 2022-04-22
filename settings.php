@@ -1,5 +1,8 @@
 <?php
-
+    include_once("bootstrap.php");
+    include_once("functions.inc.php");
+        boot();
+        checkAuthorisation();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
