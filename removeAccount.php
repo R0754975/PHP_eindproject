@@ -1,6 +1,14 @@
 <?php
-    //alert in javascript
-    
+    //add alert in javascript
+    include_once("bootstrap.php");
+    include_once("functions.inc.php");
+        boot();
+        checkAuthorisation();
+
+    var_dump($_SESSION['user']);
+    User::deleteUser($_SESSION['user']);
+
+    header("Location: login.php");
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -11,6 +19,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Uw account wordt verwijderd</h1>
+    <h1>Your account gets deleted</h1>
 </body>
 </html>
