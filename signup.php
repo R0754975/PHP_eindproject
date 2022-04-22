@@ -8,9 +8,12 @@
             $user = new User();
             $user->setUsername($_POST['username']);
             $user->setEmail($_POST['email']);
-            $user->setInitialPassword($_POST['password']);
+            $user->setPassword($_POST['password']);
             $user->setRepeatPassword($_POST['passwordRepeat']);
             $user->save();
+
+            session_start();
+            $_SESSION['user'] = $user;
             header("Location: index.php");
         }catch (Throwable $e){
             $error = $e->getMessage();
