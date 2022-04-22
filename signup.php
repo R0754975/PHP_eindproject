@@ -29,14 +29,11 @@
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/app.css">
+    <?php include_once("header.inc.php"); ?>
     <title>Signup IMDMedia</title>
 </head>
 <body>
-    <div class="IMDMediaSignIn">
+    <div class="IMDMediaSignIn formLeft">
         <form action="" method="post">
             <h2>Signup to IMDMedia</h2>
             <p>Get inspired by your fellow students!</p>
@@ -72,5 +69,9 @@
             </div>
         </form>
     </div>
+    <div class="formRight">
+
+    </div>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
