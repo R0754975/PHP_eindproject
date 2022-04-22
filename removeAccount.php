@@ -5,7 +5,6 @@
         boot();
         checkAuthorisation();
 
-    var_dump($_SESSION['user']);
     User::deleteUser($_SESSION['user']);
 
     header("Location: login.php");
