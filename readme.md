@@ -1,4 +1,4 @@
-# IMDMedia project
+# IMDMedia project links
 ## trello link
 https://trello.com/b/cFvYkC5C/php-team-14
 
@@ -13,3 +13,8 @@ https://www.figma.com/file/3jLkKW1NIWjDDEwijXVlkG/Untitled
 
 ## opdracht link
 https://docs.google.com/document/d/1QhlzCRcnYmopg5OyNkhBeSsuQZvTCPn9BBs5iB1dwAQ/edit#
+
+# command's project
+## sass
+npm install -g sass
+sass ./sass/app.scss ./css/app.css --watch (live wijzigingen bekijken)
