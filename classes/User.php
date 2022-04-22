@@ -51,10 +51,7 @@
                 $statement->execute();
                 $emailDB = $statement->fetch();
 
-                if($emailDB != false){
-                        throw new Exception("dqfdqf");
-                }
-                else if(!strpos($email, '@student.thomasmore.be') && !strpos($email, '@thomasmore.be')) {
+                if(!strpos($email, '@student.thomasmore.be') && !strpos($email, '@thomasmore.be')) {
                         throw new Exception("Sign up with your Thomas More mailadres.");
                 }     
                 $this->email = $email;
@@ -64,7 +61,7 @@
         /**
          * Get the value of initialPassword
          */ 
-        public function getInitialPassword()
+        public function getPassword()
         {
                 return $this->initialPassword;
         }
@@ -74,7 +71,7 @@
          *
          * @return  self
          */ 
-        public function setInitialPassword($initialPassword)
+        public function setPassword($initialPassword)
         {       
                 $uppercase = preg_match('@[A-Z]@', $initialPassword);
                 $lowercase = preg_match('@[a-z]@', $initialPassword);
@@ -130,7 +127,32 @@
                
         }
 
+        function canLogin() {
+                $password = $this->initialPassword;
+                $conn = DB::getConnection();
+                $statement = $conn->prepare("select * from users where email = :email");
+                $statement->bindValue(":email", $this->email);
+                $statement->execute();
+                $user = $statement->fetch();
+                $hash = $user["password"];
+                if( password_verify($password, $hash)) {
+                return true;
+                }
+                else {
+                throw new Exception("Wrong password");
+                }
+                
+                }
+
         public function save(){
+                $conn = DB::getConnection();
+                $statementA = $conn->prepare("select * from users where email = :email");
+                $statementA->bindValue("email", $this->email);
+                $statementA->execute();
+                $emailDB = $statementA->fetch();                
+                if($emailDB != false){
+                        throw new Exception("dqfdqf");
+                }
                 $options=[
                         'cost' => 12,
                 ];      
@@ -152,8 +174,8 @@
 
         public static function deleteUser(){
                 $conn = DB::getConnection();
-                $statement=$conn->prepare("DELETE FROM users where username = :username");
-                $statement->bindValue("username", self::$username);
+                $statement=$conn->prepare("DELETE FROM users where email = :email");
+                $statement->bindValue("email", $_SESSION['user']->email);
                 return $statement->execute();
         }
 
