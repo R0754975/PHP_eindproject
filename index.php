@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+    include_once("bootstrap.php");
+    include_once("functions.inc.php");
+        boot();
+        checkAuthorisation();
+    print_r($_SESSION["username"]);
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,5 +15,6 @@
 </head>
 <body>
     <a href="logout.php" class="navbar__logout">Hi, logout?</a>	
+    <a href="settings.php" class="navbar__logout">Settings</a>	
 </body>
 </html>
