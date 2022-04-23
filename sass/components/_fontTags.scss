@@ -18,10 +18,15 @@ p{
 .extraP{
     font-size: 0.8em;
 }
-.signup a{
+
+.extraP a{
     color: colors.$offWhite;
 }
 
 .extraP form{
     align-self: center;
+}
+
+.extraP--password{
+    margin-top: -0.05em;
 }
