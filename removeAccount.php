@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
     <?php include_once("header.inc.php"); ?>
-    <title>Document</title>
+    <title>Remove account</title>
 </head>
 <body>
     <h1>Your account gets deleted</h1>
