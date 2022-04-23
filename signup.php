@@ -34,16 +34,17 @@
 </head>
 <body>
     <div class="IMDMediaSignIn">
-        <div class="signup">
+        <div class="form">
             <form action="" method="post">
                 <h1>Signup to IMDMedia</h1>
-                <p>Get inspired by your fellow students!</p>
 
                 <?php if(isset($error)): ?>
                     <div class="formError">
                             <p><?php echo $error; ?></p>
                     </div>
-                <?php endif; ?>     
+                <?php else: ?>    
+                    <p>Get inspired by your fellow students!</p>
+                <?php endif; ?>
 
                 <div class="form__field">
                     <label for="Username">Username</label>
