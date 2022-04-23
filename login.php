@@ -22,9 +22,8 @@ if(!empty($_POST)) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <?php include_once("header.inc.php"); ?>
   <title>Sign in IMDMedia</title>
-  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 	<div class="IMDMediaSignIn">
