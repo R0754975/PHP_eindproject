@@ -1,0 +1,60 @@
+@use "./../_colors.scss";
+@use "./../fonts";
+
+.IMDMediaSignIn{
+    height: 100%;
+    width: 50%;
+    left: 0;
+    top: 0;
+    position:absolute;
+    background-color: colors.$primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formFilling{
+    height: 100%;
+    width: 50%;
+    right: 0;
+    top: 0;
+    position:absolute;
+    background-color: colors.$offWhite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fillingImage{
+    width:60%;
+    align-self: center;
+}
+
+label{
+    color: colors.$offWhite;
+    font-family: fonts.$jakartaSans;
+    font-weight: lighter;
+    font-size: 0.9em;
+}
+
+input{
+    color: colors.$offWhite;
+    background-color: transparent;
+    border-color: colors.$offWhite;
+    border-width: 2px;
+    border-radius: 3px;
+    width: 100%;
+    padding:0.7em;
+    font-size: 0.9em;
+}
+
+.signup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.form__field{
+    margin-top: 0.8em;
+}
