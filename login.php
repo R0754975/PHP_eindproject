@@ -64,6 +64,7 @@ if(!empty($_POST)) {
 				
 			
 			</form>
+			<p class="extraP">Don't have an account yet? <a href="signup.php">Make one here.</a></p>
 
 		</div>
 	</div>
