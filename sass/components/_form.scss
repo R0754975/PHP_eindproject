@@ -48,13 +48,22 @@ input{
     font-size: 0.9em;
 }
 
-.signup{
+.form{
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 40%;
 }
 
 
 .form__field{
     margin-top: 0.8em;
+}
+
+
+.formError p{
+    background-color: colors.$danger;
+    padding: 0.7em;
+    border-radius: 3px;
+    font-size: 0.9em;
 }
