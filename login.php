@@ -29,7 +29,7 @@ if(!empty($_POST)) {
 	<div class="IMDMediaSignIn">
 		<div class="form form--login">
 			<form action="" method="post">
-				<h2 form__title>Sign In</h2>
+				<h1 form__title>Sign In</h1>
 
 
 				<?php if( isset($error) ) : ?>
@@ -57,16 +57,19 @@ if(!empty($_POST)) {
 					<label for="Password">Password</label>
 					<input type="password" name="password">
 				</div>
-				<div><a href="signup.php">Register now</a></div>
-				<div><a href="reset-password.php">Forgot your password?</a></div>
+				<p class="extraP extraP--password"><a href="reset-password.php">Forgot your password?</a></p>
 
 				
-					<input type="submit" value="Sign in" class="primarybtn">	
+				<input type="submit" value="Sign in" class="formbtn">	
 				
 			
 			</form>
+
 		</div>
 	</div>
+	<div class="formFilling">
+        <img src="./images/eye.png" alt="IMD eye" class="fillingImage">
+    </div>
 	<script type="module" src="main.js"></script>
 </body>
 </html>
