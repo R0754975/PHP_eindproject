@@ -1,0 +1,27 @@
+@use "./../_colors.scss";
+@use "./../fonts";
+
+h1{
+    color: colors.$offWhite;
+    font-family: fonts.$jakartaSans;
+    font-weight: bold;
+    font-size:1.8em;
+}
+
+p{
+    font-family: fonts.$jakartaSans;
+    color: colors.$offWhite;
+    font-weight: lighter;
+    font-size:1em;
+}
+
+.extraP{
+    font-size: 0.8em;
+}
+.signup a{
+    color: colors.$offWhite;
+}
+
+.extraP form{
+    align-self: center;
+}
