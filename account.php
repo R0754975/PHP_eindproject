@@ -21,5 +21,6 @@
         <button class="changeSocialPic userSession"></button>
     </div>
 
+    <script type="module" src="main.js"></script>
 </body>
 </html>
