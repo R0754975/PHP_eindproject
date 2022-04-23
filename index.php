@@ -12,5 +12,8 @@
 <body>
     <a href="logout.php" class="navbar__logout">Hi, logout?</a>	
     <a href="settings.php" class="navbar__logout">Settings</a>	
+
+	<script type="module" src="main.js"></script>
+
 </body>
 </html>
