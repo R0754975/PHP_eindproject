@@ -3,7 +3,6 @@
     include_once("functions.inc.php");
         boot();
         checkAuthorisation();
-    print_r($_SESSION["username"]);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
