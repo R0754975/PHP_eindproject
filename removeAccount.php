@@ -9,14 +9,4 @@
 
     header("Location: login.php");
 
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php include_once("header.inc.php"); ?>
-    <title>Remove account</title>
-</head>
-<body>
-    <h1>Your account gets deleted</h1>
-    <script type="module" src="main.js"></script>
-</body>
-</html>
+?>
