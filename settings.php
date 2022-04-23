@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <?php include_once("header.inc.php"); ?>
-    <title>Document</title>
+    <title>Account settings</title>
 </head>
 <body>
     <button class="changePass">Change password</button>
