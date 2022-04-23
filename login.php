@@ -67,5 +67,6 @@ if(!empty($_POST)) {
 			</form>
 		</div>
 	</div>
+	<script type="module" src="main.js"></script>
 </body>
 </html>
