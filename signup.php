@@ -33,7 +33,7 @@
     <title>Signup IMDMedia</title>
 </head>
 <body>
-    <div class="IMDMediaSignIn formLeft">
+    <div class="IMDMediaSignIn">
         <form action="" method="post">
             <h2>Signup to IMDMedia</h2>
             <p>Get inspired by your fellow students!</p>
@@ -65,12 +65,12 @@
             </div>
 
             <div class="form__field">
-                <input type="submit" value="Sign up" class="primarybtn">
+                <input type="submit" value="Sign up" class="formbtn">
             </div>
         </form>
     </div>
-    <div class="formRight">
-
+    <div class="formFilling">
+        <img src="./images/eye.png" alt="IMD eye" class="fillingImage">
     </div>
     <script type="module" src="main.js"></script>
 </body>
