@@ -1,0 +1,17 @@
+@use "./colors";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200&display=swap');
+*{
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    overflow:hidden;
+    height: 100%;
+    display: flex;
+    flex-direction:row;
+}
+

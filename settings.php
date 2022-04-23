@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+    include_once("bootstrap.php");
+    include_once("functions.inc.php");
+        boot();
+        checkAuthorisation();
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +13,6 @@
 </head>
 <body>
     <button class="changePass">Change password</button>
-    <button class="deleteAccount">Delete account</button>
+    <a href="removeAccount.php">Delete account</a>
 </body>
 </html>
