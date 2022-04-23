@@ -17,5 +17,6 @@
 </head>
 <body>
     <h1>Your account gets deleted</h1>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
