@@ -1,98 +1,41 @@
 <?php
 require 'classes/DB.php';
-	function canLogin($email, $password) {
-		/*if($email === "dummy" && $password === "12345" ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		*/
+include_once("bootstrap.php");
 
-		// 1 - connectie databank
-		// 2 - query schrijven
-		try{
-			$conn = DB::getConnection();
-			/*$password = md5($password);
-			$sql = "select * from users where email = '$email' and password = '$password'";
-			//hack query
-			//"selecht * from users where email = 'x' OR 1=1 LIMIT 1; --' //-- rest query in comentaar zetten
-			echo $sql;
-			exit();
-			$result = $conn->query($sql);
-			var_dump($result->rowCount());
-
-			$count = $result->rowCount();
-			if($count === 1){
-				return true;
-			}else{
-				return false;
-				
-			}*/
-
-			$statement = $conn->prepare("select * from users where email = :email");
-			$statement->bindValue("email", $email);
-			$statement->execute();
-			$user = $statement->fetch(PDO::FETCH_ASSOC);
-
-			
-			$hash = $user['password'];
-			if( password_verify($password, $hash)){
-				echo "juist password";
-				return true;
-			}else{
-				echo "fout password";
-				return false;
-			}
-		}
-		catch(Throwable $e){
-			echo $e->getMessage();
-			return false;
-		}
+if(!empty($_POST)) {
+	try {
+	$user = new User();
+	$user->setEmail($_POST['email']);
+	$user->setPassword($_POST['password']);
+	if($user->canLogin()){
+	session_start();
+	$_SESSION['user'] = $user;
+	header("Location: index.php");
 	
-	} 
-
-
-	if( !empty($_POST) ) {
-		// er is iéts gepost!
-		$email = $_POST['email']; //name in form
-		$password = $_POST['password'];
-		
-		// checken of user mag aanloggen
-		if( canLogin($email, $password) ) {
-			session_start();
-			// $_SESSION['username'] = $email; // Op de server !!!
-
-			// doorsturen naar index.php
-			header("Location: index.php");
-
-		}
-		else 
-		{
-			// error tonen
-			$error = true;
-		}
-
+	}
+	}
+	catch ( Throwable $e) {
+	$error = $e->getMessage();
+	}
 	}
 
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <?php include_once("header.inc.php"); ?>
   <title>Sign in IMDMedia</title>
-  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 	<div class="IMDMediaSignIn">
 		<div class="form form--login">
 			<form action="" method="post">
-				<h2 form__title>Sign In</h2>
+				<h1 form__title>Sign In</h1>
 
 
 				<?php if( isset($error) ) : ?>
 				<div class="formError">
 					<p>
-						Sorry, we can't log you in with that email address and password. Can you try again?
+						<?php echo $error; ?>
 					</p>
 				</div>
 				<?php endif; ?>
@@ -114,15 +57,20 @@ require 'classes/DB.php';
 					<label for="Password">Password</label>
 					<input type="password" name="password">
 				</div>
-				<div><a href="signup.php">Register now</a></div>
-				<div><a href="reset-password.php">Forgot your password?</a></div>
+				<p class="extraP extraP--password"><a href="reset-password.php">Forgot your password?</a></p>
 
 				
-					<input type="submit" value="Sign in" class="primarybtn">	
+				<input type="submit" value="Sign in" class="formbtn">	
 				
 			
 			</form>
+			<p class="extraP">Don't have an account yet? <a href="signup.php">Make one here.</a></p>
+
 		</div>
 	</div>
+	<div class="formFilling">
+        <img src="./images/eye.png" alt="IMD eye" class="fillingImage">
+    </div>
+	<script type="module" src="main.js"></script>
 </body>
 </html>
