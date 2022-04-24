@@ -179,7 +179,14 @@
                 return $statement->execute();
         }
 
-
+        function getAll() {
+                $conn = DB::getConnection();
+                $statement = $conn->prepare("select * from users where email = :email");
+                $statement->bindValue(":email", $this->email);
+                $statement->execute();
+                $user = $statement->fetch();
+                return $user;
+        }
         
     }
 

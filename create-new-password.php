@@ -1,18 +1,26 @@
 <?php
-require 'classes/ErrorGenerator.php';
-if(isset($_GET['error'])) {
-$msg = $_GET['error'];
+ include_once("bootstrap.php");
+ include_once("inc/functions.inc.php");
+// password reset system
 
+$validator = $_GET["validator"];
+$selector = $_GET["selector"];
+
+if (empty($validator)) {
+    echo "Could not validate your request!";
+}  
+
+if (isset($_POST['reset-password-submit'])) {
     try {
-        
-        $errorGen = ErrorGenerator::getError($msg);
+        Security::resetPassword();
+        echo $_POST['password'];
     }
-    catch(Throwable $e){
+    catch (Throwable $e) {
         $error = $e->getMessage();
-    
     }
 
 }
+
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -33,31 +41,13 @@ $msg = $_GET['error'];
 					</p>
 				</div>
 		<?php endif; ?>
-        <?php
-            $selector = $_GET["selector"];
-            $validator = $_GET["validator"];
-
-            if (empty($selector) || empty($validator)) {
-                echo "Could not validate your request!";
-            }
-            else {
-                if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) !== false) {
-
-                    ?>
-                    
-                    <form action="inc/reset-password.inc.php" method="post">
+                 <form action="" method="post">
                         <input type="hidden" name="selector" value="<?php echo $selector;?>">
                         <input type="hidden" name="validator" value="<?php echo $validator;?>">
                         <input type="password" name="password" placeholder="Enter a new password...">
-                        <input type="password" name="password-repeat" placeholder="Repeat new password...">
+                        <input type="password" name="passwordrepeat" placeholder="Repeat new password...">
                         <button type="submit" name="reset-password-submit">Reset password</button>
                     </form>    
-                    <?php
-
-
-                }
-            }
-        ?>
 
 
 	</div>
