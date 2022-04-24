@@ -28,7 +28,7 @@
             <a href="#" class="primarybtn">Upload project</a>
             <div>
                 <button class="dropbtn"></button>
-                <div class="dropdownContent">
+                <div class="dropdownContent"> 
                     <a href="#">Profile</a>
                     <a href="./settings.php">Settings</a>
                     <a href="./logout.php">Logout</a>
