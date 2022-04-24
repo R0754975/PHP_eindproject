@@ -17,10 +17,13 @@
 .searchBar{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .searchIcon{
     width:3em;
+    padding-top: 1em;
     background-color: transparent;
 }
 
