@@ -22,7 +22,7 @@ use Psr\Http\Message\UriInterface;
  */
 class Configuration implements ConfigurableInterface
 {
-    const CLOUDINARY_URL_ENV_VAR = 'CLOUDINARY_URL';
+    const CLOUDINARY_URL_ENV_VAR = 'CLOUDINARY_URL=cloudinary://387513213267173:1lBrjQy2GXP39NT1pwnvD1SxyKo@dzhrxvqre';
 
     /**
      * The version of the configuration scheme

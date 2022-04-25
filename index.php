@@ -41,7 +41,7 @@
                 <div>
                     <h1>IMDMedia</h1>
                     <h2>Welcome to IMDMedia</h2>
-                    <a href="project.php">new Post</a>
+                    <a href="post.php">new Post</a>
                 </div>
                 <?php foreach($posts as $post): ?>
                 <div class="post">

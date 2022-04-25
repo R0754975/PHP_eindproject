@@ -1,5 +1,5 @@
 <?php
-    include_once("bootstrap.php");
+    require __DIR__ . '/vendor/autoload.php';
     include_once("functions.inc.php");
         boot();
         checkAuthorisation();

@@ -614,4 +614,9 @@ return array(
     'Cloudinary\\Utils' => $vendorDir . '/cloudinary/cloudinary_php/src/Utils/Utils.php',
     'Cloudinary\\Utils\\SignatureVerifier' => $vendorDir . '/cloudinary/cloudinary_php/src/Utils/SignatureVerifier.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'DB' => $baseDir . '/classes/DB.php',
+    'ErrorGenerator' => $baseDir . '/classes/ErrorGenerator.php',
+    'Post' => $baseDir . '/classes/Post.php',
+    'Security' => $baseDir . '/classes/Security.php',
+    'User' => $baseDir . '/classes/User.php',
 );

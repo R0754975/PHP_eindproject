@@ -1,6 +1,5 @@
 <?php
-    include_once(__DIR__ . "/classes/DB.php");
-    include_once(__DIR__ . "/classes/User.php");
+    require __DIR__ . '/vendor/autoload.php';
 
     //check if form is filled in when submitted
     if(!empty($_POST)){
