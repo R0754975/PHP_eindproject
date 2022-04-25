@@ -4,20 +4,20 @@ include_once("bootstrap.php");
 
 if(!empty($_POST)) {
 	try {
-	$user = new User();
-	$user->setEmail($_POST['email']);
-	$user->setPassword($_POST['password']);
-	if($user->canLogin()){
-	session_start();
-	$_SESSION['user'] = $user;
-	header("Location: index.php");
-	
-	}
+	  $user = new User();
+	  $user->setEmail($_POST['email']);
+	  $user->setPassword($_POST['password']);
+	  if($user->canLogin()){
+		session_start();
+		$_SESSION['user'] = $user;
+			  header("Location: index.php");
+ 
+	  }
 	}
 	catch ( Throwable $e) {
-	$error = $e->getMessage();
+	  $error = $e->getMessage();
 	}
-	}
+  }
 
 ?><!DOCTYPE html>
 <html lang="en">
