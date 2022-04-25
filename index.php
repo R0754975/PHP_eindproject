@@ -3,8 +3,22 @@
     include_once("inc/functions.inc.php");
         boot();
         $auth = checkLoggedIn();
-        
-        $posts = Post::getAll();
+
+        // determine how many items are allowed per page
+        $maxResults = 10;
+        // determine how many items are in the database
+        $postCount = Post::getRowCount();
+        // determine how many pages there are
+        $pageCount = ceil($postCount / $maxResults);
+        // determine which page number is currently being viewed
+        if(!isset($_GET['page'])){
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
+        // retrieve the posts for the current page
+        $posts = Post::getPage($page);
+
 
         ?><!DOCTYPE html>
         <html lang="en">
@@ -20,13 +34,13 @@
             <a href="logout.php" class="navbar__logout">Hi, logout?</a>
             <?php endif ?>
             <?php if($auth == false): ?>
-            <a href="signup.php" class="navbar__logout">Hi, would you like to register?</a>
+            <a href="login.php" class="navbar__logout">Hi, would you like to Log in?</a>
             <?php endif ?>		
             <section>
                 <div>
                     <h1>IMDMedia</h1>
                     <h2>Welcome to IMDMedia</h2>
-                    <a href="project.php">Upload a new project!</a>
+                    <a href="project.php">new Post</a>
                 </div>
                 <?php foreach($posts as $post): ?>
                 <div class="post">
@@ -34,9 +48,17 @@
                     <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
                     <?php if($auth == true): ?>
                     <p><?php echo htmlspecialchars($post['userName']); ?></p>
+                    <?php $tags = json_decode($post['tags']); ?>
+                    <?php foreach($tags as $tag): ?>
+                    <a href="?tags=<?php echo htmlspecialchars($tag); ?>">#<?php echo htmlspecialchars($tag); ?></a>
+                    <?php endforeach ?>
                     <?php endif ?>
                 </div>
                 <?php endforeach; ?>    
             </section>
+
+            <?php for($page = 1; $page <= $pageCount; $page++): ?>
+                <a href="?page=<?php echo $page; ?>"><?php echo $page; ?></a>
+            <?php endfor; ?>    
         </body>
         </html>

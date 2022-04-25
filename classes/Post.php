@@ -41,8 +41,9 @@
 
         public function setTags($tags)
         {
-                $this->tags = $tags;
-
+                $tags = str_replace(' ', '', $tags);
+                $tags = explode(',', $tags);
+                $this->tags = json_encode($tags);
                 return $this;
         }
 
@@ -146,6 +147,18 @@
         public static function getAll() {
                 $conn = DB::getConnection();
                 $result = $conn->query("select * from posts;");
+                return $result->fetchAll();
+            }
+
+        public static function getRowCount() {
+                $conn = DB::getConnection();
+                $result = $conn->query("select count(*) from posts;");
+                return $result->fetchColumn();
+            }
+        public static function getPage($page) {
+                $maxResults = 10;
+                $conn = DB::getConnection();
+                $result = $conn->query("select * from posts limit " . (($page - 1) * $maxResults) . ", 10;");
                 return $result->fetchAll();
             }
 

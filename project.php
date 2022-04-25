@@ -9,12 +9,14 @@ if (isset($_POST['submit'])) {
     $username = $user['username'];   
     $userid = $user['id']; 
     $title = $_POST['title'];
+    $tags = $_POST['tags'];
     $file = $_FILES['file'];
     $post = new Post();
     $post->setTitle($title);
     $post->setUserid($userid);
     $post->setFile($file);
     $post->setUsername($username);
+    $post->setTags($tags);
     $post->upload();
     $post->save();
     header("Location: http://localhost:8888/PHP_eindproject/index.php?uploadsuccess");
@@ -46,6 +48,7 @@ if (isset($_POST['submit'])) {
     <form action="" method="POST" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="the title of your project">
         <input type="file" name="file">
+        <input type="text" name="tags" placeholder="tag1, tag2, tag3">
         <button type="submit" name="submit">UPLOAD</button>
     </form>
 </body>
