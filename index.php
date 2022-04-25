@@ -1,6 +1,7 @@
 <?php
-    include_once("bootstrap.php");
+    require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
+  
         boot();
         $auth = checkLoggedIn();
 

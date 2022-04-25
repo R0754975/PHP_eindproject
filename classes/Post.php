@@ -1,5 +1,7 @@
 <?php
+use Cloudinary\Cloudinary;
 
+$cloudinary = new Cloudinary();
 
     Class Post {
 
@@ -117,7 +119,7 @@
                         throw new Exception("You cannot upload files of this type!");
                         $this->delete();
                         }
-
+                        
                         
 
         }

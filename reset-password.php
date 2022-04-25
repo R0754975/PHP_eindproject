@@ -1,5 +1,6 @@
 <?php
- include_once("bootstrap.php");
+ include_once("classes/Security.php");
+ include_once("classes/DB.php");
  include_once("inc/functions.inc.php");
 // password reset system
 if(isset($_POST['reset-request-submit'])) {
