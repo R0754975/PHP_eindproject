@@ -1,6 +1,5 @@
 <?php
-require 'classes/DB.php';
-include_once("bootstrap.php");
+require __DIR__ . '/vendor/autoload.php';
 
 if(!empty($_POST)) {
 	try {

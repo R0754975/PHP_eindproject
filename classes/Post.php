@@ -1,7 +1,8 @@
 <?php
 use Cloudinary\Cloudinary;
 
-$cloudinary = new Cloudinary();
+
+
 
     Class Post {
 
@@ -93,7 +94,15 @@ $cloudinary = new Cloudinary();
                 $fileSize = $file['size'];
                 $fileError = $file['error'];
                 $fileType = $file['type'];
-        
+                
+                $cloudinary = new Cloudinary([
+                        'cloud' => [
+                                'cloud_name' => 'dzhrxvqre',
+                                'api_key'  => '387513213267173',
+                                'api_secret' => '1lBrjQy2GXP39NT1pwnvD1SxyKo',
+                                'url' => [
+                                        'secure' => true]
+                              ]]);
                 
                 $fileExt = explode('.', $fileName);
                 $fileActualExt = strtolower(end($fileExt));
@@ -120,7 +129,8 @@ $cloudinary = new Cloudinary();
                         $this->delete();
                         }
                         
-                        
+                        $cloudinary->uploadApi()->upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg", 
+                        ["public_id" => "olympic_flag"]);        
 
         }
         public function save() {

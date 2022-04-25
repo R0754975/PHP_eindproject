@@ -1,6 +1,5 @@
 <?php
- include_once("classes/Security.php");
- include_once("classes/DB.php");
+ require __DIR__ . '/vendor/autoload.php';
  include_once("inc/functions.inc.php");
 // password reset system
 if(isset($_POST['reset-request-submit'])) {

@@ -691,6 +691,11 @@ class ComposerStaticInit9d0f5a2541c55b84bb509f8e249efaa0
         'Cloudinary\\Utils' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Utils/Utils.php',
         'Cloudinary\\Utils\\SignatureVerifier' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Utils/SignatureVerifier.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'DB' => __DIR__ . '/../..' . '/classes/DB.php',
+        'ErrorGenerator' => __DIR__ . '/../..' . '/classes/ErrorGenerator.php',
+        'Post' => __DIR__ . '/../..' . '/classes/Post.php',
+        'Security' => __DIR__ . '/../..' . '/classes/Security.php',
+        'User' => __DIR__ . '/../..' . '/classes/User.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
