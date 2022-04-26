@@ -25,7 +25,7 @@ if(!empty($_POST)) {
   <?php include_once("header.inc.php"); ?>
   <title>Sign in IMDMedia</title>
 </head>
-<body>
+<body class="splitForm">
 	<div class="IMDMediaSignIn">
 		<div class="form form--login">
 			<form action="" method="post">
@@ -60,7 +60,7 @@ if(!empty($_POST)) {
 				<p class="extraP extraP--password"><a href="reset-password.php">Forgot your password?</a></p>
 
 				
-				<input type="submit" value="Sign in" class="formbtn">	
+				<input type="submit" value="Sign in" class="formbtn primarybtn">	
 				
 			
 			</form>

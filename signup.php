@@ -32,7 +32,7 @@
     <?php include_once("header.inc.php"); ?>
     <title>Signup IMDMedia</title>
 </head>
-<body>
+<body class="splitForm">
     <div class="IMDMediaSignIn">
         <div class="form">
             <form action="" method="post">
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="form__field">
-                    <input type="submit" value="Sign up" class="formbtn">
+                    <input type="submit" value="Sign up" class="formbtn primarybtn">
                 </div>
             </form>
             <p class="extraP">Already have an account? <a href="login.php">Sign in here.</a></p>   
