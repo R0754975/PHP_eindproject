@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("header.inc.php"); ?>
+    <?php include_once("inc/header.inc.php"); ?>
     <title>IMD Media Account</title>
 </head>
 <body>

@@ -1,7 +1,7 @@
 <?php
     //add alert in javascript
     require __DIR__ . '/vendor/autoload.php';
-    include_once("functions.inc.php");
+    include_once("inc/functions.inc.php");
         boot();
         checkAuthorisation();
 
