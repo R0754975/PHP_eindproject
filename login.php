@@ -21,7 +21,7 @@ if(!empty($_POST)) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php include_once("header.inc.php"); ?>
+  <?php include_once("inc/header.inc.php"); ?>
   <title>Sign in IMDMedia</title>
 </head>
 <body>
