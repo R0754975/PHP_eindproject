@@ -1,9 +1,6 @@
 <?php
 use Cloudinary\Cloudinary;
 
-
-
-
     Class Post {
 
         private $title;

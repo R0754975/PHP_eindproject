@@ -1,0 +1,26 @@
+@use "./../_colors.scss";
+@use "./../_fonts.scss";
+
+button{
+    background-color: transparent;
+    border: none;
+}
+.primarybtn{
+    color: colors.$primary;
+    background-color: colors.$offWhite;
+    font-family: fonts.$jakartaSans;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    font-weight:bold;
+    font-size:0.9em;
+    padding: 0.4em 0.6em;
+    height: 2em;
+}
+
+.formbtn{
+    font-size:1em;
+    width: 100%;
+    margin: 1.5em 0em 0.1em 0em;
+    padding: 0.7em;
+}
