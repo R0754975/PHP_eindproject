@@ -24,13 +24,14 @@
                 </button>
             </form>
         </div>
-        <div>
+        <div class="navRight">
             <a href="#" class="primarybtn">Upload project</a>
-            <div>
-                <button class="dropbtn"></button>
+            <div class="account">
+                <button class="dropbtn">button</button>
                 <div class="dropdownContent"> 
                     <a href="#">Profile</a>
                     <a href="./settings.php">Settings</a>
+                    <hr>
                     <a href="./logout.php">Logout</a>
                 </div>
             </div>

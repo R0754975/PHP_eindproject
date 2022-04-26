@@ -1,6 +1,11 @@
 @use "./../_colors.scss";
 @use "./../fonts";
 
+.splitForm{
+    display: flex;
+    flex-direction:row;
+}
+
 .IMDMediaSignIn{
     height: 100%;
     width: 50%;
