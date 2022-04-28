@@ -1,4 +1,7 @@
 <?php
+use imdmedia\Feed\Post;
+use imdmedia\Auth\Security;
+
  require __DIR__ . '/vendor/autoload.php';
  include_once("inc/functions.inc.php");
 Security::onlyLoggedInUsers();

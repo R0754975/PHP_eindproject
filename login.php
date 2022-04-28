@@ -1,4 +1,7 @@
 <?php
+
+use imdmedia\Auth\User;
+
 require __DIR__ . '/vendor/autoload.php';
 
 if(!empty($_POST)) {

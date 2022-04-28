@@ -1,4 +1,6 @@
 <?php
+
+    use imdmedia\Feed\Post;
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
   

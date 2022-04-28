@@ -2,6 +2,7 @@
     require __DIR__ . '/vendor/autoload.php';
 
     //check if form is filled in when submitted
+    use imdmedia\Auth\User;
     if(!empty($_POST)){
         try{
             $user = new User();
