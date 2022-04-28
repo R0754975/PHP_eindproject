@@ -2,13 +2,22 @@
 
 namespace imdmedia\Feed;
 
-
 use imdmedia\Data\DB;
-use Cloudinary\Cloudinary;
+use Cloudinary\Api\Upload\UploadApi;
+use Cloudinary\Configuration\Configuration;
+
 use Exception;
 
-    Class Post {
+Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'dzhrxvqre',
+          'api_key' => '387513213267173',
+          'api_secret' => '1lBrjQy2GXP39NT1pwnvD1SxyKo'],
+        'url' => [
+          'secure' => true]]);
 
+    class Post
+    {
         private $title;
         private $userid;
         private $username;
@@ -18,174 +27,145 @@ use Exception;
 
         public function getTitle()
         {
-                return $this->title;
+            return $this->title;
         }
 
         public function setTitle($title)
         {
-                $this->title = $title;
+            $this->title = $title;
 
-                return $this;
+            return $this;
         }
 
         public function getUserid()
         {
-                return $this->userid;
+            return $this->userid;
         }
 
         public function setUserid($userid)
         {
-                $this->userid = $userid;
+            $this->userid = $userid;
 
-                return $this;
+            return $this;
         }
 
         public function getTags()
         {
-                return $this->tags;
+            return $this->tags;
         }
 
         public function setTags($tags)
         {
-                $tags = str_replace(' ', '', $tags);
-                $tags = explode(',', $tags);
-                $this->tags = json_encode($tags);
-                return $this;
+            $tags = str_replace(' ', '', $tags);
+            $tags = explode(',', $tags);
+            $this->tags = json_encode($tags);
+            return $this;
         }
 
         public function getFilePath()
         {
-                return $this->filePath;
+            return $this->filePath;
         }
 
 
         public function setFilePath($filePath)
         {
-                $this->filePath = $filePath;
+            $this->filePath = $filePath;
 
-                return $this;
+            return $this;
         }
 
         public function getFile()
         {
-                return $this->file;
+            return $this->file;
         }
 
         public function setFile($file)
         {
-                $this->file = $file;
+            $this->file = $file;
 
-                return $this;
+            return $this;
         }
 
         public function getUsername()
         {
-                return $this->username;
+            return $this->username;
         }
 
         public function setUsername($username)
         {
-                $this->username = $username;
+            $this->username = $username;
 
-                return $this;
+            return $this;
         }
 
-        public function upload() {
-                $file = $this->file;
-                $fileName = $file['name'];
-                $fileTmpName = $file['tmp_name'];
-                $fileSize = $file['size'];
-                $fileError = $file['error'];
-                $fileType = $file['type'];
-                
-                $cloudinary = new Cloudinary([
-                        'cloud' => [
-                                'cloud_name' => 'dzhrxvqre',
-                                'api_key'  => '387513213267173',
-                                'api_secret' => '1lBrjQy2GXP39NT1pwnvD1SxyKo',
-                                'url' => [
-                                        'secure' => true]
-                              ]]);
-                
-                $fileExt = explode('.', $fileName);
-                $fileActualExt = strtolower(end($fileExt));
-                $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileTempDestination = 'uploads/' . $fileNameNew;  
-                $allowed = array('jpg', 'jpeg', 'png');
-                $fileDestination = 'https://res.cloudinary.com/dzhrxvqre/image/upload/' . $fileNameNew;
-                $this->setFilePath($fileDestination);  
-
-                if (in_array($fileActualExt, $allowed)) {
-                        if ($fileError === 0) {
-                            if ($fileSize < 1000000) {
-
-                            //temporarly localy stores file so cloudinary can find it when uploading it    
-                            move_uploaded_file($fileTmpName, $fileTempDestination);
+        public function upload()
+        {
+            $file = $this->file;
+            $fileName = $file['name'];
+            $fileTmpName = $file['tmp_name'];
+            $fileSize = $file['size'];
+            $fileError = $file['error'];
+   
+  
+            if ($fileError === 0) {
+                if ($fileSize < 1000000) {
 
                             //uploads file to cloudinary
-                            $cloudinary->uploadApi()->upload($fileTempDestination, 
-                            [
-                                'folder' => 'Posts/',     
-                                "public_id" => $fileNameNew]);  
-                            //deletes the previously localy stored file    
-                            unlink($fileTempDestination);
-                            
-                          
-                    } else {
-                                throw new Exception("Your file is too big!");
-                                 $this->delete();
-                                }
-                         }  
-                                 else {
-                                throw new Exception("There was an error uploading your file!");
-                                $this->delete();
-                                }
-                        } else {
-                        throw new Exception("You cannot upload files of this type!");
-                        $this->delete();
-                        }
+                    $cloudinary = (new uploadApi())->upload(
+                        $fileTmpName,
+                        [
+                                'folder' => 'Posts/',
+                                "format" => "webp",
+                                ]
+                    );
+                    //stores the new url in the class
+                    $this->setFilePath($cloudinary['url']);
+                } else {
+                    throw new Exception("Your file is too big!");
+                }
+            } else {
+                throw new Exception("There was an error uploading your file!");
+            }
         }
-        public function save() {
-
-                $conn = DB::getConnection();
-                $statement = $conn->prepare("insert into posts (title, userid, tags, filePath, userName) values (:title, :userid, :tags, :filepath, :username)");
-                $statement->bindValue(":title", $this->title);
-                $statement->bindValue(":userid", $this->userid);
-                $statement->bindValue(":tags", $this->tags);
-                $statement->bindValue(":filepath", $this->filePath);
-                $statement->bindValue(":username", $this->username);
-                return $statement->execute();
-                    
-
+        public function save()
+        {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("insert into posts (title, userid, tags, filePath, userName) values (:title, :userid, :tags, :filepath, :username)");
+            $statement->bindValue(":title", $this->title);
+            $statement->bindValue(":userid", $this->userid);
+            $statement->bindValue(":tags", $this->tags);
+            $statement->bindValue(":filepath", $this->filePath);
+            $statement->bindValue(":username", $this->username);
+            return $statement->execute();
         }
-
-
         
-        public function delete() {
-                $conn = DB::getConnection();
-                $statement = $conn->prepare("delete from posts where filePath = :filepath");
-                $statement->bindValue(":filepath", $this->filePath);
-                return $statement->execute();
+        public function delete()
+        {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("delete from posts where filePath = :filepath");
+            $statement->bindValue(":filepath", $this->filePath);
+            return $statement->execute();
         }
 
-        public static function getAll() {
-                $conn = DB::getConnection();
-                $result = $conn->query("select * from posts;");
-                return $result->fetchAll();
-            }
+        public static function getAll()
+        {
+            $conn = DB::getConnection();
+            $result = $conn->query("select * from posts;");
+            return $result->fetchAll();
+        }
 
-        public static function getRowCount() {
-                $conn = DB::getConnection();
-                $result = $conn->query("select count(*) from posts;");
-                return $result->fetchColumn();
-            }
-        public static function getPage($page) {
-                $maxResults = 10;
-                $conn = DB::getConnection();
-                $result = $conn->query("select * from posts limit " . (($page - 1) * $maxResults) . ", 10;");
-                return $result->fetchAll();
-            }
-
-        
- 
+        public static function getRowCount()
+        {
+            $conn = DB::getConnection();
+            $result = $conn->query("select count(*) from posts;");
+            return $result->fetchColumn();
+        }
+        public static function getPage($page)
+        {
+            $maxResults = 10;
+            $conn = DB::getConnection();
+            $result = $conn->query("select * from posts limit " . (($page - 1) * $maxResults) . ", 10;");
+            return $result->fetchAll();
+        }
     }

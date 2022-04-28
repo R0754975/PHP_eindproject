@@ -5,15 +5,17 @@
     use PDO;
     use imdmedia\Data\Config;
 
-    abstract class DB { 
-        private static $conn; 
+    abstract class DB
+    {
+        private static $conn;
 
-        public static function getConnection(){
-            if(self::$conn !== null){
+        public static function getConnection()
+        {
+            if (self::$conn !== null) {
                 //connection found
                 return self::$conn;
-        }else{
-            $config = Config::getConfig();
+            } else {
+                $config = Config::getConfig();
                 $database = $config['database'];
                 $user = $config['user'];
                 $password = $config['password'];

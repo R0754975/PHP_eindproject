@@ -16,8 +16,10 @@ https://docs.google.com/document/d/1QhlzCRcnYmopg5OyNkhBeSsuQZvTCPn9BBs5iB1dwAQ/
 
 # command's project
 ## mac OS users 
+(Voer deze comando's uit in je Mac Terminal, let op ik bedoel niet de terminal van VS Code)
+
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-(dit is homebrew, een package manager voor mac. je zal dit nodig hebben om sas te instaleren)
+(dit is homebrew, een package manager voor mac. je zal dit nodig hebben om sass te instaleren)
 
 
 brew install sass/sass/sass

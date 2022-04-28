@@ -3,8 +3,9 @@
 
     //check if form is filled in when submitted
     use imdmedia\Auth\User;
-    if(!empty($_POST)){
-        try{
+
+    if (!empty($_POST)) {
+        try {
             $user = new User();
             $user->setUsername($_POST['username']);
             $user->setEmail($_POST['email']);
@@ -15,12 +16,9 @@
             session_start();
             $_SESSION['user'] = $user;
             header("Location: index.php");
-        }catch (Throwable $e){
+        } catch (Throwable $e) {
             $error = $e->getMessage();
         }
-
-       
-
     }
 
     
@@ -38,7 +36,7 @@
             <form action="" method="post">
                 <h1>Signup to IMDMedia</h1>
 
-                <?php if(isset($error)): ?>
+                <?php if (isset($error)): ?>
                     <div class="formError">
                             <p><?php echo $error; ?></p>
                     </div>
