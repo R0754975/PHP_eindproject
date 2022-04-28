@@ -1,0 +1,69 @@
+@use "./../_colors.scss";
+@use "./../fonts";
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    background-color: colors.$primary;
+    width: 100%;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+.logo{
+    width: 3em;
+}
+
+.searchBar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchIcon{
+    width:3em;
+    padding-top: 1em;
+    background-color: transparent;
+}
+
+.navRight{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.account{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent{
+    display: none;
+
+}
+
+.dropdownContent a{
+    color: colors.$primary;
+    padding: 0.2em 0em;
+    font-size: 1em;
+    text-decoration: none;
+}
+.dropdownContent a:hover{
+    font-weight: bold;
+}
+
+.account:hover .dropdownContent{
+    display: block;
+    position: absolute;
+    right: 0;
+    padding: 15px;
+    border: 10px;
+    border-color: colors.$primary;
+    border-radius: 3px;
+    background-color: colors.$offWhite;
+    min-width: 10em;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
