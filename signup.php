@@ -1,10 +1,11 @@
 <?php
-    include_once(__DIR__ . "/classes/DB.php");
-    include_once(__DIR__ . "/classes/User.php");
+    require __DIR__ . '/vendor/autoload.php';
 
     //check if form is filled in when submitted
-    if(!empty($_POST)){
-        try{
+    use imdmedia\Auth\User;
+
+    if (!empty($_POST)) {
+        try {
             $user = new User();
             $user->setUsername($_POST['username']);
             $user->setEmail($_POST['email']);
@@ -15,12 +16,9 @@
             session_start();
             $_SESSION['user'] = $user;
             header("Location: index.php");
-        }catch (Throwable $e){
+        } catch (Throwable $e) {
             $error = $e->getMessage();
         }
-
-       
-
     }
 
     
@@ -29,7 +27,7 @@
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("header.inc.php"); ?>
+    <?php include_once("inc/header.inc.php"); ?>
     <title>Signup IMDMedia</title>
 </head>
 <body>
@@ -38,7 +36,7 @@
             <form action="" method="post">
                 <h1>Signup to IMDMedia</h1>
 
-                <?php if(isset($error)): ?>
+                <?php if (isset($error)): ?>
                     <div class="formError">
                             <p><?php echo $error; ?></p>
                     </div>

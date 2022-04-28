@@ -1,6 +1,8 @@
 <?php
- include_once("bootstrap.php");
- include_once("inc/functions.inc.php");
+use imdmedia\Auth\Security;
+
+require __DIR__ . '/vendor/autoload.php';
+include_once("inc/functions.inc.php");
 // password reset system
 
 $validator = $_GET["validator"];
@@ -8,17 +10,15 @@ $selector = $_GET["selector"];
 
 if (empty($validator)) {
     echo "Could not validate your request!";
-}  
+}
 
 if (isset($_POST['reset-password-submit'])) {
     try {
         Security::resetPassword();
         echo $_POST['password'];
-    }
-    catch (Throwable $e) {
+    } catch (Throwable $e) {
         $error = $e->getMessage();
     }
-
 }
 
 ?><!DOCTYPE html>
@@ -34,7 +34,7 @@ if (isset($_POST['reset-password-submit'])) {
 	</div>
 	<div id="main">
 		<h1>Reset your password</h1>
-        <?php if( isset($e) ) : ?>
+        <?php if (isset($e)) : ?>
 				<div class="formError">
 					<p>
 						<?php echo $error; ?>

@@ -1,9 +1,11 @@
 <?php
- include_once("bootstrap.php");
- include_once("inc/functions.inc.php");
+use imdmedia\Auth\Security;
+
+require __DIR__ . '/vendor/autoload.php';
+include_once("inc/functions.inc.php");
 // password reset system
-if(isset($_POST['reset-request-submit'])) {
-	Security::resetRequest();
+if (isset($_POST['reset-request-submit'])) {
+    Security::resetRequest();
 }
 
 
@@ -25,7 +27,7 @@ if(isset($_POST['reset-request-submit'])) {
             <input type="text" name="email" placeholder="Enter your e-mail adress...">
             <button type="submit" name="reset-request-submit">Reset Passsword</button>
         </form>
-        <?php if (isset ($_GET["reset"])):?>
+        <?php if (isset($_GET["reset"])):?>
         <?php if ($_GET["reset"] == "success"):?>
         <p class="signupsuccess">Check your e-mail!</p>
         <?php endif ?>    
