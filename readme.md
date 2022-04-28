@@ -15,6 +15,16 @@ https://www.figma.com/file/3jLkKW1NIWjDDEwijXVlkG/Untitled
 https://docs.google.com/document/d/1QhlzCRcnYmopg5OyNkhBeSsuQZvTCPn9BBs5iB1dwAQ/edit#
 
 # command's project
+## mac OS users 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+(dit is homebrew, een package manager voor mac. je zal dit nodig hebben om sas te instaleren)
+
+
+brew install sass/sass/sass
+(eenmaal homebrew geinstalleerd is gebruik je deze command om sass te insteleren)
+
 ## sass
-npm install -g sass
+npm install -g sass (dit werkt enkel op windows)
+
+
 sass ./sass/app.scss ./css/app.css --watch (live wijzigingen bekijken)
