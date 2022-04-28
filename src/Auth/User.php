@@ -1,5 +1,11 @@
 <?php
 
+    namespace imdmedia\Auth;
+
+    use Exception;
+    use imdmedia\Data\DB;
+
+    
     class User{
     
         protected $username;

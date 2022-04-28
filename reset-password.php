@@ -1,6 +1,7 @@
 <?php
- require __DIR__ . '/vendor/autoload.php';
- include_once("inc/functions.inc.php");
+use imdmedia\Auth\Security;
+require __DIR__ . '/vendor/autoload.php';
+include_once("inc/functions.inc.php");
 // password reset system
 if(isset($_POST['reset-request-submit'])) {
 	Security::resetRequest();

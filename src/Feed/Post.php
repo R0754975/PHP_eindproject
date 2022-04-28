@@ -1,5 +1,11 @@
 <?php
+
+namespace imdmedia\Feed;
+
+
+use imdmedia\Data\DB;
 use Cloudinary\Cloudinary;
+use Exception;
 
     Class Post {
 

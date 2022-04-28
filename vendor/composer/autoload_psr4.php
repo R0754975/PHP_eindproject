@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'imdmedia\\' => array($baseDir . '/src'),
     'Teapot\\StatusCode\\' => array($vendorDir . '/teapot/status-code/src'),
     'Teapot\\' => array($vendorDir . '/shrikeh/teapot/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),

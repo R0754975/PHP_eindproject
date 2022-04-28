@@ -4,9 +4,12 @@
         "phpmailer/phpmailer": "^6.6"
     },
     "autoload": {
-        "classmap": [
-          "classes/"
-        ]
+        
+        "psr-4": {
+          "imdmedia\\": "src/"
+        }
+      
+
       }
     
     

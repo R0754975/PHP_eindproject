@@ -1,6 +1,12 @@
 <?php
+
+    namespace imdmedia\Auth;
+
+    use imdmedia\Data\Config;
+    use imdmedia\Data\DB;
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;  
+
 
     class Security {
         public static function onlyLoggedInUsers() {
