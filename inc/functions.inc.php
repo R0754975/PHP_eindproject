@@ -1,28 +1,29 @@
 <?php
  
- function boot(){
-    //needed for setup
-    session_start();
-}
+ function boot()
+ {
+     //needed for setup
+     session_start();
+ }
 
-function checkAuthorisation(){
+function checkAuthorisation()
+{
     //check if a user is logged in
-    if( isset($_SESSION['user']) ){
+    if (isset($_SESSION['user'])) {
         //can use the page
-    }
-    else {
+    } else {
         //needs to login
         header("Location: login.php");
         exit();
     }
 }
 
-function checkLoggedIn(){
+function checkLoggedIn()
+{
     //check if a user is logged in
-    if( isset($_SESSION['user']) ){
+    if (isset($_SESSION['user'])) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }

@@ -5,13 +5,14 @@
     use imdmedia\Data\Config;
     use imdmedia\Data\DB;
     use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;  
+    use PHPMailer\PHPMailer\Exception;
 
-
-    class Security {
-        public static function onlyLoggedInUsers() {
+    class Security
+    {
+        public static function onlyLoggedInUsers()
+        {
             session_start();
-            if(!isset($_SESSION['user'])){
+            if (!isset($_SESSION['user'])) {
                 header("Location: login.php");
             }
         }
@@ -24,7 +25,8 @@
         
         
         // sends the mail to the user with the reset link
-        public static function resetRequest() {
+        public static function resetRequest()
+        {
 
             //generates a random string of bytes
             $token = random_bytes(32);
@@ -53,10 +55,10 @@
             $statementTwo->bindValue(":expires", $expires);
             $statementTwo->execute();
 
-            $mail = new PHPMailer();    
+            $mail = new PHPMailer();
             $mail->isSMTP();
-                $mail->SMTPDebug = 2;
-                $mail->SMTPOptions = array(
+            $mail->SMTPDebug = 2;
+            $mail->SMTPOptions = array(
                     'ssl' => array(
                     'verify_peer' => false,
                     'verify_peer_name' => false,
@@ -78,13 +80,11 @@
             $mail->isHTML(true);
             $mail->Subject = 'Test Email via Mailtrap SMTP using PHPMailer';
             $mail->Body = '<p>Here is your reset link: </br><a href=' . $url . '>' . $url . '</a></p>';
-            if(!$mail->send()){
+            if (!$mail->send()) {
                 throw new Exception("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
-            }else{
+            } else {
                 header("Location: reset-password.php?reset=success");
-
             }
- 
         }
 
 
@@ -96,7 +96,8 @@
 
 
 
-        public static function resetPassword() {
+        public static function resetPassword()
+        {
             $conn = DB::getConnection();
             $token = $_POST['validator'];
             $userEmail = $_POST['selector'];
@@ -114,48 +115,39 @@
             $uppercase = preg_match('@[A-Z]@', $newPasswordRepeat);
             $lowercase = preg_match('@[a-z]@', $newPasswordRepeat);
             $number = preg_match('@[0-9]@', $newPasswordRepeat);
-            $specialChars = preg_match('@[^\w]@', $newPasswordRepeat); 
+            $specialChars = preg_match('@[^\w]@', $newPasswordRepeat);
 
-            if(password_verify($tokenBin, $tokenHash)) {
-                if($expires < time()) {
+            if (password_verify($tokenBin, $tokenHash)) {
+                if ($expires < time()) {
                     throw new Exception("Link has expired");
-                }
-                else {
-                    if($newPassword != $newPasswordRepeat) {
+                } else {
+                    if ($newPassword != $newPasswordRepeat) {
                         throw new Exception("Passwords do not match");
-                    }
-                    else if (empty($newPassword) || empty($newPasswordRepeat)){
+                    } elseif (empty($newPassword) || empty($newPasswordRepeat)) {
                         throw new Exception("Password cannot be empty");
-                    } 
-                    else if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($newPasswordRepeat) < 6){
-                    throw new Exception("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character, and at least 6 characters");
+                    } elseif (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($newPasswordRepeat) < 6) {
+                        throw new Exception("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character, and at least 6 characters");
                     }
-                        $options = [
+                    $options = [
                             'cost' => 12,
                         ];
-                        $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT, $options);
-                        $statement = $conn->prepare("UPDATE users SET password=:password WHERE email=:email");
-                        $statement->bindValue(":password", $newPasswordHash);
-                        $statement->bindValue(":email", $userEmail);
-                        $statement->execute();
-                        $statement = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
-                        $statement->bindValue(":email", $userEmail);
-                        $statement->execute();
+                    $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT, $options);
+                    $statement = $conn->prepare("UPDATE users SET password=:password WHERE email=:email");
+                    $statement->bindValue(":password", $newPasswordHash);
+                    $statement->bindValue(":email", $userEmail);
+                    $statement->execute();
+                    $statement = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
+                    $statement->bindValue(":email", $userEmail);
+                    $statement->execute();
 
-                        $statementFour = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
-                        $statementFour->bindValue(":email", $userEmail);
-                        $statementFour->execute();
+                    $statementFour = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
+                    $statementFour->bindValue(":email", $userEmail);
+                    $statementFour->execute();
 
-                        header("Location: login.php?pwreset=success");
-                    
+                    header("Location: login.php?pwreset=success");
                 }
-                
-                
-            }
-            else {
+            } else {
                 throw new Exception("Invalid token");
             }
-            
         }
-        
     }

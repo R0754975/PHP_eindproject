@@ -6,29 +6,26 @@ use imdmedia\Auth\Security;
  include_once("inc/functions.inc.php");
 Security::onlyLoggedInUsers();
 if (isset($_POST['submit'])) {
-    if(isset($_SESSION['user'])){
-    try {    
-    $user = $_SESSION['user']->getAll();
-    $username = $user['username'];   
-    $userid = $user['id']; 
-    $title = $_POST['title'];
-    $tags = $_POST['tags'];
-    $file = $_FILES['file'];
-    $post = new Post();
-    $post->setTitle($title);
-    $post->setUserid($userid);
-    $post->setFile($file);
-    $post->setUsername($username);
-    $post->setTags($tags);
-    $post->upload();
-    $post->save();
-    //header("Location: http://localhost:8888/PHP_eindproject/index.php?uploadsuccess");
-   
-
-    }
-    catch ( Throwable $e) {
-        $error = $e->getMessage();
-      }
+    if (isset($_SESSION['user'])) {
+        try {
+            $user = $_SESSION['user']->getAll();
+            $username = $user['username'];
+            $userid = $user['id'];
+            $title = $_POST['title'];
+            $tags = $_POST['tags'];
+            $file = $_FILES['file'];
+            $post = new Post();
+            $post->setTitle($title);
+            $post->setUserid($userid);
+            $post->setFile($file);
+            $post->setUsername($username);
+            $post->setTags($tags);
+            $post->upload();
+            $post->save();
+            header("Location: ./index.php?uploadsuccess");
+        } catch (Throwable $e) {
+            $error = $e->getMessage();
+        }
     }
 }
 
@@ -42,7 +39,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-                <?php if( isset($error) ) : ?>
+                <?php if (isset($error)) : ?>
 				<div class="formError">
 					<p>
 						<?php echo $error;?>
