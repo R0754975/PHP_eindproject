@@ -110,14 +110,27 @@ use Exception;
                 $fileExt = explode('.', $fileName);
                 $fileActualExt = strtolower(end($fileExt));
                 $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileDestination = 'uploads/' . $fileNameNew;  
+                $fileTempDestination = 'uploads/' . $fileNameNew;  
                 $allowed = array('jpg', 'jpeg', 'png');
+                $fileDestination = 'https://res.cloudinary.com/dzhrxvqre/image/upload/' . $fileNameNew;
                 $this->setFilePath($fileDestination);  
 
                 if (in_array($fileActualExt, $allowed)) {
                         if ($fileError === 0) {
                             if ($fileSize < 1000000) {
-                            move_uploaded_file($fileTmpName, $fileDestination);
+
+                            //temporarly localy stores file so cloudinary can find it when uploading it    
+                            move_uploaded_file($fileTmpName, $fileTempDestination);
+
+                            //uploads file to cloudinary
+                            $cloudinary->uploadApi()->upload($fileTempDestination, 
+                            [
+                                'folder' => 'Posts/',     
+                                "public_id" => $fileNameNew]);  
+                            //deletes the previously localy stored file    
+                            unlink($fileTempDestination);
+                            
+                          
                     } else {
                                 throw new Exception("Your file is too big!");
                                  $this->delete();
@@ -131,10 +144,6 @@ use Exception;
                         throw new Exception("You cannot upload files of this type!");
                         $this->delete();
                         }
-                        
-                        $cloudinary->uploadApi()->upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg", 
-                        ["public_id" => "olympic_flag"]);        
-
         }
         public function save() {
 
@@ -177,5 +186,6 @@ use Exception;
                 return $result->fetchAll();
             }
 
+        
  
     }

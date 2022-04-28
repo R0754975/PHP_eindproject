@@ -22,7 +22,8 @@ if (isset($_POST['submit'])) {
     $post->setTags($tags);
     $post->upload();
     $post->save();
-    header("Location: http://localhost:8888/PHP_eindproject/index.php?uploadsuccess");
+    //header("Location: http://localhost:8888/PHP_eindproject/index.php?uploadsuccess");
+   
 
     }
     catch ( Throwable $e) {
