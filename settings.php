@@ -1,12 +1,12 @@
 <?php
-    include_once("bootstrap.php");
-    include_once("functions.inc.php");
+    require __DIR__ . '/vendor/autoload.php';
+    include_once("inc/functions.inc.php");
         boot();
         checkAuthorisation();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("header.inc.php"); ?>
+    <?php include_once("inc/header.inc.php"); ?>
     <title>Account settings</title>
 </head>
 <body>

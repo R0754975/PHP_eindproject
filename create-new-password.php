@@ -1,18 +1,26 @@
 <?php
-require 'classes/ErrorGenerator.php';
-if(isset($_GET['error'])) {
-$msg = $_GET['error'];
+use imdmedia\Auth\Security;
 
-    try {
-        
-        $errorGen = ErrorGenerator::getError($msg);
-    }
-    catch(Throwable $e){
-        $error = $e->getMessage();
-    
-    }
+require __DIR__ . '/vendor/autoload.php';
+include_once("inc/functions.inc.php");
+// password reset system
 
+$validator = $_GET["validator"];
+$selector = $_GET["selector"];
+
+if (empty($validator)) {
+    echo "Could not validate your request!";
 }
+
+if (isset($_POST['reset-password-submit'])) {
+    try {
+        Security::resetPassword();
+        echo $_POST['password'];
+    } catch (Throwable $e) {
+        $error = $e->getMessage();
+    }
+}
+
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -26,38 +34,20 @@ $msg = $_GET['error'];
 	</div>
 	<div id="main">
 		<h1>Reset your password</h1>
-        <?php if( isset($e) ) : ?>
+        <?php if (isset($e)) : ?>
 				<div class="formError">
 					<p>
 						<?php echo $error; ?>
 					</p>
 				</div>
 		<?php endif; ?>
-        <?php
-            $selector = $_GET["selector"];
-            $validator = $_GET["validator"];
-
-            if (empty($selector) || empty($validator)) {
-                echo "Could not validate your request!";
-            }
-            else {
-                if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) !== false) {
-
-                    ?>
-                    
-                    <form action="inc/reset-password.inc.php" method="post">
+                 <form action="" method="post">
                         <input type="hidden" name="selector" value="<?php echo $selector;?>">
                         <input type="hidden" name="validator" value="<?php echo $validator;?>">
                         <input type="password" name="password" placeholder="Enter a new password...">
-                        <input type="password" name="password-repeat" placeholder="Repeat new password...">
+                        <input type="password" name="passwordrepeat" placeholder="Repeat new password...">
                         <button type="submit" name="reset-password-submit">Reset password</button>
                     </form>    
-                    <?php
-
-
-                }
-            }
-        ?>
 
 
 	</div>

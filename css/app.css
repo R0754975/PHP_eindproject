@@ -1,157 +1,136 @@
-*
-{
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200&display=swap");
+* {
   box-sizing: border-box;
 }
 
-body
-{
-  padding: 0;
-  margin: 0;
-  background-color: rgb(75, 240, 83);
-  background-size: cover;
-  font-family: Helvetica;
+html {
+  height: 100%;
 }
 
-.IMDMediaSignIn
-{
-  max-width: 500px;
-  margin: 2em auto;
-  background-color: #FFF;
-  padding: 1em;
-  border-radius: 10px;
-}
-
-h1
-{
-  font-size: 1.2em;
-  text-align: center;
-}
-
-.alert
-{
-  background-color: #EFEEF1;
-  border: 1px solid #E91C24;
-  border-radius: 5px;
-  border-left-width: 5px;
-  padding: 1em;
-}
-
-.nav--login
-{
-  padding: 0.3em;
-}
-
-.nav--login a
-{
-  color: #A291C4;
-  text-decoration: none;
-  margin-right: 1em;
-}
-
-.form
-{
-  padding: 0.5em;
-}
-
-.form label
-{
-  display: block;
-  margin-top: 0.5em;
-}
-
-.form input
-{
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.formError
-{
-  background-color: red;
-  color: white;
-  font-weight: lighter;
-  padding: 0.3em 1em;
-  margin-bottom: 1em;
-  font-size: 0.9em;
-}
-
-.primarybtn
-{
-  margin: 1em 0;
-  background-color: white;
-  color: #B0ADB5;
-  text-align: center;
-  display: inline-block;
-  padding: 0.5em;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-.nav--login
-{
-  border-bottom: 2px solid #A291C4;
-  margin-bottom: 1em;
-}
-
-.nav
-{
-  background-color: plum;
-  padding: 0.6em;
+body {
+  height: 100%;
   display: flex;
   flex-direction: row;
+}
+
+.IMDMediaSignIn {
+  height: 100%;
+  width: 50%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background-color: #0500FF;
+  display: flex;
   align-items: center;
-  margin-bottom: 6em;
+  justify-content: center;
 }
 
-.nav a
-{
-  margin: 0 1em;
-  text-decoration: none;
+.formFilling {
+  height: 100%;
+  width: 50%;
+  right: 0;
+  top: 0;
+  position: absolute;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-a.loggedIn
-{
-  flex: 0 1 240px;
-  margin-left: auto;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-}
-
-.user--avatar
-{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  grid-column: 1 / 2;
-  grid-row: 1 / span 2;
+.fillingImage {
+  width: 60%;
   align-self: center;
 }
 
-.user--name
-{
-  margin: 0;
+label {
+  color: white;
+  font-family: "Plus Jakarta Sans", serif;
+  font-weight: lighter;
+  font-size: 0.9em;
 }
 
-.user--avatar img
-{
-  object-fit: cover;
-  object-position: center;
-  width: 50px;
+input {
+  color: white;
+  background-color: transparent;
+  border-color: white;
+  border-width: 2px;
+  border-radius: 3px;
+  width: 100%;
+  padding: 0.7em;
+  font-size: 0.9em;
 }
 
-.nav a
-{
-  color: #B4C4E7;
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 40%;
 }
 
-.nav a:hover
-{
-  color: #fff;
+.form__field {
+  margin-top: 0.8em;
 }
 
-.hidden
-{
-  display: none;
+.formError p {
+  background-color: #FF2424;
+  padding: 0.7em;
+  border-radius: 3px;
+  font-size: 0.9em;
 }
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.primarybtn {
+  color: #0500FF;
+  background-color: white;
+  font-family: "Plus Jakarta Sans", serif;
+  text-decoration: none;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 0.4em 0.6em;
+  height: 2em;
+}
+
+.formbtn {
+  font-size: 1em;
+  width: 100%;
+  margin: 1.5em 0em 0.1em 0em;
+  padding: 0.7em;
+}
+
+h1 {
+  color: white;
+  font-family: "Plus Jakarta Sans", serif;
+  font-weight: bold;
+  font-size: 1.8em;
+}
+
+p {
+  font-family: "Plus Jakarta Sans", serif;
+  color: white;
+  font-weight: lighter;
+  font-size: 1em;
+}
+
+.extraP {
+  font-size: 0.8em;
+}
+
+.extraP a {
+  color: white;
+}
+
+.extraP form {
+  align-self: center;
+}
+
+.extraP--password {
+  margin-top: -0.05em;
+}
+
+/*# sourceMappingURL=app.css.map */
