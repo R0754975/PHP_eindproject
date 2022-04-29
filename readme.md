@@ -30,3 +30,78 @@ npm install -g sass (dit werkt enkel op windows)
 
 
 sass ./sass/app.scss ./css/app.css --watch (live wijzigingen bekijken)
+
+
+## Uploaden naar cloudinary
+(stap 1)
+
+(input veldje maken voor files in up te kunne loaden)
+<input type="file" name="file">
+
+(stap 2)
+
+(files meegeven in POST en dan binden aan een var)
+$file = $_FILES['file'];
+
+
+(stap 3)
+
+
+(maak een nieuwe instantie van de klasse waar je files je files aan bind)
+$post = new Post();
+$post->setFile($file);
+
+
+(stap 4)
+(zet de volgende code bovenaan in de klasse waarmee je een fileupload wilt doen)
+use Cloudinary\Api\Upload\UploadApi;
+use Cloudinary\Configuration\Configuration;
+
+Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'dzhrxvqre',
+          'api_key' => '387513213267173',
+          'api_secret' => '1lBrjQy2GXP39NT1pwnvD1SxyKo'],
+        'url' => [
+          'secure' => true]]);
+
+
+(stap 5)
+
+(voeg deze functie toe om je file te uploaden)
+  public function upload()
+        {
+            
+            
+
+            $file = $this->file;
+            $fileName = $file['name'];
+            $fileTmpName = $file['tmp_name'];
+            $fileSize = $file['size'];
+            $fileError = $file['error'];
+   
+  
+            if ($fileError === 0) {
+                if ($fileSize < 1000000) {
+
+                            //uploads file to cloudinary
+                    $cloudinary = (new uploadApi())->upload(
+                        $fileTmpName,
+                        [
+                                            (Verander hier de 'Posts/' naar de folder naar waar je wilt uploaden, vraag aan mijn wat de naam van de folder is of als je wilt dat ik een nieuwe folder aanmaak.)(voorbeeld: je wilt naar een folder for profile pictures uploaden, dan verander je 'Posts/' naar 'profile_pictures/')
+                                'folder' => 'Posts/',
+                                "format" => "webp",
+                                ]
+                    );
+
+
+                    (vergeet niet een plaats te voorzien in je klassen en database om de url van je file op te slaan)
+                    //stores the new url in the class
+                    $this->setFilePath($cloudinary['url']);
+                } else {
+                    throw new Exception("Your file is too big!");
+                }
+            } else {
+                throw new Exception("There was an error uploading your file!");
+            }
+        }
