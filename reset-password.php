@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
+	<?php include_once("inc/nav.inc.php"); ?>
+
 	<div id="header">
 		<div class="logo"></div>
 	</div>
