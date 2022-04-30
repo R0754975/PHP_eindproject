@@ -46,6 +46,7 @@ body {
 .fillingImage {
   width: 60%;
   align-self: center;
+  opacity: 60%;
 }
 
 label {
@@ -84,6 +85,10 @@ input {
   font-size: 0.9em;
 }
 
+.nav img {
+  max-width: 3em;
+}
+
 button {
   background-color: transparent;
   border: none;
@@ -106,7 +111,10 @@ button {
   font-size: 1em;
   width: 100%;
   margin: 1.5em 0em 0.1em 0em;
-  padding: 0.7em;
+  padding: 0.7em 0em 2em 0em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
