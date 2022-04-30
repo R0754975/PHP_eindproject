@@ -33,6 +33,7 @@
 .fillingImage{
     width:60%;
     align-self: center;
+    opacity: 60%;
 }
 
 label{
@@ -71,4 +72,8 @@ input{
     padding: 0.7em;
     border-radius: 3px;
     font-size: 0.9em;
+}
+
+.nav img{
+    max-width: 3em;
 }
