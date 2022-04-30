@@ -67,3 +67,16 @@ input{
     border-radius: 3px;
     font-size: 0.9em;
 }
+
+.status-not-available {
+    color: colors.$offWhite;
+    font-family: fonts.$jakartaSans;
+    font-weight: lighter;
+    font-size: 0.9em;
+}
+.status-available {
+    color: colors.$offWhite;
+    font-family: fonts.$jakartaSans;
+    font-weight: lighter;
+    font-size: 0.9em;
+}

@@ -78,6 +78,20 @@ input {
   font-size: 0.9em;
 }
 
+.status-not-available {
+  color: white;
+  font-family: "Plus Jakarta Sans", serif;
+  font-weight: lighter;
+  font-size: 0.9em;
+}
+
+.status-available {
+  color: white;
+  font-family: "Plus Jakarta Sans", serif;
+  font-weight: lighter;
+  font-size: 0.9em;
+}
+
 button {
   background-color: transparent;
   border: none;

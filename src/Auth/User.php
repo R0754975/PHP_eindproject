@@ -154,7 +154,7 @@
             $statementA->execute();
             $emailDB = $statementA->fetch();
             if ($emailDB != false) {
-                throw new Exception("dqfdqf");
+                throw new Exception("Email already in use.");
             }
             $options=[
                         'cost' => 12,
