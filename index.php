@@ -27,19 +27,11 @@
         ?><!DOCTYPE html>
         <html lang="en">
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <?php include_once("inc/header.inc.php"); ?>
             <title>IMDMedia</title>
-            <link rel="stylesheet" href="css/app.css">
         </head>
         <body>
-            <?php if ($auth == true): ?>
-            <a href="logout.php" class="navbar__logout">Hi, logout?</a>
-            <?php endif ?>
-            <?php if ($auth == false): ?>
-            <a href="login.php" class="navbar__logout">Hi, would you like to Log in?</a>
-            <?php endif ?>		
+            <?php include_once("inc/nav.inc.php"); ?>		
             <section>
                 <div>
                     <h1>IMDMedia</h1>

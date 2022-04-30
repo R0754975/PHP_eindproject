@@ -30,7 +30,7 @@
     <?php include_once("inc/header.inc.php"); ?>
     <title>Signup IMDMedia</title>
 </head>
-<body>
+<body class="splitForm">
     <div class="IMDMediaSignIn">
         <div class="form">
             <form action="" method="post">
@@ -65,14 +65,14 @@
                 </div>
 
                 <div class="form__field">
-                    <input type="submit" value="Sign up" class="formbtn">
+                    <input type="submit" value="Sign up" class="formbtn primarybtn">
                 </div>
             </form>
             <p class="extraP">Already have an account? <a href="login.php">Sign in here.</a></p>   
         </div>
     </div>
     <div class="formFilling">
-        <img src="./images/eye.png" alt="IMD eye" class="fillingImage">
+        <img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321304/IMDMedia_Pictures/Home_eye.png" alt="IMD eye" class="fillingImage">
     </div>
     <script type="module" src="main.js"></script>
 </body>
