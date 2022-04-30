@@ -21,14 +21,13 @@
         }
     }
 
-    
-
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include_once("inc/header.inc.php"); ?>
     <title>Signup IMDMedia</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/signupcheck.js"></script>
 </head>
 <body>
     <div class="IMDMediaSignIn">
@@ -43,15 +42,16 @@
                 <?php else: ?>    
                     <p>Get inspired by your fellow students!</p>
                 <?php endif; ?>
-
+                
+        
                 <div class="form__field">
                     <label for="Username">Username</label>
-                    <input autocomplete="off" type="text" name="username">
+                    <input autocomplete="off" type="text" id="username"  name="username" onBlur="userAvailability()"><span id="user-availability-status"></span> 
                 </div>
 
                 <div class="form__field">
                     <label for="Email">Email</label>
-                    <input type="text" name="email">
+                    <input type="text" id="email" name="email" onBlur="emailAvailability()"><span id="email-availability-status"></span> 
                 </div>
 
                 <div class="form__field">
@@ -67,6 +67,7 @@
                 <div class="form__field">
                     <input type="submit" value="Sign up" class="formbtn">
                 </div>
+
             </form>
             <p class="extraP">Already have an account? <a href="login.php">Sign in here.</a></p>   
         </div>
