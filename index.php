@@ -10,33 +10,7 @@
     <title>IMDMedia</title>
 </head>
 <body>
-    <div class="nav">
-        <div>
-            <a href="./index.php"><img src="./images/computer.png" alt="IMDMedia logo" class="logo"></a>
-        </div>
-        <div>
-            <form action="" method="post" class="searchBar">
-                <div class="form__field">
-                    <input type="text" name="search">
-                </div>
-                <button type="submit">
-                    <img src="./images/computer.png" alt="IMDMedia logo" class="searchIcon"/>
-                </button>
-            </form>
-        </div>
-        <div class="navRight">
-            <a href="#" class="primarybtn">Upload project</a>
-            <div class="account">
-                <button class="dropbtn">button</button>
-                <div class="dropdownContent"> 
-                    <a href="#">Profile</a>
-                    <a href="./settings.php">Settings</a>
-                    <hr>
-                    <a href="./logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php include_once("inc/nav.inc.php"); ?>
 
 
 	<script type="module" src="main.js"></script>
