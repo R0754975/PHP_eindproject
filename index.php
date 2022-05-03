@@ -38,7 +38,7 @@
                     <h2>Welcome to IMDMedia</h2>
                     <a href="post.php">new Post</a>
                 </div>
-                <?php foreach ($posts as $post): ?>
+                <?php foreach ($posts as $key => $post): ?>
                 <div class="post">
                     <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                     <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
