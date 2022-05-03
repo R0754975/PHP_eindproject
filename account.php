@@ -5,6 +5,8 @@
     <title>IMD Media Account</title>
 </head>
 <body>
+    <?php include_once("inc/nav.inc.php"); ?>
+
     <h1 class="username"></h1>
     <div class="pic">
         <div class="userPic"></div>

@@ -1,6 +1,11 @@
 @use "./../_colors.scss";
 @use "./../fonts";
 
+.splitForm{
+    display: flex;
+    flex-direction:row;
+}
+
 .IMDMediaSignIn{
     height: 100%;
     width: 50%;
@@ -28,6 +33,7 @@
 .fillingImage{
     width:60%;
     align-self: center;
+    opacity: 60%;
 }
 
 label{
@@ -65,18 +71,5 @@ input{
     background-color: colors.$danger;
     padding: 0.7em;
     border-radius: 3px;
-    font-size: 0.9em;
-}
-
-.status-not-available {
-    color: colors.$offWhite;
-    font-family: fonts.$jakartaSans;
-    font-weight: lighter;
-    font-size: 0.9em;
-}
-.status-available {
-    color: colors.$offWhite;
-    font-family: fonts.$jakartaSans;
-    font-weight: lighter;
     font-size: 0.9em;
 }
