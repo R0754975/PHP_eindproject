@@ -24,6 +24,7 @@ Configuration::instance([
         private $tags;
         private $filePath;
         private $file;
+        private $search;
 
         public function getTitle()
         {
@@ -153,6 +154,28 @@ Configuration::instance([
             $conn = DB::getConnection();
             $result = $conn->query("select * from posts;");
             return $result->fetchAll();
+        }
+
+        public function getSearch()
+        {
+            return $this->search;
+        }
+
+        public function setSearch($search)
+        {
+            $this->search = $search;
+
+            return $this;
+        }
+
+        public static function searchAll($search)
+        {
+            $conn = DB::getConnection();
+            $result = $conn->prepare("select * from posts where title like :keyword");
+            //$result = $conn->query("select * from posts where title like concat('%', :searchValue , '%');");
+            $result->bindValue(":keyword", $search);
+            var_dump($result);
+            return $result->execute();
         }
 
         public static function getRowCount()
