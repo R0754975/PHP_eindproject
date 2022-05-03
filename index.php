@@ -21,7 +21,14 @@
             $page = $_GET['page'];
         }
         // retrieve the posts for the current page
-        $posts = Post::getPage($page);
+
+        if(isset($_POST['search'])){
+            $posts = Post::searchAll($_POST['search']);
+
+        }else{
+            var_dump("neee");
+            $posts = Post::getPage($page);
+        }
 
 
         ?><!DOCTYPE html>

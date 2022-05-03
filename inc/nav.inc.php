@@ -4,7 +4,6 @@
   if (!empty($_POST)) {
     try {
         $value = $_POST["search"];
-        header("Location: search.php?search=".$value);
     } catch (Throwable $e) {
         $error = $e->getMessage();
     }
