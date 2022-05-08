@@ -25,7 +25,7 @@ if (!empty($_POST)) {
   <?php include_once("inc/header.inc.php"); ?>
   <title>Sign in IMDMedia</title>
 </head>
-<body>
+<body class="splitForm">
 	<div class="IMDMediaSignIn">
 		<div class="form form--login">
 			<form action="" method="post">
@@ -60,7 +60,7 @@ if (!empty($_POST)) {
 				<p class="extraP extraP--password"><a href="reset-password.php">Forgot your password?</a></p>
 
 				
-				<input type="submit" value="Sign in" class="formbtn">	
+				<input type="submit" value="Sign in" class="formbtn primarybtn">	
 				
 			
 			</form>
@@ -69,7 +69,7 @@ if (!empty($_POST)) {
 		</div>
 	</div>
 	<div class="formFilling">
-        <img src="./images/eye.png" alt="IMD eye" class="fillingImage">
+		<img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321304/IMDMedia_Pictures/Home_eye.png" alt="IMD eye" class="fillingImage">
     </div>
 	<script type="module" src="main.js"></script>
 </body>

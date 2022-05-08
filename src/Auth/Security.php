@@ -32,7 +32,7 @@
             $token = random_bytes(32);
 
             //defines how long the token is valid
-            $expires = date("U") + 1800;
+            $expires = date("U") + 86400;
 
             $conn = DB::getConnection();
 
