@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200&display=swap");
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -9,6 +11,9 @@ html {
 
 body {
   height: 100%;
+}
+
+.splitForm {
   display: flex;
   flex-direction: row;
 }
@@ -40,6 +45,7 @@ body {
 .fillingImage {
   width: 60%;
   align-self: center;
+  opacity: 60%;
 }
 
 label {
@@ -78,20 +84,6 @@ input {
   font-size: 0.9em;
 }
 
-.status-not-available {
-  color: white;
-  font-family: "Plus Jakarta Sans", serif;
-  font-weight: lighter;
-  font-size: 0.9em;
-}
-
-.status-available {
-  color: white;
-  font-family: "Plus Jakarta Sans", serif;
-  font-weight: lighter;
-  font-size: 0.9em;
-}
-
 button {
   background-color: transparent;
   border: none;
@@ -114,7 +106,10 @@ button {
   font-size: 1em;
   width: 100%;
   margin: 1.5em 0em 0.1em 0em;
-  padding: 0.7em;
+  padding: 0.7em 0em 2em 0em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
@@ -145,6 +140,72 @@ p {
 
 .extraP--password {
   margin-top: -0.05em;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  background-color: #0500FF;
+  width: 100%;
+  justify-content: space-between;
+  padding: 7px;
+}
+
+.logo {
+  width: 3em;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchIcon {
+  width: 3em;
+  padding-top: 1em;
+  background-color: transparent;
+}
+
+.navRight {
+  display: flex;
+  flex-direction: row;
+}
+
+.account {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+}
+
+.dropdownContent a {
+  color: #0500FF;
+  padding: 0.2em 0em;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.dropdownContent a:hover {
+  font-weight: bold;
+}
+
+.account:hover .dropdownContent {
+  display: block;
+  position: absolute;
+  right: 0;
+  padding: 15px;
+  border: 10px;
+  border-color: #0500FF;
+  border-radius: 3px;
+  background-color: white;
+  min-width: 10em;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=app.css.map */

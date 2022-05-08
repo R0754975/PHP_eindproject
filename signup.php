@@ -29,7 +29,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/signupcheck.js"></script>
 </head>
-<body>
+<body class="splitForm">
     <div class="IMDMediaSignIn">
         <div class="form">
             <form action="" method="post">
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="form__field">
-                    <input type="submit" value="Sign up" class="formbtn">
+                    <input type="submit" value="Sign up" class="formbtn primarybtn">
                 </div>
 
             </form>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="formFilling">
-        <img src="./images/eye.png" alt="IMD eye" class="fillingImage">
+        <img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321304/IMDMedia_Pictures/Home_eye.png" alt="IMD eye" class="fillingImage">
     </div>
     <script type="module" src="main.js"></script>
 </body>
