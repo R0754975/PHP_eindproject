@@ -26,7 +26,6 @@
             $posts = Post::searchAll($_POST['search']);
 
         }else{
-            var_dump("neee");
             $posts = Post::getPage($page);
         }
 
@@ -39,21 +38,16 @@
         </head>
         <body>
             <?php include_once("inc/nav.inc.php"); ?>		
-            <section>
-                <div>
-                    <h1>IMDMedia</h1>
-                    <h2>Welcome to IMDMedia</h2>
-                    <a href="post.php">new Post</a>
-                </div>
+            <section class="feed">
                 <?php foreach ($posts as $key => $post): ?>
                 <div class="post">
-                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                     <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
+                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                     <?php if ($auth == true): ?>
-                    <a href="account.php?Account=<?php echo htmlspecialchars($post['userName']); ?>"><?php echo htmlspecialchars($post['userName']); ?></a>
+                    <a href="account.php?Account=<?php echo htmlspecialchars($post['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($post['userName']); ?></a>
                     <?php $tags = json_decode($post['tags']); ?>
                     <?php foreach ($tags as $tag): ?>
-                    <a href="?tags=<?php echo htmlspecialchars($tag); ?>">#<?php echo htmlspecialchars($tag); ?></a>
+                    <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
                     <?php endforeach ?>
                     <?php endif ?>
                 </div>
@@ -61,7 +55,7 @@
             </section>
 
             <?php for ($page = 1; $page <= $pageCount; $page++): ?>
-                <a href="?page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                <a href="?page=<?php echo $page; ?>" class="page"><?php echo $page; ?></a>
             <?php endfor; ?>    
         </body>
         </html>
