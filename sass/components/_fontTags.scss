@@ -8,6 +8,20 @@ h1{
     font-size:1.8em;
 }
 
+h2{
+    color: colors.$offBlack;
+    font-family: fonts.$jakartaSans;
+    font-weight: bold;
+    font-size:1.1em;
+}
+
+h3{
+    color: colors.$offBlack;
+    font-family: fonts.$jakartaSans;
+    font-weight: bold;
+    font-size:1em;
+}
+
 p{
     font-family: fonts.$jakartaSans;
     color: colors.$offBlack;

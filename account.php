@@ -40,14 +40,22 @@
                 <button class="changePic"></button>
             </div>
             <div class="bioInfo">
+<<<<<<< HEAD
                 <h1 class="profileUsername"><?php echo $_SESSION['user']['username']; ?></h1>
                 <h3 class="profileEmail"><?php echo $_SESSION['user']['email']; ?></h3>
                 <div class="bio">
                     <p class="bioInput">Bla bla bla bla bla bla </p>
+=======
+                <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
+                <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
+                <div class="bio profile">
+                    <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
+>>>>>>> sienvdb
                     <button class="changeButton"></button>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <div class="extraIfo">
             <div class="education">
                 <h2>Education</h2>
@@ -63,6 +71,25 @@
                     <a href="https://www.linkedin.com/feed/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128088/IMDMedia_Pictures/LinkedInIcon.svg" alt="link to LinkedIn"></a>    
                 </div>
             </div>
+=======
+        <div class="extraInfo">
+            <section>
+                <div class="education">
+                    <h2>Education</h2>
+                    <ul>
+                        <li>No education selected</li>
+                    </ul>
+                </div>
+                <div class="socialMedia">
+                    <h2>Social Media</h2>
+                    <div class="icons">
+                        <a href="https://www.instagram.com/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652127860/IMDMedia_Pictures/instagramIcon.svg" alt="link to Instagram"></a>    
+                        <a href="https://twitter.com/?lang=en"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128151/IMDMedia_Pictures/TwitterIcon.svg" alt="link to Twitter"></a>    
+                        <a href="https://www.linkedin.com/feed/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128088/IMDMedia_Pictures/LinkedInIcon.svg" alt="link to LinkedIn"></a>    
+                    </div>
+                </div>
+            </section>
+>>>>>>> sienvdb
         </div>
     </div>
     <section class="feed profileFeed">
