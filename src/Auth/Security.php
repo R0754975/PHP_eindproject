@@ -15,14 +15,7 @@
             if (!isset($_SESSION['user'])) {
                 header("Location: login.php");
             }
-        }
-
-        
-        
-        
-        
-        
-        
+        }  
         
         // sends the mail to the user with the reset link
         public static function resetRequest()
@@ -87,15 +80,6 @@
             }
         }
 
-
-
-
-
-
-
-
-
-
         public static function resetPassword()
         {
             $conn = DB::getConnection();
@@ -151,3 +135,4 @@
             }
         }
     }
+
