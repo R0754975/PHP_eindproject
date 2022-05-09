@@ -54,6 +54,11 @@ input{
     font-size: 0.9em;
 }
 
+::placeholder{
+    color: colors.$offWhite;
+    font-weight: lighter;
+}
+
 .form{
     display: flex;
     flex-direction: column;
@@ -76,16 +81,4 @@ input{
 
 .nav img{
     max-width: 3em;
-}
-
-label{
-    color: black;
-}
-
-h1{
-    color: black;
-}
-
-input{
-    color: black;
 }

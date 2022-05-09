@@ -1,0 +1,67 @@
+@use "./../_colors.scss";
+@use "./../fonts";
+
+//https://anobjectisa.com/?p=335
+//https://silvawebdesigns.com/create-responsive-pinterest-style-layout-css/
+.feed{
+    margin: 0; 
+    padding: 0;
+    padding-top: 20px;
+    width: 90vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    column-count: 4;
+    column-fill:initial;
+}
+
+.post{
+    max-width: 100%;
+    background-color: colors.$background;
+    margin:  20px 0px;
+    border-radius: 4px;
+    -webkit-column-break-inside: avoid;
+}
+
+.post img{
+    border-radius: 4px;
+    max-width: 100%;
+}
+
+.post h3{
+    font-family: fonts.$jakartaSans;
+    color: colors.$offBlack;
+    font-weight: bolder;
+    font-size:1em;
+    padding-left: 0.8em;;
+}
+
+.post a{
+    font-family: fonts.$jakartaSans;
+    text-decoration: none;
+}
+
+.postUsername{
+    padding-left: 0.8em;
+    color: colors.$offBlack;
+    opacity: 70%;
+    font-weight: bolder;
+    font-size:1em;
+}
+
+.postTags{
+    background-color: colors.$secundary;
+    border-radius: 2px;
+    color: colors.$offWhite;
+    padding-left:0px;
+    padding: 0.1em 0.4em;
+    margin: 0.1em;
+}
+
+.pageCounter{
+    color: colors.$offBlack;
+    position: absolute;
+    right: 50%;
+    bottom: 1em;
+}
