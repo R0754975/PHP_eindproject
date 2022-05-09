@@ -24,6 +24,10 @@
 
         if(isset($_POST['search'])){
             $posts = Post::searchAll($_POST['search']);
+            if (empty($posts)){
+                $requestNotFound = true;
+                $posts = Post::getPage($page);
+            }
 
         }else{
             $posts = Post::getPage($page);
@@ -37,7 +41,10 @@
             <title>IMDMedia</title>
         </head>
         <body>
-            <?php include_once("inc/nav.inc.php"); ?>		
+            <?php include_once("inc/nav.inc.php"); ?>
+            <?php if (isset($requestNotFound)): ?>
+                <h2>We didn't find an item with that title or tag. Please type another one.</h2>		
+            <?php endif; ?>
             <section class="feed">
                 <?php foreach ($posts as $key => $post): ?>
                 <div class="post">
