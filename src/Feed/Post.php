@@ -33,6 +33,9 @@ Configuration::instance([
 
         public function setTitle($title)
         {
+            if (empty($title)) {
+                throw new Exception("Your post must have a title");
+            }
             $this->title = $title;
 
             return $this;
