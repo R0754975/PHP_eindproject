@@ -9,9 +9,10 @@ if (!empty($_POST)) {
         $user = new User();
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
-        if ($user->canLogin()) {
+		$loggedUser = $user->canLogin();
+        if ($loggedUser) {
             session_start();
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = $loggedUser;
             header("Location: index.php");
         }
     } catch (Throwable $e) {

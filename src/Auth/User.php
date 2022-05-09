@@ -4,6 +4,7 @@
 
     use Exception;
     use imdmedia\Data\DB;
+    use PDO;
 
     class User
     {
@@ -13,6 +14,16 @@
         protected $repeatPassword;
         protected $profile_pic;
         
+
+        public static function getUserbyId($id){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from users where id = :id");
+            $statement->bindValue(':id', $id);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+
         /**
          * Get the value of username
          */
@@ -137,10 +148,10 @@
             $statement = $conn->prepare("select * from users where email = :email");
             $statement->bindValue(":email", $this->email);
             $statement->execute();
-            $user = $statement->fetch();
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
             $hash = $user["password"];
             if (password_verify($password, $hash)) {
-                return true;
+                return $user;
             } else {
                 throw new Exception("Wrong password");
             }
@@ -154,7 +165,7 @@
             $statementA->execute();
             $emailDB = $statementA->fetch();
             if ($emailDB != false) {
-                throw new Exception("dqfdqf");
+                throw new Exception("This email has already an account, please sign in with another one.");
             }
             $options=[
                         'cost' => 12,
@@ -165,7 +176,42 @@
             $statement->bindValue("username", $this->username);
             $statement->bindValue("email", $this->email);
             $statement->bindValue("password", $passwordHash);
-            return $statement->execute();
+            $statement->execute();
+
+            $userId = $conn->lastInsertId();
+            return $this->getUserById($userId);
+        }
+
+        public static function validateUser($username, $password){
+            var_dump("in validatefunction");
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from users where username = :username");
+            $statement->bindValue(":username", $username);
+            $statement->execute();
+            $validatedUser = $statement->fetch();//(PDO::FETCH_ASSOC);
+            if(!empty($validatedUser)){
+                var_dump("in if functie");
+                $hash = $validatedUser["password"];
+                    if (password_verify($password, $hash)) {
+                        var_dump($password);
+                        var_dump($hash);
+                        return true;
+                    } else {
+                        throw new Exception("Wrong password");
+                    }
+            }
+        }
+ 
+        public static function deleteUser($email, $id)
+        {
+                $conn = DB::getConnection();
+                $statementA=$conn->prepare("DELETE FROM users where email = :email");
+                $statementB=$conn->prepare("DELETE FROM posts where userid = :id");
+                $statementA->bindValue("email", $email);
+                $statementB->bindValue("id", $id);
+                $statementA->execute();
+                $statementB->execute();
+                return true;
         }
 
         public function __toString()
@@ -173,15 +219,7 @@
             return $this->username . " " . $this->email;
         }
 
-        public static function deleteUser()
-        {
-            $conn = DB::getConnection();
-            $statement=$conn->prepare("DELETE FROM users where email = :email");
-            $statement->bindValue("email", $_SESSION['user']->email);
-            return $statement->execute();
-        }
-
-        public function getAll()
+        public function getAll() 
         {
             $conn = DB::getConnection();
             $statement = $conn->prepare("select * from users where email = :email");
