@@ -38,12 +38,12 @@
 }
 
 .post a{
-    padding-left: 0.8em;
     font-family: fonts.$jakartaSans;
     text-decoration: none;
 }
 
 .postUsername{
+    padding-left: 0.8em;
     color: colors.$offBlack;
     opacity: 70%;
     font-weight: bolder;
@@ -54,8 +54,9 @@
     background-color: colors.$secundary;
     border-radius: 2px;
     color: colors.$offWhite;
+    padding-left:0px;
     padding: 0.1em 0.4em;
-    margin: 0.4em;
+    margin: 0.1em;
 }
 
 .pageCounter{
