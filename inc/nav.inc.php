@@ -8,7 +8,6 @@
         $error = $e->getMessage();
     }
 }
-
 ?><div class="nav">
       <div>
           <a href="./index.php"><img src="./images/computer.png" alt="IMDMedia logo" class="logo"></a>
