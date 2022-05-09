@@ -1,5 +1,7 @@
 <?php
     use imdmedia\Feed\Post;
+    use imdmedia\Auth\User;
+    use imdmedia\Data\DB;
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -23,6 +25,53 @@
 
     $posts = Post::getPage($page);
 
+    if(!empty($_POST)){
+
+        $u = new User();
+        $email = $_SESSION['email'];
+        $username = $_POST['username'];
+        $initialPassword = $_POST['initialPassword'];
+        $repeatPassword = $_POST['repeatPassword'];
+    
+        $profile_pic = "";
+        $destFile = "";
+        $fotonaam = $_FILES['profile_pic']['tmp_name'];
+        if (!empty($fotonaam)) {$foto = file_get_contents($fotonaam);}
+    
+        $temp = explode(".", $_FILES['profile_pic']['name']);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $foto = $newfilename;
+    
+        $profile_pic = $foto;
+    
+        $newpassword = "";
+        if(!empty($_POST['newPassword'])) {
+            $salt = "qsdfg23fnjfhuu!";
+            $newpassword = $_POST['newPassword'].$salt;
+        } 
+    
+        define ('SITE_ROOT', realpath(dirname(__FILE__)));
+    
+        $result = $u->changeSettings($username, $email, $password, $profile_pic, $newpassword);
+    
+        if($result === true){
+    
+            if ($fotonaam != NULL){
+                $destFile = __DIR__ . '/images/uploads/profile_pic/' . $profile_pic;
+                move_uploaded_file($_FILES['profile_pic']['tmp_name'], $destFile);
+                chmod($destFile, 0666);
+            }
+            echo "<script>location='index.php'</script>";
+        }else{
+            echo $result;
+        }
+    }
+    $conn =  Db::getConnection();
+    $statement = $conn->prepare("SELECT * FROM users WHERE email = '" . $_SESSION['email'] . "'");
+    $statement->execute();
+    if( $statement->rowCount() > 0){
+        $user = $statement->fetch(); // array van resultaten opvragen
+    };
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -35,43 +84,30 @@
 
     <div class="info">
         <div class="globalInfo">
-            <div class="pic">
-                <div class="userPic"></div>
-                <button class="changePic"></button>
-            </div>
-            <div class="bioInfo">
-<<<<<<< HEAD
-                <h1 class="profileUsername"><?php echo $_SESSION['user']['username']; ?></h1>
-                <h3 class="profileEmail"><?php echo $_SESSION['user']['email']; ?></h3>
-                <div class="bio">
-                    <p class="bioInput">Bla bla bla bla bla bla </p>
-=======
-                <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
-                <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
-                <div class="bio profile">
-                    <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
->>>>>>> sienvdb
-                    <button class="changeButton"></button>
-                </div>
+        <h2 for="profielfoto">Profielfoto</h2>
+        <br>
+        <div id="prev-div">
+                <img id="img-prev" style="width:200px; height:200px;" src="images/uploads/profile_pic/<?php echo $user['profielfoto'] ?>" alt="uploaded image" />
+        </div>
+        <div>
+        test<input type="file" name="profielfoto" id="profielfoto" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);">test<br />
+            <img id="imgPreview" src="images/uploads/profile_pic/<?php echo $user['profielfoto'] ?>" alt="" style="height: 200px;" />
+        </div> 
+        <div> 
+            <h2>Jouw wachtwoord:</h2> 
+            <input class="input" type="password" name="newPassword" placeholder="">
+        </div> 
+        
+        <input class="btn-aanmelden" type="submit" value="Submit">
+
+        <div class="bioInfo">
+            <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
+            <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
+            <div class="bio profile">
+                <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
+                <button class="changeButton"></button>
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="extraIfo">
-            <div class="education">
-                <h2>Education</h2>
-                <ul>
-                    <li>No education selected</li>
-                </ul>
-            </div>
-            <div class="socialMedia">
-                <h2>Social Media</h2>
-                <div class="icons">
-                    <a href="https://www.instagram.com/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652127860/IMDMedia_Pictures/instagramIcon.svg" alt="link to Instagram"></a>    
-                    <a href="https://twitter.com/?lang=en"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128151/IMDMedia_Pictures/TwitterIcon.svg" alt="link to Twitter"></a>    
-                    <a href="https://www.linkedin.com/feed/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128088/IMDMedia_Pictures/LinkedInIcon.svg" alt="link to LinkedIn"></a>    
-                </div>
-            </div>
-=======
         <div class="extraInfo">
             <section>
                 <div class="education">
@@ -89,7 +125,6 @@
                     </div>
                 </div>
             </section>
->>>>>>> sienvdb
         </div>
     </div>
     <section class="feed profileFeed">
