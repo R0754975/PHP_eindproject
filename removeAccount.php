@@ -16,7 +16,10 @@
         $delete = User::validateUser($username, $givenpassword);
         if($delete){
             User::deleteUser($user['email'], $user['id']);
-            //header("Location: login.php");
+            //otherwise you can go back and still be loggedin
+            session_destroy();
+            //redirect to signup.php
+            header("Location: signup.php");
         }
     }
 
