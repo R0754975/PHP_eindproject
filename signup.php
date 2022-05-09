@@ -11,10 +11,11 @@
             $user->setEmail($_POST['email']);
             $user->setPassword($_POST['password']);
             $user->setRepeatPassword($_POST['passwordRepeat']);
-            $user->save();
+            $savedUser = $user->save();
 
             session_start();
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = $savedUser;
+            
             header("Location: index.php");
         } catch (Throwable $e) {
             $error = $e->getMessage();

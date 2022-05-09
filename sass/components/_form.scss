@@ -54,6 +54,11 @@ input{
     font-size: 0.9em;
 }
 
+::placeholder{
+    color: colors.$offWhite;
+    font-weight: lighter;
+}
+
 .form{
     display: flex;
     flex-direction: column;
@@ -72,4 +77,8 @@ input{
     padding: 0.7em;
     border-radius: 3px;
     font-size: 0.9em;
+}
+
+.nav img{
+    max-width: 3em;
 }
