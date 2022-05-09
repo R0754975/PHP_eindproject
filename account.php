@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<?php
+    require __DIR__ . '/vendor/autoload.php';
+    include_once("inc/functions.inc.php");
+
+    boot();
+    $auth = checkLoggedIn();
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include_once("inc/header.inc.php"); ?>
@@ -7,7 +14,7 @@
 <body>
     <?php include_once("inc/nav.inc.php"); ?>
 
-    <h1 class="username"></h1>
+    <h1 class="username">Hallo</h1>
     <div class="pic">
         <div class="userPic"></div>
         <button class="changePic userSession"></button>
