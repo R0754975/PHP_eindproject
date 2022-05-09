@@ -2,7 +2,7 @@
 @use "./../fonts";
 
 h1{
-    color: colors.$offWhite;
+    color: colors.$offBlack;
     font-family: fonts.$jakartaSans;
     font-weight: bold;
     font-size:1.8em;
@@ -10,9 +10,16 @@ h1{
 
 p{
     font-family: fonts.$jakartaSans;
-    color: colors.$offWhite;
+    color: colors.$offBlack;
     font-weight: lighter;
     font-size:1em;
+}
+.form h1{
+    color: colors.$offWhite;
+}
+
+.form p{
+    color: colors.$offWhite;
 }
 
 .extraP{
