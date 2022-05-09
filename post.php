@@ -8,7 +8,7 @@ Security::onlyLoggedInUsers();
 if (isset($_POST['submit'])) {
     if (isset($_SESSION['user'])) {
         try {
-            $user = $_SESSION['user']->getAll();
+            $user = $_SESSION['user'];
             $username = $user['username'];
             $userid = $user['id'];
             $title = $_POST['title'];
