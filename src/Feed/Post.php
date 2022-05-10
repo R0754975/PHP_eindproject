@@ -25,6 +25,7 @@ Configuration::instance([
         private $filePath;
         private $file;
         private $search;
+        private $description;
 
         public function getTitle()
         {
@@ -103,6 +104,18 @@ Configuration::instance([
             return $this;
         }
 
+        public function getDescription()
+        {
+                return $this->description;
+        }
+
+        public function setDescription($description)
+        {
+                $this->description = $description;
+
+                return $this;
+        }
+
         public function upload()
         {
             $file = $this->file;
@@ -135,12 +148,13 @@ Configuration::instance([
         public function save()
         {
             $conn = DB::getConnection();
-            $statement = $conn->prepare("insert into posts (title, userid, tags, filePath, userName) values (:title, :userid, :tags, :filepath, :username)");
+            $statement = $conn->prepare("insert into posts (title, userid, tags, filePath, userName, description) values (:title, :userid, :tags, :filepath, :username, :description)");
             $statement->bindValue(":title", $this->title);
             $statement->bindValue(":userid", $this->userid);
             $statement->bindValue(":tags", $this->tags);
             $statement->bindValue(":filepath", $this->filePath);
             $statement->bindValue(":username", $this->username);
+            $statement->bindValue(":description", $this->description);
             return $statement->execute();
         }
         
@@ -195,4 +209,5 @@ Configuration::instance([
             $result = $conn->query("select * from posts limit " . (($page - 1) * $maxResults) . ", 10;");
             return $result->fetchAll();
         }
+
     }

@@ -15,7 +15,17 @@
             if (!isset($_SESSION['user'])) {
                 header("Location: login.php");
             }
-        }  
+        }
+
+        public static function checkLoggedIn()
+        {
+            //check if a user is logged in
+            if (isset($_SESSION['user'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         
         // sends the mail to the user with the reset link
         public static function resetRequest()
@@ -108,4 +118,3 @@
             }
         }
     }
-
