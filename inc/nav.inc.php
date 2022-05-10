@@ -1,5 +1,8 @@
 <?php 
-  $username = $_SESSION['user'];
+    if(isset($_SESSION['user'])){
+        $user = $_SESSION['user'];
+        $username = $user['username'];
+    }
 
   if (!empty($_POST)) {
     try {
@@ -24,14 +27,21 @@
           </form>
       </div>
       <div class="navRight">
-          <a href="post.php" class="primarybtn">Upload project</a>
+          <?php if(isset($user)): ?>
+            <a href="post.php" class="primarybtn">Upload project</a>
+          <?php endif; ?>
           <div class="account">
               <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321618/IMDMedia_Pictures/searchIcon.png" alt="ProfilePic"></button>
               <div class="dropdownContent"> 
-                  <a href="./account.php">Profile</a>
-                  <a href="./settings.php">Settings</a>
-                  <hr>
-                  <a href="./logout.php">Logout</a>
+                  <?php if(isset($username)): ?>
+                    <a href="./account.php?Account=<?php echo $username; ?>">Profile</a>
+                    <a href="./settings.php">Settings</a>
+                    <hr>
+                    <a href="./logout.php">Logout</a>
+                  <?php endif; ?>
+                    <?php if(!isset($user)): ?>
+                  <a href="./login.php">Login</a>
+                  <?php endif; ?>
               </div>
           </div>
       </div>
