@@ -10,6 +10,7 @@
     <title>Account settings</title>
 </head>
 <body>
+
     <?php include_once("inc/nav.inc.php"); ?>
 
     <button class="changePass">Change password</button>
