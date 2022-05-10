@@ -214,6 +214,16 @@
                 return true;
         }
 
+        
+        public static function getUserbyUsername($user){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from users where username = :username");
+            $statement->bindValue(':username', $user);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+
         public function __toString()
         {
             return $this->username . " " . $this->email;

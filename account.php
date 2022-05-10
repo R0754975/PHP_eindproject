@@ -1,5 +1,6 @@
 <?php
     use imdmedia\Feed\Post;
+    use imdmedia\Auth\User;
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -23,6 +24,10 @@
 
     $posts = Post::getPage($page);
 
+    if(isset($_GET['Account'])){
+        $user = $_GET['Account'];
+        $profileUser = User::getUserByUsername($user);
+    }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -40,8 +45,8 @@
                 <button class="changePic"></button>
             </div>
             <div class="bioInfo">
-                <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
-                <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
+                <h1 class="profileUsername profile"><?php echo $profileUser['username']; ?></h1>
+                <h3 class="profileEmail profile"><?php echo $profileUser['email']; ?></h3>
                 <div class="bio profile">
                     <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
                     <button class="changeButton"></button>
