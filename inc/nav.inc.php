@@ -1,5 +1,8 @@
 <?php 
-  $username = $_SESSION['user'];
+
+if(isset($_SESSION['user'])) {
+    $username = $_SESSION['user'];
+}
 
   if (!empty($_POST)) {
     try {
