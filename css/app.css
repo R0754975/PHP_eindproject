@@ -13,6 +13,14 @@ body {
   height: 100%;
 }
 
+p {
+  color: black;
+}
+
+a {
+  color: black;
+}
+
 .splitForm {
   display: flex;
   flex-direction: row;
@@ -49,14 +57,14 @@ body {
 }
 
 label {
-  color: white;
+  color: black;
   font-family: "Plus Jakarta Sans", serif;
   font-weight: lighter;
   font-size: 0.9em;
 }
 
 input {
-  color: white;
+  color: black;
   background-color: transparent;
   border-color: white;
   border-width: 2px;
@@ -64,6 +72,11 @@ input {
   width: 100%;
   padding: 0.7em;
   font-size: 0.9em;
+}
+
+::placeholder {
+  color: white;
+  font-weight: lighter;
 }
 
 .form {
@@ -82,6 +95,10 @@ input {
   padding: 0.7em;
   border-radius: 3px;
   font-size: 0.9em;
+}
+
+.nav img {
+  max-width: 3em;
 }
 
 button {
@@ -113,17 +130,39 @@ button {
 }
 
 h1 {
-  color: white;
+  color: black;
   font-family: "Plus Jakarta Sans", serif;
   font-weight: bold;
   font-size: 1.8em;
 }
 
+h2 {
+  color: black;
+  font-family: "Plus Jakarta Sans", serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+h3 {
+  color: black;
+  font-family: "Plus Jakarta Sans", serif;
+  font-weight: bold;
+  font-size: 1em;
+}
+
 p {
   font-family: "Plus Jakarta Sans", serif;
-  color: white;
+  color: black;
   font-weight: lighter;
   font-size: 1em;
+}
+
+.form h1 {
+  color: white;
+}
+
+.form p {
+  color: white;
 }
 
 .extraP {
@@ -208,19 +247,114 @@ p {
   flex-direction: column;
 }
 
-.btn-aanmelden{
-  width: 160px;
-  padding: 15px 10px;
-  margin: 30px 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color:white;
-  text-align: center;
-  border: none;
-  border-radius: 10px;
-  background-color:#0500FF;
-  cursor: pointer;
+.feed {
+  margin: 0;
+  padding: 0;
+  padding-top: 20px;
+  width: 90vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  column-count: 4;
+  column-fill: initial;
+}
+
+.post {
+  max-width: 100%;
+  background-color: #F6F6F6;
+  margin: 20px 0px;
+  border-radius: 4px;
+  -webkit-column-break-inside: avoid;
+}
+
+.post img {
+  border-radius: 4px;
+  max-width: 100%;
+}
+
+.post h3 {
+  font-family: "Plus Jakarta Sans", serif;
+  color: black;
+  font-weight: bolder;
+  font-size: 1em;
+  padding-left: 0.8em;
+}
+
+.post a {
+  font-family: "Plus Jakarta Sans", serif;
+  text-decoration: none;
+}
+
+.postUsername {
+  padding-left: 0.8em;
+  color: black;
+  opacity: 70%;
+  font-weight: bolder;
+  font-size: 1em;
+}
+
+.postTags {
+  background-color: #f5c3ee;
+  border-radius: 2px;
+  color: white;
+  padding-left: 0px;
+  padding: 0.1em 0.4em;
+  margin: 0.1em;
+}
+
+.pageCounter {
+  color: black;
+  position: absolute;
+  right: 50%;
+  bottom: 1em;
+}
+
+.globalInfo, .extraInfo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.bioInfo {
+  margin-top: 100px;
+}
+
+.profile {
+  padding: -0.05em;
+}
+
+.bio {
+  padding-top: 1em;
+  max-width: 465px;
+}
+
+.userPic {
+  margin: 100px 70px 30px 0;
+  background-color: yellow;
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+}
+
+.extraInfo section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin-bottom: 70px;
+  width: 665px;
+}
+
+.education li {
+  margin-left: 1.5em;
+}
+
+.extraInfo h2 {
+  margin-bottom: 0.8em;
+}
+
+.extraInfo img {
+  max-width: 1.5em;
+  margin: 0.3em;
 }
 
 /*# sourceMappingURL=app.css.map */

@@ -83,29 +83,23 @@
     <?php include_once("inc/nav.inc.php"); ?>
 
     <div class="info">
+    <form action="" method="post">
         <div class="globalInfo">
-        <h2 for="profielfoto">Profielfoto</h2>
-        <br>
-        <div id="prev-div">
-                <img id="img-prev" style="width:200px; height:200px;" src="images/uploads/profile_pic/<?php echo $user['profielfoto'] ?>" alt="uploaded image" />
-        </div>
-        <div>
-        test<input type="file" name="profielfoto" id="profielfoto" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);">test<br />
-            <img id="imgPreview" src="images/uploads/profile_pic/<?php echo $user['profielfoto'] ?>" alt="" style="height: 200px;" />
-        </div> 
-        <div> 
-            <h2>Jouw wachtwoord:</h2> 
-            <input class="input" type="password" name="newPassword" placeholder="">
-        </div> 
-        
-        <input class="btn-aanmelden" type="submit" value="Submit">
-
-        <div class="bioInfo">
-            <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
-            <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
-            <div class="bio profile">
-                <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
-                <button class="changeButton"></button>
+            <div class="pic">
+                <div class="userPic">
+                <input type="file" name="profile_pic" id="profile_pic" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);"><br />
+                <img id="imgPreview" src="images/uploads/profile_pic/<?php echo $user['profile_pic'] ?>" alt="" style="height: 200px;" />
+                </div>
+                    
+                <button class="changePic"></button>
+            </div>
+            <div class="bioInfo">
+                <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
+                <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
+                <div class="bio profile">
+                    <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
+                    <button class="changeButton"></button>
+                </div>
             </div>
         </div>
         <div class="extraInfo">
@@ -126,6 +120,7 @@
                 </div>
             </section>
         </div>
+    </form>
     </div>
     <section class="feed profileFeed">
         <?php foreach ($posts as $key => $post): ?>

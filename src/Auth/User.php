@@ -129,7 +129,7 @@
          */
         public function getProfile_pic()
         {
-            return $this->repeatPassword;
+            return $this->profile_pic;
         }
 
         /**
