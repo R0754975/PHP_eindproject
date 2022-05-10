@@ -304,9 +304,32 @@ p {
 
 .pageCounter {
   color: black;
-  position: absolute;
-  right: 50%;
+  text-align: center;
   bottom: 1em;
+  padding: 10px;
+  right: 50%;
+}
+
+.postForm {
+  text-align: center;
+}
+
+.postForm label, .postForm input, button {
+  display: inline-block;
+  width: 50%;
+  color: black;
+}
+
+.postForm input::placeholder {
+  color: grey;
+}
+
+.postForm label {
+  padding: 0.5em;
+}
+
+.fileInput {
+  text-align: center;
 }
 
 .globalInfo, .extraInfo {

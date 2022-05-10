@@ -1,7 +1,8 @@
 <?php 
 
 if(isset($_SESSION['user'])) {
-    $username = $_SESSION['user'];
+    $user = $_SESSION['user'];
+    $username = $user['username'];
 }
 
   if (!empty($_POST)) {
@@ -26,7 +27,7 @@ if(isset($_SESSION['user'])) {
           </form>
       </div>
       <div class="navRight">
-          <a href="post.php" class="primarybtn">Upload project</a>
+          <a href="upload.php" class="primarybtn">Upload project</a>
           <div class="account">
               <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321618/IMDMedia_Pictures/searchIcon.png" alt="ProfilePic"></button>
               <div class="dropdownContent"> 
