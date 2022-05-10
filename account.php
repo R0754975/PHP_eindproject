@@ -1,11 +1,12 @@
 <?php
     use imdmedia\Feed\Post;
+    use imdmedia\Auth\Security;
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
-
+    
     boot();
-    $auth = checkLoggedIn();
+    $auth = Security::checkLoggedIn();
 
     // determine how many items are allowed per page
     $maxResults = 10;
@@ -89,6 +90,7 @@
         <button class="changeSocialPic userSession"></button>
     </div>
 
+    <?php include_once("inc/footer.inc.php"); ?>
     <script type="module" src="main.js"></script>
 </body>
 </html>

@@ -1,8 +1,9 @@
 <?php
+    use imdmedia\Auth\Security;
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
         boot();
-        checkAuthorisation();
+        Security::onlyLoggedInUsers();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
