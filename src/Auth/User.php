@@ -13,7 +13,6 @@
         protected $initialPassword;
         protected $repeatPassword;
         protected $profile_pic;
-        
 
         public static function getUserbyId($id){
             $conn = DB::getConnection();
@@ -129,7 +128,7 @@
          */
         public function getProfile_pic()
         {
-            return $this->repeatPassword;
+            return $this->profile_pic;
         }
 
         /**
@@ -137,8 +136,14 @@
          */
         public function setProfile_pic($profile_pic)
         {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET profile_pic = :profile_pic where email = :email");
+            $statement->bindValue(":profile_pic", $profile_pic);
+            $statement->bindValue(":email", $this->email);
+            //execute returns boolean, see if upload was succesful
             $this->profile_pic = $profile_pic;
-            return $this;
+            $_SESSION["user"]["profile_pic"] = $profile_pic;
+            return $statement->execute();
         }
 
         public function canLogin()
@@ -228,4 +233,6 @@
             $user = $statement->fetch();
             return $user;
         }
+
+
     }
