@@ -13,6 +13,26 @@
         protected $initialPassword;
         protected $repeatPassword;
         protected $profile_pic;
+        
+        private function hashPassword($password){
+            $options=[
+                'cost' => 12,
+            ];
+
+            return password_hash($password, PASSWORD_DEFAULT, $options);
+        }
+
+        public static function checkPassword($password){
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number = preg_match('@[0-9]@', $password);
+            $specialChars = preg_match('@[^\w]@', $password);
+
+            if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 6) {
+                throw new Exception("Password should be at least 6 characters in length and should include at least one upper case letter, one number, and one special character.");
+            }
+            return true;
+        }
 
         public static function getUserbyId($id){
             $conn = DB::getConnection();
@@ -88,14 +108,7 @@
          */
         public function setPassword($initialPassword)
         {
-            $uppercase = preg_match('@[A-Z]@', $initialPassword);
-            $lowercase = preg_match('@[a-z]@', $initialPassword);
-            $number = preg_match('@[0-9]@', $initialPassword);
-            $specialChars = preg_match('@[^\w]@', $initialPassword);
-
-            if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($initialPassword) < 6) {
-                throw new Exception("Password should be at least 6 characters in length and should include at least one upper case letter, one number, and one special character.");
-            }
+            User::checkPassword($initialPassword);
             $this->initialPassword = $initialPassword;
             return $this;
         }
@@ -144,6 +157,30 @@
             $this->profile_pic = $profile_pic;
             $_SESSION["user"]["profile_pic"] = $profile_pic;
             return $statement->execute();
+        }
+
+        public function verifyPassword($password){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from users where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->execute();
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+            $hash = $user["password"];
+            if (password_verify($password, $hash)) {
+                return true;
+            } else {
+                throw new Exception("Wrong password");
+            }
+        }
+
+        public function changePassword($oldPassword, $newPassword){
+            if($this->verifyPassword($oldPassword) && User::checkPassword($newPassword)){
+                $conn = DB::getConnection();
+                $statement = $conn->prepare("UPDATE users SET password = :pw where email = :email");
+                $statement->bindValue(":pw", $this->hashPassword($newPassword));
+                $statement->bindValue(":email", $this->email);
+                return $statement->execute();
+            }
         }
 
         public function canLogin()
