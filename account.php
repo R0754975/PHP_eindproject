@@ -1,6 +1,7 @@
 <?php
     use imdmedia\Feed\Post;
     use imdmedia\Auth\Security;
+use imdmedia\Auth\User;
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -24,6 +25,10 @@
 
     $posts = Post::getPage($page);
 
+    $user = new User();
+    $user->setUsername($_SESSION['user']['username']);
+    $user->setEmail($_SESSION['user']['email']);
+    $user->setProfile_pic($_SESSION['user']['profile_pic']);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -37,7 +42,9 @@
     <div class="info">
         <div class="globalInfo">
             <div class="pic">
-                <div class="userPic"></div>
+                <div>
+                    <img lass="userPic" src="images/uploads/users/<?php echo $_SESSION['user']['username'] . "/" .  $_SESSION['user']['profile_pic'] ?>">
+                </div>
                 <button class="changePic"></button>
             </div>
             <div class="bioInfo">
