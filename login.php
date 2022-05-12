@@ -47,7 +47,7 @@ if (!empty($_POST)) {
 				<?php endif ?>
 				<?php if (isset($_GET["succes"])):?>
 					<p>
-					Your password has been succesfully updated.
+						Your password has been succesfully updated.
 					</p>
 				<?php endif ?>
 				<div class="form__field">
