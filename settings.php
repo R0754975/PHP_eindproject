@@ -1,6 +1,6 @@
 <?php
-    use imdmedia\Auth\Security;
-    use imdmedia\Auth\User;
+use imdmedia\Auth\Security;
+use imdmedia\Auth\User;
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -25,6 +25,28 @@
         }
     }
 
+if(isset($_POST['uploadProfilePicture'])){
+    session_start();
+    $user = new User();
+    $user->setUsername($_SESSION["user"]["username"]);
+    $user->setEmail($_SESSION["user"]["email"]);
+    $filename = $_FILES["uploadfile"]["name"];
+    $tempname = $_FILES["uploadfile"]["tmp_name"];
+    $folderPath = "images/uploads/users/" .$user->getUsername();
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0777, true);
+    }
+
+    $imagePath =  $folderPath . "/". $filename;
+    
+    if(move_uploaded_file($tempname, $imagePath)){
+        $user->setProfile_pic($filename);
+    }
+
+}
+
+
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,11 +54,30 @@
     <title>Account settings</title>
 </head>
 <body>
-    <?php include_once("inc/nav.inc.php"); ?>
+<?php include_once("inc/nav.inc.php"); ?>
 
-    <button class="changePass">Change password</button>
-    <a href="removeAccount.php">Delete account</a>
+<button class="changePass">Change password</button>
+<a href="removeAccount.php">Delete account</a>
     
+<button>Change profile picture</button>
+
+<form method="POST"
+        action=""
+        enctype="multipart/form-data">
+
+<div id="divUploadProfilePic">
+	<input type="file"
+                name="uploadfile"
+                value="" />
+
+        <div>
+            <button type="submit"
+                    name="uploadProfilePicture">
+                Update
+            </button>
+        </div>
+</div>
+</form>
 
     <form method="POST"
             action=""
@@ -65,6 +106,8 @@
                 Change password
             </button>
     </form>
-    <script type="module" src="main.js"></script>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>
+
