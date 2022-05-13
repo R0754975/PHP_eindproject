@@ -34,7 +34,8 @@ CREATE TABLE `posts` (
   `tags` varchar(255) DEFAULT NULL,
   `userid` int(11) NOT NULL,
   `filePath` varchar(2000) NOT NULL,
-  `userName` varchar(255) NOT NULL
+  `userName` varchar(255) NOT NULL,
+  `description` varchar(2000) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
