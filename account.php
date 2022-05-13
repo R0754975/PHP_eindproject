@@ -81,11 +81,6 @@
     <section class="feed profileFeed">
         <?php foreach ($posts as $key => $post): ?>
         <div class="post">
-            <?php if(isset($ownProfile)): ?>
-                <div class="removePost">
-                    <img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652177531/IMDMedia_Pictures/bin.svg" alt="Remove post">
-                </div>            
-            <?php endif; ?>
             <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
             <h3><?php echo htmlspecialchars($post['title']); ?></h3>
             <?php if ($auth == true): ?>
