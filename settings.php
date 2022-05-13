@@ -11,7 +11,7 @@ use imdmedia\Auth\User;
 
     if(isset($_POST['changePassword'])){
         $newPassword = $_POST["newPassword"];
-        session_start();
+        
         if($_POST["repeatPassword"] == $newPassword){
              $user = new User();
              $user->setEmail($_SESSION['user']["email"]);
@@ -26,7 +26,7 @@ use imdmedia\Auth\User;
     }
 
 if(isset($_POST['uploadProfilePicture'])){
-    session_start();
+    
     $user = new User();
     $user->setUsername($_SESSION["user"]["username"]);
     $user->setEmail($_SESSION["user"]["email"]);
@@ -44,6 +44,42 @@ if(isset($_POST['uploadProfilePicture'])){
     }
 
 }
+if(isset($_POST['updateBio'])){
+
+    $bio = $_POST['bio'];
+    $user = new User();
+    $user->setUsername($_SESSION["user"]["username"]);
+    $user->setEmail($_SESSION["user"]["email"]);
+
+
+    $user->setBio($bio);
+    
+    }
+
+
+    if(isset($_POST['updateEducation'])){
+
+        $education = $_POST['education'];
+        $user = new User();
+        $user->setUsername($_SESSION["user"]["username"]);
+        $user->setEmail($_SESSION["user"]["email"]);
+    
+    
+        $user->setEducation($education);
+        
+        }
+
+    if(isset($_POST['updateIg'])){
+
+            $ig = $_POST['ig'];
+            $user = new User();
+            $user->setUsername($_SESSION["user"]["username"]);
+            $user->setEmail($_SESSION["user"]["email"]);
+        
+        
+            $user->setIg($ig);
+            
+            }
 
 
 
@@ -53,7 +89,7 @@ if(isset($_POST['uploadProfilePicture'])){
     <?php include_once("inc/header.inc.php"); ?>
     <title>Account settings</title>
 </head>
-<body>
+<body bgcolor="red">
 <?php include_once("inc/nav.inc.php"); ?>
 
 <button class="changePass">Change password</button>
@@ -105,6 +141,31 @@ if(isset($_POST['uploadProfilePicture'])){
                     name="changePassword">
                 Change password
             </button>
+    </form>
+
+    <form action="" method="post">
+    <label for="bio">Biography</label>
+    <input type="text" id="bio" value="" name="bio">
+
+    <input type="submit" value="Update bio" name="updateBio">
+
+    </form>
+
+    <form action="" method="post">
+    <label for="education">Education</label>
+    <input type="text" id="education" value="" name="education">
+
+    <input type="submit" value="Update education" name="updateEducation">
+
+    </form>
+
+
+    <form action="" method="post">
+    <label for="ig">Instagram</label>
+    <input type="text" id="ig" value="" name="ig">
+
+    <input type="submit" value="Update instagram" name="updateIg">
+
     </form>
 
 <script type="module" src="main.js"></script>
