@@ -10,7 +10,15 @@
     boot();
     $auth = checkLoggedIn();
 
-   
+    if(isset($_POST['update'])) {
+        session_start();
+        $user = new User();
+
+        $user->setUsername($_SESSION['user']['username']);
+        $user->setEmail($_SESSION['user']['email']);
+        $user->setBio($bio);
+        
+    }
     
     
 
@@ -22,11 +30,10 @@
 </head>
 
 <body bgcolor="black">
-<?php include_once("inc/nav.inc.php"); ?>
 
-<form action="settingsUpdate.php" method="POST">
+<form action="" method="POST">
 
-<input type="text" name="bio" value="" placeholder="<?php echo $_SESSION['user']['bio']; ?>"> 
+    <input type="text" name="bio" value="" placeholder="<?php echo $_SESSION['user']['bio']; ?>"> 
     <input type="submit" name="update" value="Update">
 
 </form>

@@ -248,6 +248,20 @@
             return $user;
         }
 
+        public function updateBio($bio){
+
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET bio = :bio where email = :email");
+            $statement->bindValue(":bio", $bio);
+            $statement->bindValue(":email", $this->email);
+            $this->bio = $bio;
+            $_SESSION['user']['bio'] = $bio;
+            return $statement->execute();
+
+
+
+        }
+
         public function changeSettings($username, $email, $password, $profile_pic, $newpassword, $bio)
         {
             $conn = DB::getConnection();
