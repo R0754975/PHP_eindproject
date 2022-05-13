@@ -28,7 +28,7 @@
       </div>
       <div class="navRight">
           <?php if(isset($user)): ?>
-            <a href="post.php" class="primarybtn">Upload project</a>
+            <a href="upload.php" class="primarybtn">Upload project</a>
           <?php endif; ?>
           <div class="account">
               <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321618/IMDMedia_Pictures/searchIcon.png" alt="ProfilePic"></button>
