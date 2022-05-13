@@ -44,40 +44,21 @@ if(isset($_POST['uploadProfilePicture'])){
     }
 
 }
-if(isset($_POST['updateBio'])){
 
-    $bio = $_POST['bio'];
-    $user = new User();
-    $user->setUsername($_SESSION["user"]["username"]);
-    $user->setEmail($_SESSION["user"]["email"]);
-
-
-    $user->setBio($bio);
-    
-    }
-
-
-    if(isset($_POST['updateEducation'])){
-
-        $education = $_POST['education'];
-        $user = new User();
-        $user->setUsername($_SESSION["user"]["username"]);
-        $user->setEmail($_SESSION["user"]["email"]);
-    
-    
-        $user->setEducation($education);
-        
-        }
-
-    if(isset($_POST['updateIg'])){
-
+    if(isset($_POST['update'])){
+            
+            $bio = $_POST['bio'];
+            $education = $_POST['education'];
             $ig = $_POST['ig'];
+            $tw = $_POST['tw'];
             $user = new User();
             $user->setUsername($_SESSION["user"]["username"]);
             $user->setEmail($_SESSION["user"]["email"]);
         
-        
+            $user->setBio($bio);
+            $user->setEducation($education);
             $user->setIg($ig);
+            $user->setTw($tw);
             
             }
 
@@ -89,7 +70,7 @@ if(isset($_POST['updateBio'])){
     <?php include_once("inc/header.inc.php"); ?>
     <title>Account settings</title>
 </head>
-<body bgcolor="red">
+<body bgcolor="lightblue">
 <?php include_once("inc/nav.inc.php"); ?>
 
 <button class="changePass">Change password</button>
@@ -147,24 +128,24 @@ if(isset($_POST['updateBio'])){
     <label for="bio">Biography</label>
     <input type="text" id="bio" value="<?php echo $_SESSION['user']['bio']?>" name="bio">
 
-    <input type="submit" value="" name="updateBio">
 
-    </form>
 
-    <form action="" method="post">
+
     <label for="education">Education</label>
     <input type="text" id="education" value="<?php echo $_SESSION['user']['education']?>" name="education">
 
-    <input type="submit" value="Update education" name="updateEducation">
-
-    </form>
 
 
-    <form action="" method="post">
-    <label for="ig">Instagram</label>
+    <label for="ig">Instagram username</label>
     <input type="text" id="ig" value="<?php echo $_SESSION['user']['ig']?>" name="ig">
 
-    <input type="submit" value="Update instagram" name="updateIg">
+    <label for="tw">Twitter username</label>
+    <input type="text" id="tw" value="<?php echo $_SESSION['user']['tw']?>" name="tw">
+
+    <input type="submit" value="Update" name="update">
+
+
+
 
     </form>
 

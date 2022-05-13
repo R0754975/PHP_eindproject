@@ -65,7 +65,8 @@ CREATE TABLE `users` (
   `profile_pic` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `bio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `education` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ig` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `ig` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tw` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
