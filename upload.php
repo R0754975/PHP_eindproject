@@ -21,7 +21,6 @@ if (isset($_POST['submit'])) {
             $post->setFile($file);
             $post->setUsername($username);
             $post->setTags($tags);
-            $post->setDescription($description);
             $post->upload();
             $post->save();
             header("Location: ./index.php?uploadsuccess");
