@@ -15,6 +15,7 @@
         protected $profile_pic;
         protected $bio;
         protected $education;
+        protected $ig;
         
         private function hashPassword($password){
             $options=[
@@ -164,7 +165,7 @@
             return $statement->execute();
         }
 
-           /**
+        /**
          * Get the value of education
          */
         
@@ -184,6 +185,30 @@
             //execute returns boolean, see if upload was succesful
             $this->education = $education;
             $_SESSION["user"]["education"] = $education;
+            return $statement->execute();
+        }
+
+
+        /**
+         * Get the value of instagram
+         */
+        
+        public function getIg() {
+            return $this->ig;
+        }
+
+         /**
+         * Set the value of education
+         */
+        
+        public function setIg($ig) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET ig = :ig where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":ig", $ig);
+            //execute returns boolean, see if upload was succesful
+            $this->ig = $ig;
+            $_SESSION["user"]["ig"] = $ig;
             return $statement->execute();
         }
 

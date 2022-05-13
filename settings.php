@@ -69,6 +69,17 @@ if(isset($_POST['updateBio'])){
         
         }
 
+    if(isset($_POST['updateIg'])){
+
+            $ig = $_POST['ig'];
+            $user = new User();
+            $user->setUsername($_SESSION["user"]["username"]);
+            $user->setEmail($_SESSION["user"]["email"]);
+        
+        
+            $user->setIg($ig);
+            
+            }
 
 
 
@@ -78,7 +89,7 @@ if(isset($_POST['updateBio'])){
     <?php include_once("inc/header.inc.php"); ?>
     <title>Account settings</title>
 </head>
-<body>
+<body bgcolor="red">
 <?php include_once("inc/nav.inc.php"); ?>
 
 <button class="changePass">Change password</button>
@@ -145,6 +156,15 @@ if(isset($_POST['updateBio'])){
     <input type="text" id="education" value="" name="education">
 
     <input type="submit" value="Update education" name="updateEducation">
+
+    </form>
+
+
+    <form action="" method="post">
+    <label for="ig">Instagram</label>
+    <input type="text" id="ig" value="" name="ig">
+
+    <input type="submit" value="Update instagram" name="updateIg">
 
     </form>
 
