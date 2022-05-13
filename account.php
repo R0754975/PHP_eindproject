@@ -1,5 +1,7 @@
 <?php
     use imdmedia\Feed\Post;
+    use imdmedia\Auth\User;
+    use imdmedia\data\DB;
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -23,6 +25,48 @@
 
     $posts = Post::getPage($page);
 
+    if(!empty($_POST)){
+
+        $u = new User();
+        $email = $_SESSION['email'];
+        $username = $_POST['username'];
+        $bio = $_SESSION['bio'];
+        $initialPassword = $_POST['initialPassword'];
+        $repeatPassword = $_POST['repeatPassword'];
+    
+        $profile_pic = "";
+        $destFile = "";
+        $fotonaam = $_FILES['profile_pic']['tmp_name'];
+        if (!empty($fotonaam)) {$foto = file_get_contents($fotonaam);}
+    
+        $temp = explode(".", $_FILES['profile_pic']['name']);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $foto = $newfilename;
+    
+        $profile_pic = $foto;
+    
+        $newpassword = "";
+        if(!empty($_POST['newPassword'])) {
+            $salt = "qsdfg23fnjfhuu!";
+            $newpassword = $_POST['newPassword'].$salt;
+        } 
+    
+        define ('SITE_ROOT', realpath(dirname(_FIfLE_)));
+    
+        $result = $u->changeSettings($username, $email, $password, $profile_pic, $newpassword, $bio);
+    
+        if($result === true){
+    
+            if ($fotonaam != NULL){
+                $destFile = _DIR_ . '/images/uploads/profile_pic/' . $profile_pic;
+                move_uploaded_file($_FILES['profile_pic']['tmp_name'], $destFile);
+                chmod($destFile, 0666);
+            }
+            echo "<script>location='index.php'</script>";
+        }else{
+            echo $result;
+        }
+    }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -43,7 +87,7 @@
                 <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
                 <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
                 <div class="bio profile">
-                    <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
+                    <p class="bioInput"><?php echo $_SESSION['user']['bio']; ?></p>
                     <button class="changeButton"></button>
                 </div>
             </div>

@@ -13,6 +13,7 @@
         protected $initialPassword;
         protected $repeatPassword;
         protected $profile_pic;
+        protected $bio;
         
 
         public static function getUserbyId($id){
@@ -129,7 +130,7 @@
          */
         public function getProfile_pic()
         {
-            return $this->repeatPassword;
+            return $this->profile_pic;
         }
 
         /**
@@ -138,6 +139,24 @@
         public function setProfile_pic($profile_pic)
         {
             $this->profile_pic = $profile_pic;
+            return $this;
+        }
+
+        /**
+         * Get the value of bio
+         */
+
+        public function getBio()
+        {
+            return $this->bio;
+        }
+
+        /**
+         * Set the value of bio
+         */
+        public function setBio($bio)
+        {
+            $this->bio = $bio;
             return $this;
         }
 
@@ -227,5 +246,41 @@
             $statement->execute();
             $user = $statement->fetch();
             return $user;
+        }
+
+        public function changeSettings($username, $email, $password, $profile_pic, $newpassword, $bio)
+        {
+            $conn = DB::getConnection();
+            $statementA = $conn->prepare("select * from users where email = :email");
+            $statementA->bindValue("email", $this->email);
+            $statementA->execute();
+            $result = $statementA->fetch();
+
+            if(password_verify($newpassword, $result['wachtwoord']) ){
+                //if ($userExist == 0) {
+                    //username bestaat niet of is niet veranderd, gegevens aanpassen
+            
+                    $conn =  Db::getConnection();
+                    $statement = $conn->prepare("UPDATE users SET username=:username, wachtwoord=:wachtwoord, profile_pic=:profile_pic, bio=:bio WHERE email = :email");
+                    $statement->bindParam(":username", $username);
+                    $statement->bindParam(":wachtwoord", $password);
+                    $statement->bindParam(":profile_pic", $profile_pic);
+                    $statement->bindParam(":bio", $bio);
+                    $statement->bindParam(":email", $email);
+                
+
+                    if($statement->execute()){
+                        return true;
+                    }else{
+                        echo "Er is iets foutgelopen bij het updaten.";
+                    }
+                // }else{
+                //     //username bestaat wel, mag niet veranderd worden
+                //     return "ERROR: Gelieve een andere username te kiezen";
+                // }
+            } else {
+                echo "Fout wachtwoord.";
+                return false;
+            }
         }
     }
