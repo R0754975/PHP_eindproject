@@ -13,6 +13,8 @@
         protected $initialPassword;
         protected $repeatPassword;
         protected $profile_pic;
+        protected $bio;
+        protected $education;
         
         private function hashPassword($password){
             $options=[
@@ -134,7 +136,59 @@
 
             return $this;
         }
-                
+
+
+        /**
+         * Get the value of bio
+         */
+        
+        public function getBio() {
+            return $this->bio;
+        }
+
+
+        
+
+        /**
+         * Set the value of bio
+         */
+        
+        public function setBio($bio) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET bio = :bio where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":bio", $bio);
+            //execute returns boolean, see if upload was succesful
+            $this->bio = $bio;
+            $_SESSION["user"]["bio"] = $bio;
+            return $statement->execute();
+        }
+
+           /**
+         * Get the value of education
+         */
+        
+        public function getEducation() {
+            return $this->education;
+        }
+
+         /**
+         * Set the value of education
+         */
+        
+        public function setEducation($education) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET education = :education where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":education", $education);
+            //execute returns boolean, see if upload was succesful
+            $this->education = $education;
+            $_SESSION["user"]["education"] = $education;
+            return $statement->execute();
+        }
+
+        
+         
              
         /**
          * Get the value of profile_pic
@@ -218,6 +272,7 @@
             $statement->bindValue("username", $this->username);
             $statement->bindValue("email", $this->email);
             $statement->bindValue("password", $passwordHash);
+            
             $statement->execute();
 
             $userId = $conn->lastInsertId();
