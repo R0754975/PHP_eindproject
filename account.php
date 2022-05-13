@@ -27,6 +27,10 @@
     if(isset($_GET['Account'])){
         $user = $_GET['Account'];
         $profileUser = User::getUserByUsername($user);
+
+        if($profileUser['id'] == $_SESSION['user']['id']){
+            $ownProfile = true;
+        }
     }
 
 ?><!DOCTYPE html>
@@ -49,7 +53,9 @@
                 <h3 class="profileEmail profile"><?php echo $profileUser['email']; ?></h3>
                 <div class="bio profile">
                     <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
-                    <button class="changeButton"></button>
+                    <?php if(isset($ownProfile)): ?>
+                        <button class="changeButton">Button</button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -75,6 +81,11 @@
     <section class="feed profileFeed">
         <?php foreach ($posts as $key => $post): ?>
         <div class="post">
+            <?php if(isset($ownProfile)): ?>
+                <div class="removePost">
+                    <img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652177531/IMDMedia_Pictures/bin.svg" alt="Remove post">
+                </div>            
+            <?php endif; ?>
             <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
             <h3><?php echo htmlspecialchars($post['title']); ?></h3>
             <?php if ($auth == true): ?>
