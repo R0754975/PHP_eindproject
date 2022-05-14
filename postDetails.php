@@ -19,6 +19,17 @@
         }
     }
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_POST['confirm'] == 'Yes') {
+            var_dump("delete");
+            Post::deletePostById($postId);
+            header("Location: index.php");
+        }else{
+            //redirect($_POST['referer']);
+            var_dump("not delete");
+        }
+    }
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -39,23 +50,13 @@
         <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
         <?php endforeach ?>
         <?php if(isset($ownProfile)): ?>
-            <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if ($_POST['confirm'] == 'Yes') {
-                    var_dump("delete");
-                    //delete_record($_REQUEST['id']); // From GET or POST variables
-                }else{
-                    //redirect($_POST['referer']);
-                    var_dump("not delete");
-                }
-            }
-            ?>
 
-<form action="" method="post">
-    <p>Are you sure?</p>
-    <input type="submit" name="confirm" value="Yes">
-    <input type="submit" name="confirm" value="No">
-</form>
+        <button class="deleteBtn">Delete</button>
+        <form class="delete" action="" method="post">
+            <p>Are you sure?</p>
+            <input class="yesBtn" type="submit" name="confirm" value="Yes">
+            <input class="noBtn" type="submit" name="confirm" value="No">
+        </form>
 
         <?php endif; ?>
         <?php endif ?>
@@ -79,5 +80,6 @@
     </section>
 
     <script type="module" src="main.js"></script>
+    <script src="postDetails.js"></script>
 </body>
 </html>
