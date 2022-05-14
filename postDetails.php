@@ -21,12 +21,8 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($_POST['confirm'] == 'Yes') {
-            var_dump("delete");
             Post::deletePostById($postId);
             header("Location: index.php");
-        }else{
-            //redirect($_POST['referer']);
-            var_dump("not delete");
         }
     }
 
@@ -53,9 +49,13 @@
 
         <button class="deleteBtn">Delete</button>
         <form class="delete" action="" method="post">
+            <div class="confirmation">
             <p>Are you sure?</p>
-            <input class="yesBtn" type="submit" name="confirm" value="Yes">
-            <input class="noBtn" type="submit" name="confirm" value="No">
+            <div class="deleteBtns">
+                <input class="yesBtn confirmationBtn" type="submit" name="confirm" value="Yes">
+                <input class="noBtn confirmationBtn" type="submit" name="confirm" value="No">
+            </div>
+            </div>
         </form>
 
         <?php endif; ?>
