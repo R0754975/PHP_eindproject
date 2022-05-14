@@ -48,17 +48,19 @@
             <?php endif; ?>
             <section class="feed">
                 <?php foreach ($posts as $key => $post): ?>
-                <div class="post">
-                    <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
-                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
-                    <?php if ($auth == true): ?>
-                    <a href="account.php?Account=<?php echo htmlspecialchars($post['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($post['userName']); ?></a>
-                    <?php $tags = json_decode($post['tags']); ?>
-                    <?php foreach ($tags as $tag): ?>
-                    <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
-                    <?php endforeach ?>
-                    <?php endif ?>
-                </div>
+                <a href="postDetails.php?Post=<?php echo htmlspecialchars($post['id']); ?>">
+                    <div class="post">
+                        <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
+                        <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+                        <?php if ($auth == true): ?>
+                        <a href="account.php?Account=<?php echo htmlspecialchars($post['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($post['userName']); ?></a>
+                        <?php $tags = json_decode($post['tags']); ?>
+                        <?php foreach ($tags as $tag): ?>
+                        <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
+                        <?php endforeach ?>
+                        <?php endif ?>
+                    </div>
+                </a>
                 <?php endforeach; ?>    
             </section>
             <?php include_once("inc/footer.inc.php"); ?>
