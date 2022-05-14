@@ -4,7 +4,7 @@
         $username = $user['username'];
     }
 
-  if (!empty($_POST)) {
+  if (!empty($_POST["search"])) {
     try {
         $value = $_POST["search"];
     } catch (Throwable $e) {
