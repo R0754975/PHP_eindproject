@@ -5,7 +5,7 @@
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
         boot();
-        checkAuthorisation();
+        //checkAuthorisation();
 
     $user = $_SESSION['user'];
     var_dump($user);
@@ -40,6 +40,6 @@
             <input type="submit" value="Remove account" class="formbtn primarybtn">
         </div>
     </form>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="./js/sass.js"></script>
 </body>
 </html>

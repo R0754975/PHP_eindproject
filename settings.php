@@ -168,7 +168,7 @@ if(isset($_POST['updateBio'])){
 
     </form>
 
-<script type="module" src="main.js"></script>
+    <script type="module" src="./js/sass.js"></script>
 </body>
 </html>
 

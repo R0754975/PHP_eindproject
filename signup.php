@@ -76,6 +76,6 @@
     <div class="formFilling">
         <img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321304/IMDMedia_Pictures/Home_eye.png" alt="IMD eye" class="fillingImage">
     </div>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="./js/sass.js"></script>
 </body>
 </html>

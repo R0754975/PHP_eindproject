@@ -103,6 +103,6 @@
     </div>
 
     <?php include_once("inc/footer.inc.php"); ?>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="./js/sass.js"></script>
 </body>
 </html>

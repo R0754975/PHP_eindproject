@@ -64,5 +64,6 @@
                 <?php endforeach; ?>    
             </section>
             <?php include_once("inc/footer.inc.php"); ?>
+            <script type="module" src="./js/sass.js"></script>
         </body>
         </html>

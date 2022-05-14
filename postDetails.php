@@ -57,8 +57,13 @@
             </div>
             </div>
         </form>
-
+        <?php else: ?>
+            <div>
+                <a href="#" class="rapport" data-post="1">Rapport</a>
+            </div>
         <?php endif; ?>
+
+
         <?php endif ?>
 
     </section>
@@ -79,7 +84,7 @@
         <?php endforeach; ?>    
     </section>
 
-    <script type="module" src="main.js"></script>
-    <script src="postDetails.js"></script>
+    <script type="module" src="./js/sass.js"></script>
+    <script src="js/postDetails.js"></script>
 </body>
 </html>
