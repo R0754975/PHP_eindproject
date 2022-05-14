@@ -7,9 +7,12 @@ notConfirmd.addEventListener("click", removeConfirmation);
 
 function showConfirmation(){
     console.log("ok")
-    confirmation.style.display = "block"
+    confirmation.classList.toggle("show");
+    confirmation.classList.toggle("delete");
 }
 
 function removeConfirmation(){
+    console.log("nee");
     confirmation.style.display = "none";
+    deleteBtn.addEventListener("click", showConfirmation);
 }
