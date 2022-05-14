@@ -23,6 +23,7 @@
             if (isset($_SESSION['user'])) {
                 return true;
             } else {
+                header("Location: login.php");
                 return false;
             }
         }
