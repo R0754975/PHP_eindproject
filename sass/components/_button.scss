@@ -27,3 +27,48 @@ button{
     align-items: center;
     justify-content: center;
 }
+
+.delete{
+    display: none;
+}
+
+.confirmation{
+    width: 250px;
+    padding: 0.8em;
+    border-radius: 3px;
+    background-color: colors.$input;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.show{
+    display: block;
+}
+
+.confirmationBtn{
+    width: 100px;
+    margin: 0.2em;
+    border-radius: 3px;
+    border: none;
+}
+
+.deleteBtns{
+    display: flex;
+    flex-direction: row;
+} 
+
+.confirmation p{
+    align-self: center;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.yesBtn{
+    background-color: colors.$secure;
+}
+
+.noBtn{
+    background-color: colors.$danger;
+}
