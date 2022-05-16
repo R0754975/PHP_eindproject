@@ -82,3 +82,7 @@ input{
 .nav img{
     max-width: 3em;
 }
+
+.status-not-available, .status-available {
+    color: colors.$offWhite;
+}

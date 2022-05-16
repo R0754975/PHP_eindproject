@@ -4,6 +4,7 @@ use imdmedia\Auth\Security;
 
  require __DIR__ . '/vendor/autoload.php';
  include_once("inc/functions.inc.php");
+boot(); 
 Security::onlyLoggedInUsers();
 if (isset($_POST['submit'])) {
     if (isset($_SESSION['user'])) {

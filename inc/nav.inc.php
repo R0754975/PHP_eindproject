@@ -4,11 +4,7 @@
         $username = $user['username'];
     }
 
-<<<<<<< HEAD
-  if (!empty($_POST["search"])) {
-=======
   if (!empty($_POST['search'])) {
->>>>>>> 560d8525e11ed3201d7e55ba6a9283da41154494
     try {
         $value = $_POST["search"];
     } catch (Throwable $e) {

@@ -101,6 +101,10 @@ input {
   max-width: 3em;
 }
 
+.status-not-available, .status-available {
+  color: white;
+}
+
 button {
   background-color: transparent;
   border: none;
@@ -127,6 +131,51 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.delete {
+  display: none;
+}
+
+.confirmation {
+  width: 250px;
+  padding: 0.8em;
+  border-radius: 3px;
+  background-color: #E6E6ED;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.show {
+  display: block;
+}
+
+.confirmationBtn {
+  width: 100px;
+  margin: 0.2em;
+  border-radius: 3px;
+  border: none;
+}
+
+.deleteBtns {
+  display: flex;
+  flex-direction: row;
+}
+
+.confirmation p {
+  align-self: center;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.yesBtn {
+  background-color: green;
+}
+
+.noBtn {
+  background-color: #FF2424;
 }
 
 h1 {
@@ -269,7 +318,7 @@ p {
 
 .post img {
   border-radius: 4px;
-  max-width: 100%;
+  width: 100%;
 }
 
 .post h3 {
@@ -353,6 +402,7 @@ p {
 
 .userPic {
   margin: 100px 70px 30px 0;
+  background-color: yellow;
   width: 10vw;
   height: 10vw;
   border-radius: 50%;

@@ -126,7 +126,7 @@ Configuration::instance([
    
   
             if ($fileError === 0) {
-                if ($fileSize < 1000000) {
+                if ($fileSize < 5000000) {
 
                             //uploads file to cloudinary
                     $cloudinary = (new uploadApi())->upload(
