@@ -437,24 +437,4 @@ Configuration::instance([
         }
 
 
-        public function getTw() {
-            return $this->tw;
-        }
-
-         /**
-         * Set the value of twitter
-         */
-
-        public function setTw($tw) {
-            $conn = DB::getConnection();
-            $statement = $conn->prepare("UPDATE users SET tw = :tw where email = :email");
-            $statement->bindValue(":email", $this->email);
-            $statement->bindValue(":tw", $tw);
-            //execute returns boolean, see if upload was succesful
-            $this->tw = $tw;
-            $_SESSION["user"]["tw"] = $tw;
-            return $statement->execute();
-        }
-
-
     }
