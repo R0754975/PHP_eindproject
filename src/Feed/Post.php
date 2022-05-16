@@ -210,4 +210,29 @@ Configuration::instance([
             return $result->fetchAll();
         }
 
+        public static function getPostById($postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from posts where id = :id");
+            $statement->bindValue(':id', $postId);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+
+        public static function getPostByTags($postTags){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from posts where tags like :tags");
+            $statement->bindValue(':tags', "%" . $postTags ."%");
+            $statement->execute();
+            $result = $statement->fetchAll();
+            return $result;
+        }
+
+        public static function deletePostById($postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("delete from posts where id like :id");
+            $statement->bindValue(':id', $postId);
+            return $statement->execute();
+        }
+
     }

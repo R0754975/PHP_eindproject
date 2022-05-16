@@ -70,7 +70,7 @@ if(isset($_POST['uploadProfilePicture'])){
     <?php include_once("inc/header.inc.php"); ?>
     <title>Account settings</title>
 </head>
-<body bgcolor="grey">
+<body>
 <?php include_once("inc/nav.inc.php"); ?>
 
 <button class="changePass">Change password</button>
