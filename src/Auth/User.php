@@ -5,6 +5,16 @@
     use Exception;
     use imdmedia\Data\DB;
     use PDO;
+    use Cloudinary\Api\Upload\UploadApi;
+    use Cloudinary\Configuration\Configuration;
+
+Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'dzhrxvqre',
+          'api_key' => '387513213267173',
+          'api_secret' => '1lBrjQy2GXP39NT1pwnvD1SxyKo'],
+        'url' => [
+          'secure' => true]]);
 
     class User
     {
@@ -228,15 +238,55 @@
          */
         public function setProfile_pic($profile_pic)
         {
+            $this->profile_pic = $profile_pic;
+            return $this;
+        }
+
+        public function saveProfile_pic() {
             $conn = DB::getConnection();
             $statement = $conn->prepare("UPDATE users SET profile_pic = :profile_pic where email = :email");
-            $statement->bindValue(":profile_pic", $profile_pic);
+            $statement->bindValue(":profile_pic", $this->profile_pic);
             $statement->bindValue(":email", $this->email);
             //execute returns boolean, see if upload was succesful
-            $this->profile_pic = $profile_pic;
-            $_SESSION["user"]["profile_pic"] = $profile_pic;
+            $_SESSION["user"]["profile_pic"] = $this->profile_pic;
             return $statement->execute();
         }
+
+        public function uploadProfile_Pic($file) {
+            $fileTmpName = $file['tmp_name'];
+            $fileSize = $file['size'];
+            $fileError = $file['error'];
+
+            if ($fileError === 0) {
+                if ($fileSize < 5000000) {
+
+                            //uploads file to cloudinary
+                    $cloudinary = (new uploadApi())->upload(
+                        $fileTmpName,
+                        [
+                                'folder' => 'Profile_Pictures/',
+                                "format" => "webp",
+                                ]
+                    );
+                    //stores the new url in the class
+                    $this->setProfile_pic($cloudinary['url']);
+                    $this->saveProfile_pic();
+                } else {
+                    throw new Exception("Your file is too big!");
+                }
+            } else {
+                throw new Exception("There was an error uploading your file!");
+            }
+        }
+
+
+
+        
+
+
+
+
+
 
         public function verifyPassword($password){
             $conn = DB::getConnection();

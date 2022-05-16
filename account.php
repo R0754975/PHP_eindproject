@@ -46,7 +46,7 @@
         <div class="globalInfo">
             <div class="pic">
                 <div>
-                    <img lass="userPic" src="images/uploads/users/<?php echo $profileUser['username'] . "/" . $profileUser['profile_pic'] ?>">
+                    <img class="userPic" src="<?php echo $profileUser['profile_pic'];?>">
                 </div>
                 <button class="changePic"></button>
             </div>
