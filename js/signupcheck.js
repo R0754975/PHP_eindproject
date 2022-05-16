@@ -3,7 +3,7 @@ function userAvailability(){
 	
 	$.ajax({
 		type:"POST",
-		url:"ajax/userCheck.php",
+		url:"ajax/checkAvailability.php",
 		cache:false,
 		data:{
 			type:1,
@@ -20,7 +20,7 @@ function emailAvailability(){
 	
 	$.ajax({
 		type:"POST",
-		url:"ajax/emailCheck.php",
+		url:"ajax/checkAvailability.php",
 		cache:false,
 		data:{
 			type:1,
