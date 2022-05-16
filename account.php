@@ -51,10 +51,10 @@
                 <button class="changePic"></button>
             </div>
             <div class="bioInfo">
-                <h1 class="profileUsername profile"><?php echo $profileUser['username']; ?></h1>
-                <h3 class="profileEmail profile"><?php echo $profileUser['email']; ?></h3>
+                <h1 class="profileUsername profile"><?php echo htmlspecialchars($profileUser['username']); ?></h1>
+                <h3 class="profileEmail profile"><?php echo htmlspecialchars($profileUser['email']); ?></h3>
                 <div class="bio profile">
-                    <p class="bioInput"><?php echo $profileUser['bio']; ?></p>
+                    <p class="bioInput"><?php echo htmlspecialchars($profileUser['bio']); ?></p>
                     <?php if(isset($ownProfile)): ?>
                         <button class="changeButton">Button</button>
                     <?php endif; ?>
@@ -66,7 +66,7 @@
                 <div class="education">
                     <h2>Education</h2>
                     <ul>
-                        <li><?php echo $profileUser['education']; ?></li>
+                        <li><?php echo htmlspecialchars($profileUser['education']); ?></li>
                     </ul>
                 </div>
                 <div class="socialMedia">
