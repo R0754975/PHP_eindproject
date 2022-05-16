@@ -25,14 +25,12 @@ use imdmedia\Auth\User;
         }
     }
 
-if(isset($_POST['submit'])){
-    
+if (isset($_POST['submit'])) {
     $file = $_FILES['file'];
     $user = new User();
     $user->setEmail($_SESSION['user']["email"]);
     $user->uploadProfile_Pic($file);
-
-
+}
 
 
     if(isset($_POST['update'])){
@@ -105,7 +103,7 @@ if(isset($_POST['submit'])){
                 <input type="text" id="ig" value="<?php echo $_SESSION['user']['ig']?>" name="ig">
             
                 <label for="tw">Twitter username</label>
-                <input type="text" id="tw" value="<?php echo $_SESSION['user']['tw']?>" name="tw">
+                <input type="text" id="tw" value="<?php echo $_SESSION['user']['tw'];?>" name="tw">
             
                 <input type="submit" value="Update" name="update">
             </form>
