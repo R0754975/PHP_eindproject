@@ -33,8 +33,9 @@ if(isset($_POST['submit'])){
     $user->uploadProfile_Pic($file);
 
 
-}
-if(isset($_POST['update'])){
+
+
+    if(isset($_POST['update'])){
             
             $bio = $_POST['bio'];
             $education = $_POST['education'];
@@ -52,7 +53,7 @@ if(isset($_POST['update'])){
     }
 
 
-            ?><!DOCTYPE html>
+              ?><!DOCTYPE html>
             <html lang="en">
             <head>
                 <?php include_once("inc/header.inc.php"); ?>
