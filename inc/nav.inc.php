@@ -4,13 +4,9 @@
         $username = $user['username'];
     }
 
-<<<<<<< HEAD
-  if (!empty($_POST["search"])) {
-=======
-  if (!empty($_POST['search'])) {
->>>>>>> 560d8525e11ed3201d7e55ba6a9283da41154494
+  if (!empty($_GET["search"])) {
     try {
-        $value = $_POST["search"];
+        $value = $_GET["search"];
     } catch (Throwable $e) {
         $error = $e->getMessage();
     }
@@ -20,7 +16,7 @@
           <a href="./index.php"><img src="./images/computer.png" alt="IMDMedia logo" class="logo"></a>
       </div>
       <div>
-          <form action="" method="post" class="searchBar">
+          <form action="" method="get" class="searchBar">
               <div class="form__field">
                   <input type="text" name="search" placeholder="search posts">
               </div>
