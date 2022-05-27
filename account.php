@@ -2,6 +2,8 @@
     use imdmedia\Feed\Post;
     use imdmedia\Auth\Security;
     use imdmedia\Auth\User;
+    use imdmedia\Data\Follow;
+
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
     
@@ -30,6 +32,20 @@
 
         if($profileUser['id'] == $_SESSION['user']['id']){
             $ownProfile = true;
+        }
+    }
+
+    $followData = 0;
+    $follow = "follow";
+    if(isset($_SESSION['user']['id'])){
+        $followCheck = Follow::checkFollow($_SESSION['user']['id'], $user = $profileUser['id']);
+        if($followCheck === true) {
+            $followData = 1;
+            $follow = "unfollow";
+        }
+        else {
+            $followData = 0;
+            $follow = "follow";
         }
     }
 
@@ -67,9 +83,9 @@
                 <a style="text-decoration: none;" href="#" id="followbtn" 
                 data-following-User="<?php echo $_SESSION['user']['id'];?>" 
                 data-followed-User="<?php echo $profileUser['id'];?>"
-                data-follow="0"
+                data-follow="<?php echo $followData;?>"
                 >
-                <h2 id="followTxt">follow</h2>
+                <h2 id="followTxt"><?php echo $follow;?></h2>
                 </a>
                 </div>
                 <div class="education">
