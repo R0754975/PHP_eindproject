@@ -436,5 +436,22 @@ Configuration::instance([
             return $user;
         }
 
+        public static function checkEmailAvailability($email) {
+            $con = DB::getConnection();
+            $statement = $con->prepare("select * from users where email = :email");
+            $statement->bindValue("email", $email);
+            $statement->execute();
+            $rowcount = $statement->rowCount();
+            return $rowcount;
+        }
+        public static function checkUsernameAvailability($username) {
+            $con = DB::getConnection();
+            $statement = $con->prepare("select * from users where username = :username");
+            $statement->bindValue("username", $username);
+            $statement->execute();
+            $rowcount = $statement->rowCount();
+            return $rowcount;
+        }
+
 
     }

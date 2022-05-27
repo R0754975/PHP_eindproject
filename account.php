@@ -63,6 +63,15 @@
         </div>
         <div class="extraInfo">
             <section>
+                <div>
+                <a style="text-decoration: none;" href="#" id="followbtn" 
+                data-following-User="<?php echo $_SESSION['user']['id'];?>" 
+                data-followed-User="<?php echo $profileUser['id'];?>"
+                data-follow="0"
+                >
+                <h2 id="followTxt">follow</h2>
+                </a>
+                </div>
                 <div class="education">
                     <h2>Education</h2>
                     <ul>
@@ -104,5 +113,6 @@
 
     <?php include_once("inc/footer.inc.php"); ?>
     <script type="module" src="main.js"></script>
+    <script src="js/follow.js"></script>
 </body>
 </html>
