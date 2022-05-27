@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Apr 25, 2022 at 12:52 PM
--- Server version: 5.7.24
--- PHP Version: 7.4.1
+-- Host: 127.0.0.1
+-- Generation Time: May 27, 2022 at 12:42 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,6 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `follows`
+--
+
+CREATE TABLE `follows` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `following_user` int(11) NOT NULL,
+  `followed_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
@@ -34,7 +45,8 @@ CREATE TABLE `posts` (
   `tags` varchar(255) DEFAULT NULL,
   `userid` int(11) NOT NULL,
   `filePath` varchar(2000) NOT NULL,
-  `userName` varchar(255) NOT NULL
+  `userName` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -73,6 +85,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexes for table `follows`
+--
+ALTER TABLE `follows`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
@@ -93,6 +111,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `follows`
+--
+ALTER TABLE `follows`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `posts`
