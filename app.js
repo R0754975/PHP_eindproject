@@ -1,7 +1,7 @@
 document.querySelector("#btnAddComment").addEventListener("click", function(){
 
     let postId = this.dataset.postId;
-    let message = document.querySelector("#commentText").nodeValue;
+    let message = document.getElementById("commentText").Value;
 
     let formData = new FormData();
 
