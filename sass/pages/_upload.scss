@@ -27,7 +27,7 @@
 }
 
 .upload__form__fields{
-    width: 80%;
+    width: 100%;
 }
 .postForm{
     width: 80%;
@@ -80,6 +80,40 @@
     width: 80%;
 }
 
+.update{
+    margin: none;
+    padding: none;
+}
+#bio{
+    width: 100%;
+}
+
+.postForm div{
+    margin: none;
+    padding: none;
+    width: 100%;
+}
+
+.postForm form{
+    margin: none;
+    width: 100%;
+}
+
+.updateSettings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.updateSettings input{
+    margin: 5px 0;
+}
+
+.updateSettings form{
+    border: 1px;
+    border-color: colors.$primary;
+}
 
 /*
 .postForm {
