@@ -50,10 +50,10 @@
     font-size:1em;
 }
 
-.postTags{
-    background-color: colors.$secundary;
+.text__tags{
+    background-color: colors.$input;
     border-radius: 2px;
-    color: colors.$offWhite;
+    color: rgba(128, 128, 128, 0.666);
     padding-left:0px;
     padding: 0.1em 0.4em;
     margin: 0.1em;
@@ -85,17 +85,103 @@
     text-align: center;
 }
 
-.postDetails{
+.details{
+    padding-top: 30px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.details__imgSRC{
+    margin-left: none;
+    padding-left: none;
+    max-width: 80%;
+    border-radius: 6px;
+}
+
+.details__img{
     display: flex;
     flex-direction: row;
-    align-items:flex-start;
+    align-items: center;
     justify-content: center;
 }
 
-.postDetails__img{
-    margin-left: none;
-    padding-left: none;
-    max-width: 50%;
-    object-fit: cover;
+.details__details{
+    max-width: 70%;
 }
+
+.details__text{
+    font-family: fonts.$jakartaSans, sans-serif;
+    font-weight:500;
+    font-size: 1em;
+    color: colors.$offBlack;
+    text-decoration: none;;
+}
+
+.details__text__title{
+    padding-top: 15px;
+    font-size: 2em;
+    font-weight:800;
+}
+
+.details__text--account{
+    font-size: 0.9em;
+    font-weight: 700;
+    padding-top: 20px;
+}
+
+.details__text__subtitle{
+    font-weight: 900;
+    font-size: 0.9em;
+}
+
+.details__text__subtitle--description{
+    padding: 40px 0 20px;
+}
+
+.details__text--description{
+    font-weight: 60550;
+    font-size: 0.75em;
+}
+
+.details__text--tags{
+    color: rgba(101, 100, 100, 0.666);
+    margin: 30px 5px;
+    margin-top: 500px;
+}
+
+.details__drop{
+    position: relative;
+    display: inline-block;
+}
+
+.details__drop:hover .dropdownContent{
+    display: block;
+    position: absolute;
+    right: 0;
+    padding: 15px;
+    border: 10px;
+    border-color: colors.$primary;
+    border-radius: 3px;
+    background-color: colors.$input;
+    min-width: 10em;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.details__header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details__dropbtn{
+    width: 5px;
+}
+
+.details__dropdownContent{
+    background-color: black;
+}
+
+
 

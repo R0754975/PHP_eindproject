@@ -6,8 +6,9 @@ use imdmedia\Auth\Security;
  include_once("inc/functions.inc.php");
 boot(); 
 Security::onlyLoggedInUsers();
-if (isset($_POST['submit'])) {
-    if (isset($_SESSION['user'])) {
+
+if (isset($_SESSION['user'])) {
+    if (isset($_POST['submit'])) {
         try {
             $user = $_SESSION['user'];
             $username = $user['username'];
@@ -29,6 +30,8 @@ if (isset($_POST['submit'])) {
             $error = $e->getMessage();
         }
     }
+}else{
+    header("Location: login.php");
 }
 
 ?><!DOCTYPE html>

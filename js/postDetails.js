@@ -1,23 +1,3 @@
-//delete post confirmation (js)
-let deleteBtn = document.querySelector(".deleteBtn");
-let confirmation = document.querySelector(".delete");
-let notConfirmd = document.querySelector(".noBtn");
-
-deleteBtn.addEventListener("click", showConfirmation);
-notConfirmd.addEventListener("click", removeConfirmation);
-
-function showConfirmation() {
-    console.log("ok")
-    confirmation.classList.toggle("show");
-    confirmation.classList.toggle("delete");
-}
-
-function removeConfirmation() {
-    console.log("nee");
-    confirmation.style.display = "none";
-    deleteBtn.addEventListener("click", showConfirmation);
-}
-
 //Rapport Item (AJAX)
 let reportBtn = document.querySelector(".report");
 let postId = reportBtn.dataset.post;
@@ -50,7 +30,7 @@ reportBtn.addEventListener("click", (e) => {
         console.log(data.status)
         if(data.status === "success" && data.message === "report was successful"){
             console.log("loll");
-            reportBtn.innerHTML = "You reported this!";
+            reportBtn.innerHTML = "Undo report";
             data.status === "false";
         }else if(data.status === "success" && data.message === "Dereport was successful"){
             console.log("helllllooo");

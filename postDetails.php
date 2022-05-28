@@ -15,10 +15,6 @@ use imdmedia\Feed\ReportPost;
         $postDetails = Post::getPostById($postId);
         $posts = Post::getPostByTags($postDetails['tags']);
         $reportCheck = ReportPost::reportCheck($postId ,$_SESSION['user']['id']);
-        var_dump(intval($postId));
-        var_dump($_SESSION['user']['id']);
-        var_dump($reportCheck);
-        
         if($postDetails['userid'] == $_SESSION['user']['id']){
             $ownProfile = true;
         }
@@ -42,38 +38,79 @@ use imdmedia\Feed\ReportPost;
 <body>
     <?php include_once("inc/nav.inc.php"); ?>
 
-    <section class="postDetails">
-        <div class="postDetails__img">
-            <img class="postDetails__imgSRC" src="<?php echo $postDetails['filePath']; ?>" alt="<?php echo $postDetails['title']; ?>">
+    <section class="details">
+        <div class="details__img">
+            <img class="details__imgSRC" src="<?php echo $postDetails['filePath']; ?>" alt="<?php echo $postDetails['title']; ?>">
         </div>
-        <div>
-        <h3><?php echo htmlspecialchars($postDetails['title']); ?></h3>
-        <?php if ($auth == true): ?>
-        <a href="account.php?Account=<?php echo htmlspecialchars($postDetails['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($postDetails['userName']); ?></a>
-        <?php $tags = json_decode($postDetails['tags']); ?>
-        <?php foreach ($tags as $tag): ?>
-        <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
-        <?php endforeach ?>
-        <?php if(isset($ownProfile)): ?>
-        <button class="deleteBtn">Delete</button>
-        <form class="delete" action="" method="post">
-            <div class="confirmation">
-            <p>Are you sure?</p>
-            <div class="deleteBtns">
-                <input class="yesBtn confirmationBtn" type="submit" name="confirm" value="Yes">
-                <input class="noBtn confirmationBtn" type="submit" name="confirm" value="No">
+        <div class="details__details">
+            <div class="details__header">
+                <div>
+                    <h3 class="details__text details__text__title"><?php echo htmlspecialchars($postDetails['title']); ?></h3>
+                </div>
+                <div class="details__drop">
+                    <button class="dropbtn"><img class="details__dropbtn" src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1653723484/IMDMedia_Pictures/extra.png" alt="extra"></button>
+                    <div class="dropdownContent details__dropdownContent"> 
+                        <?php if($postDetails['userName'] === $_SESSION['user']['username']): ?>
+                            <button class="deleteBtn">Delete post</button>
+                            <form class="delete" action="" method="post">
+                                <div class="confirmation">
+                                <p>Are you sure?</p>
+                                <div class="deleteBtns">
+                                    <input class="yesBtn confirmationBtn" type="submit" name="confirm" value="Yes">
+                                    <input class="noBtn confirmationBtn" type="submit" name="confirm" value="No">
+                                </div>
+                                </div>
+                            </form>
+                            <?php endif; ?>
+                            <?php if($postDetails['userName'] !== $_SESSION['user']['username']): ?>
+                                <?php if ($reportCheck): ?>
+                                    <button class="report" data-check="reported" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">Undo report</button>
+                                    <input class="session" type="hidden" value="">
+                                <?php else: ?>
+                                    <button class="report" data-check="report" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">Report this</button>
+                                    <input class="session" type="hidden" value="">
+                                <?php endif; ?>
+                            <?php endif; ?>
+                    </div>
+                </div>
             </div>
+            <?php if ($auth == true): ?>
+                <a class="details__text details__text--account"href="account.php?Account=<?php echo htmlspecialchars($postDetails['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($postDetails['userName']); ?></a>
+            <?php $tags = json_decode($postDetails['tags']); ?>
+            <?php endif; ?>
+            <div class="details__text details__description">
+                <p class="details__text details__text__subtitle details__text__subtitle--description">Description</p>
+                <?php if(isset($postDetails['description'])): ?>
+                    <p class="details__text details__text--description"><?php echo $postDetails['description']; ?> </p>
+                <?php elseif(!isset($postDetails['description'])): ?>
+                    <p class="details__text details__text--description" >No description given</p>
+                <?php endif; ?>
             </div>
-        </form>
-        <?php if ($reportCheck): ?>
-            <p class="report" data-check="reported" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">You reported this!</p>
-            <input class="session" type="hidden" value="">
-        <?php else: ?>
-            <p class="report" data-check="report" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">Report this</p>
-            <input class="session" type="hidden" value="">
-        <?php endif; ?>
-        <?php endif; ?>
-        <?php endif ?>
+
+            <?php if ($auth == true): ?>
+            <?php foreach ($tags as $tag): ?>
+            <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="details__text text__tags details__text--tags">#<?php echo htmlspecialchars($tag); ?></a>
+            <?php endforeach ?>
+            <?php if(isset($ownProfile)): ?>
+            <button class="deleteBtn">Delete</button>
+            <form class="delete" action="" method="post">
+                <div class="confirmation">
+                <p>Are you sure?</p>
+                <div class="deleteBtns">
+                    <input class="yesBtn confirmationBtn" type="submit" name="confirm" value="Yes">
+                    <input class="noBtn confirmationBtn" type="submit" name="confirm" value="No">
+                </div>
+                </div>
+            </form>
+            <?php if ($reportCheck): ?>
+                <p class="report" data-check="reported" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">You reported this!</p>
+                <input class="session" type="hidden" value="">
+            <?php else: ?>
+                <p class="report" data-check="report" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">Report this</p>
+                <input class="session" type="hidden" value="">
+            <?php endif; ?>
+            <?php endif; ?>
+            <?php endif ?>
         </div>
     </section>
 
@@ -94,6 +131,7 @@ use imdmedia\Feed\ReportPost;
     </section>
 
     <script type="module" src="./js/sass.js"></script>
+    <script src="js/deletePost.js"></script>
     <script src="js/postDetails.js"></script>
 </body>
 </html>
