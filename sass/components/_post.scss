@@ -66,21 +66,7 @@
     padding: 10px;
     right: 50%;
 }
-.postForm {
-    text-align: center;
-}
-.postForm label, .postForm input, button{
 
-    display: inline-block;
-    width: 50%;
-    color: colors.$offBlack;
-}
-.postForm input::placeholder {
-    color: grey;
-}
-.postForm label {
-    padding: 0.5em;
-}
 .fileInput {
     text-align: center;
 }

@@ -1,0 +1,99 @@
+@use "./../_colors.scss";
+@use "./../fonts";
+
+.upload, .postForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.upload__text__btn{
+    background-color: colors.$primary;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 2em 0em;
+    padding: 1em;
+}
+
+.upload__text__subtitle{
+    color: colors.$offBlack;
+    font-size: 0.8em;
+    font-weight: 700;
+    font-family: fonts.$jakartaSans, sans-serif;
+}
+
+.upload__form__fields{
+    width: 80%;
+}
+.postForm{
+    width: 80%;
+}
+
+.form__field--upload--image{
+    height: 200px;
+    width: 100%;
+    background-color: colors.$input;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload__image{
+    background-color: none;
+    border-color: colors.$primary;
+    color: colors.$primary;
+    border-radius: 7px;
+}
+
+.upload__image input{
+    background-color: none;
+    border-color: colors.$primary;
+    color: colors.$primary;
+}
+
+.upload__text__input{
+    border-color: colors.$input;
+    padding: 1em;
+}
+
+.upload__text__input::placeholder{
+    border-color: colors.$input;
+    color: colors.$input;
+    padding: 1em;
+    margin: 1em 0em;
+}
+
+.postForm input{
+    border-color: colors.$input;
+    color: colors.$input;
+    padding: 1em;
+    margin: 1em 0em;
+}
+
+.formError__upload{
+    margin-top: 0.5em;
+    width: 80%;
+}
+
+
+/*
+.postForm {
+    text-align: center;
+}
+.postForm label, .postForm input, button{
+
+    display: inline-block;
+    width: 50%;
+    color: colors.$offBlack;
+}
+.postForm input::placeholder {
+    color: grey;
+}
+.postForm label {
+    padding: 0.5em;
+} */
