@@ -235,4 +235,22 @@ Configuration::instance([
             return $statement->execute();
         }
 
+        public function changeTital($title, $postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE posts SET title = :title where id = :id");
+            $statement->bindValue(':title',  $title);
+            $statement->bindValue(':id', $postId);
+            $_SESSION["post"]["title"] = $title;
+            return $statement->execute();
+        }
+
+        public function changeTag($tags, $postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE posts SET tags = :tags where id = :id");
+            $statement->bindValue(':tags',  $tags);
+            $statement->bindValue(':id', $postId);
+            $_SESSION["post"]["tags"] = $tags;
+            return $statement->execute();
+        }
+
     }

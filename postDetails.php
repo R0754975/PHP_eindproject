@@ -31,6 +31,24 @@ use imdmedia\Feed\ReportPost;
         }
     }
 
+    if(isset($_POST['changeTitle'])){
+        $newTitle = $_POST["newTitle"];
+        $postId = $_GET['Post'];
+        $post = new Post();
+        $changeTitle = $post->changeTital($newTitle, $postId);
+
+
+    }
+
+    if(isset($_POST['changeTag'])){
+        $newTag = $_POST["newTag"];
+        $postId = $_GET['Post'];
+        $post = new Post();
+        $changeTag = $post->changeTag($newTag, $postId);
+
+
+    }
+
 
 
 ?><!DOCTYPE html>
@@ -90,7 +108,30 @@ use imdmedia\Feed\ReportPost;
             <?php endforeach ?>
             <?php endif ?>
         </div>
-        <?php endforeach; ?>    
+        <?php endforeach; ?> 
+        
+        <form class="postForm" method="POST" action="" enctype="multipart/form-data"> 
+            <h2>Change title</h2>
+            <div class="error">
+                <?php echo $error ?>
+            </div>
+            <label for="pass">New Title</label>
+            <input type="title" id="newTitle" name="newTitle">
+
+            <button type="submit" name="changeTitle">Change Title</button>
+        </form>  
+        
+        <form class="postForm" method="POST" action="" enctype="multipart/form-data"> 
+            <h2>Change tag</h2>
+            <div class="error">
+                <?php echo $error ?>
+            </div>
+            <label for="pass">New Tags</label>
+            <input type="tag" id="newTag" name="newTag">
+
+            <button type="submit" name="changeTag">Change Tags</button>
+        </form> 
+        
     </section>
 
     <script type="module" src="./js/sass.js"></script>
