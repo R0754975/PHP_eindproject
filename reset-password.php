@@ -8,6 +8,11 @@ if (isset($_POST['reset-request-submit'])) {
     Security::resetRequest();
 }
 
+//add search function
+if(isset($_GET['search'])){
+    header("Location: index.php?search=" . $_GET['search']);
+}
+
 
 ?><!DOCTYPE html>
 <html>
@@ -18,10 +23,7 @@ if (isset($_POST['reset-request-submit'])) {
 </head>
 <body>
 
-	<div id="header">
-		<div class="logo"></div>
-	</div>
-	<div id="main">
+	<div id="centerDiv centerRemoveAccount">
 		<h1>Reset your password</h1>
         <p>An e-mail will be send to you with the instructions on how to reset your password.</p>
         <form action="" method="post">
@@ -36,8 +38,9 @@ if (isset($_POST['reset-request-submit'])) {
 
 	</div>
 
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="module" src="./js/sass.js"></script>
+
 </body>
 </html>

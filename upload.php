@@ -7,6 +7,12 @@ use imdmedia\Auth\Security;
 boot(); 
 Security::onlyLoggedInUsers();
 
+//add search function
+if(isset($_GET['search'])){
+    header("Location: index.php?search=" . $_GET['search']);
+}
+
+
 if (isset($_SESSION['user'])) {
     if (isset($_POST['submit'])) {
         try {
@@ -45,22 +51,40 @@ if (isset($_SESSION['user'])) {
 </head>
 <body>
 <?php include_once("inc/nav.inc.php"); ?>
-                <?php if (isset($error)) : ?>
-				<div class="formError">
-					<p>
-						<?php echo $error;?>
-					</p>
-				</div>
-				<?php endif; ?>
-    <form class="postForm" action="" method="POST" enctype="multipart/form-data">
-        <input class="fileInput" type="file" name="file">
-        <label for="Title">Title</label>
-        <input type="text" name="title" placeholder="e.g. Rebrand for Thomas More">
-        <label for="Description">Description</label>
-        <input type="text" name="description" placeholder="e.g. I wanted to create a logo that was more playful and easy to market. The colors have I chosen are orange and purple because I like their meaning and it fits nice with the already existing Thomas More more. Any feedback will be much appreciated!!!!!">
-        <label for="Tags">Tags</label>
-        <input type="text" name="tags" placeholder="tag1, tag2, tag3">
-        <button type="submit" name="submit">UPLOAD</button>
-    </form>
+    <div class="upload">
+        
+        <form class="postForm" action="" method="POST" enctype="multipart/form-data">
+            <h1 class="upload__title">Upload a project</h1>
+
+            <?php if (isset($error)) : ?>
+                    <div class="formError formError__upload">
+                        <p>
+                            <?php echo $error;?>
+                        </p>
+                    </div>
+            <?php endif; ?>
+
+            <div class="upload__form__fields">
+                <div class="form__field form__field--upload form__field--upload--image">
+                    <input class="upload__image" type="file" name="file">
+                </div>
+                <div class="form__field form__field--upload">
+                    <label class="upload__text__subtitle" for="Title">Title</label>
+                    <input class="upload__text__input"  type="text" name="title" placeholder="e.g. Rebrand for Thomas More">
+                </div>
+                <div class="form__field form__field--upload">
+                    <label class="upload__text__subtitle" for="Description">Description</label>
+                    <input class="upload__text__input" type="text" name="description" placeholder="e.g. I wanted to create a logo that was more playful and easy to market. The colors have I chosen are orange and purple because I like their meaning and it fits nice with the already existing Thomas More more. Any feedback will be much appreciated!!!!!">
+                </div>
+                <div class="form__field form__field--upload">
+                    <label class="upload__text__subtitle" for="Tags">Tags</label>
+                    <input class="upload__text__input" type="text" name="tags" placeholder="tag1, tag2, tag3">
+                </div>
+                <button class="upload__text__btn" type="submit" name="submit">UPLOAD PROJECT</button>
+            </div>
+        </form>
+    </div>
+    <script type="module" src="./js/sass.js"></script>
+
 </body>
 </html>

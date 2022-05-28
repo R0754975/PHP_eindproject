@@ -1,0 +1,150 @@
+@use "./../_colors.scss";
+@use "./../fonts";
+
+.upload, .postForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.upload__text__btn{
+    background-color: colors.$primary;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 2em 0em;
+    padding: 1em;
+}
+
+.upload__text__subtitle{
+    color: colors.$offBlack;
+    font-size: 0.8em;
+    font-weight: 700;
+    font-family: fonts.$jakartaSans, sans-serif;
+}
+
+.upload__form__fields{
+    width: 100%;
+}
+.postForm{
+    width: 80%;
+}
+
+.form__field--upload--image{
+    height: 200px;
+    width: 100%;
+    background-color: colors.$input;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload__image{
+    background-color: none;
+    border-color: colors.$primary;
+    color: colors.$primary;
+    border-radius: 7px;
+}
+
+.upload__image input{
+    background-color: none;
+    border-color: colors.$primary;
+    color: colors.$primary;
+}
+
+.upload__text__input{
+    color: colors.$offBlack;
+    border-color: colors.$input;
+    padding: 1em;
+}
+
+.upload__text__input::placeholder{
+    border-color: colors.$input;
+    color: colors.$input;
+    padding: 1em;
+    margin: 1em 0em;
+}
+
+.postForm input{
+    border-color: colors.$input;
+    color: colors.$input;
+    padding: 1em;
+    margin: 1em 0em;
+}
+
+.formError__upload{
+    margin-top: 0.5em;
+    width: 80%;
+}
+
+.update{
+    margin: none;
+    padding: none;
+}
+#bio{
+    width: 100%;
+}
+
+.postForm div{
+    margin: none;
+    padding: none;
+    width: 100%;
+}
+
+.postForm form{
+    margin: none;
+    width: 100%;
+}
+
+.updateSettings{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.updateSettings input{
+    margin: 5px 0;
+}
+
+.updateSettings form{
+    border: 1px;
+    border-color: colors.$primary;
+}
+
+.centerDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centerRemoveAccount{
+    height: 100vh;
+}
+
+.passwordError{
+        margin-top: 1em;
+        background-color: colors.$danger;
+        padding: 0.7em;
+        border-radius: 3px;
+        font-size: 0.9em;
+}
+
+.deleteBtn{
+    background-color: colors.$danger;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: 1em 1em;
+    margin: 1em;
+    margin-top: 1em;
+    width: 80%;
+    text-align: center;
+    font-family: fonts.$jakartaSans, sans-serif;
+    font-weight: 700;
+    font-size: 0.8em;
+}

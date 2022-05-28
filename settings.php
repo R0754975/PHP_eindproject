@@ -1,6 +1,8 @@
 <?php
 use imdmedia\Auth\Security;
 use imdmedia\Auth\User;
+use imdmedia\Feed\Post;
+
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -8,6 +10,11 @@ use imdmedia\Auth\User;
         Security::onlyLoggedInUsers();
 
     $error = "";
+
+    //add search function
+    if(isset($_GET['search'])){
+        header("Location: index.php?search=" . $_GET['search']);
+    }
 
     if(isset($_POST['changePassword'])){
         $newPassword = $_POST["newPassword"];
@@ -48,51 +55,97 @@ if (isset($_POST['submit'])) {
             $user->setIg($ig);
             $user->setTw($tw);
             
-    }
+            }
 
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+    <?php include_once("inc/header.inc.php"); ?>
+    <title>Account settings</title>
+</head>
+<body >
+<?php include_once("inc/nav.inc.php"); ?>
 
-              ?><!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <?php include_once("inc/header.inc.php"); ?>
-                <title>Account settings</title>
-            </head>
-            <body>
-            <?php include_once("inc/nav.inc.php"); ?>
-                
-            <form class="postForm" action="" method="POST" enctype="multipart/form-data">
+<div class="updateSettings">
+<form class="postForm" method="POST"
+            action=""
+            enctype="multipart/form-data">
 
         <div id="divUploadProfilePic">
-        <label for="file">Change Profile Picture</label>    
-        <input class="fileInput" type="file" name="file">   
-        <button type="submit" name="submit">Update</button>
-        </div>
-        </form>
-            
-            <form class="postForm" method="POST" action="" enctype="multipart/form-data"> 
-            <h2>Change password</h2>
-            <div class="error">
-                <?php echo $error ?>
+            <h2 class="upload__title" >Change profile picture</h2>
+            <div class="form__field--upload--updateimage ">
+                <input class="upload__text__input" type="file"
+                        name="uploadfile"
+                        value="" />
+
             </div>
-            <label for="pass">Old password</label>
-            <input type="password" id="oldPassword" name="oldPassword">
-       
-            <label for="pass">New password</label>
-            <input type="password" id="newPassword" name="newPassword">
-            
-            <label for="pass">Repeat password</label>
-            <input type="password" id="repeatPassword" name="repeatPassword">
-
-            <button type="submit" name="changePassword">Change password</button>
-        </form>
-        
-    <form action="" method="post">
-    <label for="ig">Instagram</label>
-    <input type="text" id="ig" value="" name="ig">
-
-    <input type="submit" value="Update instagram" name="updateIg">
-
+                <div>
+                    <button class="upload__text__btn" type="submit"
+                            name="uploadProfilePicture">
+                        Update
+                    </button>
+                </div>
+        </div>
     </form>
+
+
+    <form class="postForm" action="" method="post"
+                enctype="multipart/form-data">
+                <div>
+            <h2 class="upload__title" >Change password</h2>
+            <div>
+                <div class="error">
+                    <?php echo $error ?>
+                </div>
+                <div class="form__field form__field--upload">
+                    <label class="upload__text__subtitle" for="pass">Old password</label>
+                    <input class="upload__text__input" type="password" id="oldPassword" name="oldPassword">
+                </div>
+
+                <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="pass">New password</label>
+                    <input class="upload__text__input" type="password" id="newPassword" name="newPassword">
+                </div>
+
+                <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="pass">Repeat password</label>
+                    <input class="upload__text__input" type="password" id="repeatPassword" name="repeatPassword">
+                </div>
+            </div>
+
+            <button class="upload__text__btn" type="submit"
+                        name="changePassword">
+                    Change password
+                </button>
+        </form>
+
+        <form class="postForm" action="" method="post">
+            <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="bio">Biography</label>
+                <input class="upload__text__input" type="text" id="bio" value="" name="bio">
+            </div>
+            <input class="upload__text__btn" type="submit" value="Update bio" name="updateBio">
+        </form>
+
+        <form class="postForm" action="" method="post">
+            <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="education">Education</label>
+                <input class="upload__text__input" type="text" id="education" value="" name="education">
+            </div>
+            <input class="upload__text__btn" type="submit" value="Update education" name="updateEducation">
+        </form>
+
+        <form class="postForm" action="" method="post">
+            <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="ig">Instagram</label>
+                <input class="upload__text__input" type="text" id="ig" value="" name="ig">
+            </div>
+            <input class="upload__text__btn" type="submit" value="Update instagram" name="updateIg">
+        </form>
+
+</div>
+
+<a class="deleteBtn" href="removeAccount.php">Delete account</a>
 
     <script type="module" src="./js/sass.js"></script>
 </body>
