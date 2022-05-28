@@ -9,17 +9,12 @@ use imdmedia\Feed\ReportPost;
     
     boot();
     $auth = Security::checkLoggedIn();
-    var_dump($auth);
 
     if(isset($_GET['Post'])){
         $postId = $_GET['Post'];
         $postDetails = Post::getPostById($postId);
         $posts = Post::getPostByTags($postDetails['tags']);
         $reportCheck = ReportPost::reportCheck($postId ,$_SESSION['user']['id']);
-        var_dump(intval($postId));
-        var_dump($_SESSION['user']['id']);
-        var_dump($reportCheck);
-        
         if($postDetails['userid'] == $_SESSION['user']['id']){
             $ownProfile = true;
         }
@@ -136,6 +131,7 @@ use imdmedia\Feed\ReportPost;
     </section>
 
     <script type="module" src="./js/sass.js"></script>
+    <script src="js/deletePost.js"></script>
     <script src="js/postDetails.js"></script>
 </body>
 </html>
