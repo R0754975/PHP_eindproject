@@ -2,6 +2,9 @@
     use imdmedia\Feed\Post;
     use imdmedia\Auth\Security;
     use imdmedia\Auth\User;
+    use imdmedia\Data\Follow;
+    use imdmedia\Data\Report;
+
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
     
@@ -33,6 +36,34 @@
         }
     }
 
+    $followData = 0;
+    $follow = "follow";
+    if(isset($_SESSION['user']['id'])){
+        $followCheck = Follow::checkFollow($_SESSION['user']['id'], $user = $profileUser['id']);
+        if($followCheck === true) {
+            $followData = 1;
+            $follow = "unfollow";
+        }
+        else {
+            $followData = 0;
+            $follow = "follow";
+        }
+    }
+
+    $reportData = 0;
+    $report = "report";
+    if(isset($_SESSION['user']['id'])){
+        $reportCheck = Report::checkReport($_SESSION['user']['id'], $user = $profileUser['id']);
+        if($reportCheck === true) {
+            $reportData = 1;
+            $report = "unreport";
+        }
+        else {
+            $reportData = 0;
+            $report = "report";
+        }
+    }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,15 +77,15 @@
         <div class="globalInfo">
             <div class="pic">
                 <div>
-                    <img lass="userPic" src="images/uploads/users/<?php echo $profileUser['username'] . "/" . $profileUser['profile_pic'] ?>">
+                    <img class="userPic" src="<?php echo $profileUser['profile_pic'];?>">
                 </div>
                 <button class="changePic"></button>
             </div>
             <div class="bioInfo">
-                <h1 class="profileUsername profile"><?php echo $profileUser['username']; ?></h1>
-                <h3 class="profileEmail profile"><?php echo $profileUser['email']; ?></h3>
+                <h1 class="profileUsername profile"><?php echo htmlspecialchars($profileUser['username']); ?></h1>
+                <h3 class="profileEmail profile"><?php echo htmlspecialchars($profileUser['email']); ?></h3>
                 <div class="bio profile">
-                    <p class="bioInput"><?php echo $profileUser['bio']; ?></p>
+                    <p class="bioInput"><?php echo htmlspecialchars($profileUser['bio']); ?></p>
                     <?php if(isset($ownProfile)): ?>
                         <button class="changeButton">Button</button>
                     <?php endif; ?>
@@ -63,18 +94,38 @@
         </div>
         <div class="extraInfo">
             <section>
+                <div>
+                <a style="text-decoration: none;" href="#" id="followbtn" 
+                data-following-User="<?php echo $_SESSION['user']['id'];?>" 
+                data-followed-User="<?php echo $profileUser['id'];?>"
+                data-follow="<?php echo $followData;?>"
+                >
+                <h2 id="followTxt"><?php echo $follow;?></h2>
+                </a>
+                </div>
+
+                <div>
+                <a style="text-decoration: none;" href="#" id="reportbtn" 
+                data-reporting-User="<?php echo $_SESSION['user']['id'];?>" 
+                data-reported-User="<?php echo $profileUser['id'];?>"
+                data-report="<?php echo $reportData;?>"
+                >
+                <h2 id="reportTxt"><?php echo $report;?></h2>
+                </a>
+                </div>
+
                 <div class="education">
                     <h2>Education</h2>
                     <ul>
-                        <li><?php echo $profileUser['education']; ?></li>
+                        <li><?php echo htmlspecialchars($profileUser['education']); ?></li>
                     </ul>
                 </div>
                 <div class="socialMedia">
                     <h2>Social Media</h2>
                     <div class="icons">
                         <a href="https://www.instagram.com/<?php echo $profileUser['ig']; ?>"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652127860/IMDMedia_Pictures/instagramIcon.svg" alt="link to Instagram"></a>    
-                        <a href="https://twitter.com/?lang=en"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128151/IMDMedia_Pictures/TwitterIcon.svg" alt="link to Twitter"></a>    
-                        <a href="https://www.linkedin.com/feed/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128088/IMDMedia_Pictures/LinkedInIcon.svg" alt="link to LinkedIn"></a>    
+                        <a href="https://twitter.com/<?php echo $profileUser['tw']; ?>"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128151/IMDMedia_Pictures/TwitterIcon.svg" alt="link to Twitter"></a>    
+                           
                     </div>
                 </div>
             </section>
@@ -104,5 +155,8 @@
 
     <?php include_once("inc/footer.inc.php"); ?>
     <script type="module" src="./js/sass.js"></script>
+    <script type="module" src="main.js"></script>
+    <script src="js/follow.js"></script>
+    <script src="js/report.js"></script>
 </body>
 </html>

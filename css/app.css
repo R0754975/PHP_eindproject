@@ -101,6 +101,10 @@ input {
   max-width: 3em;
 }
 
+.status-not-available, .status-available {
+  color: white;
+}
+
 button {
   background-color: transparent;
   border: none;

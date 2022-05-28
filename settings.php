@@ -25,141 +25,67 @@ use imdmedia\Auth\User;
         }
     }
 
-if(isset($_POST['uploadProfilePicture'])){
-    
+if (isset($_POST['submit'])) {
+    $file = $_FILES['file'];
     $user = new User();
-    $user->setUsername($_SESSION["user"]["username"]);
-    $user->setEmail($_SESSION["user"]["email"]);
-    $filename = $_FILES["uploadfile"]["name"];
-    $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folderPath = "images/uploads/users/" .$user->getUsername();
-    if (!file_exists($folderPath)) {
-        mkdir($folderPath, 0777, true);
-    }
-
-    $imagePath =  $folderPath . "/". $filename;
-    
-    if(move_uploaded_file($tempname, $imagePath)){
-        $user->setProfile_pic($filename);
-    }
-
+    $user->setEmail($_SESSION['user']["email"]);
+    $user->uploadProfile_Pic($file);
 }
-if(isset($_POST['updateBio'])){
-
-    $bio = $_POST['bio'];
-    $user = new User();
-    $user->setUsername($_SESSION["user"]["username"]);
-    $user->setEmail($_SESSION["user"]["email"]);
 
 
-    $user->setBio($bio);
-    
-    }
-
-
-    if(isset($_POST['updateEducation'])){
-
-        $education = $_POST['education'];
-        $user = new User();
-        $user->setUsername($_SESSION["user"]["username"]);
-        $user->setEmail($_SESSION["user"]["email"]);
-    
-    
-        $user->setEducation($education);
-        
-        }
-
-    if(isset($_POST['updateIg'])){
-
+    if(isset($_POST['update'])){
+            
+            $bio = $_POST['bio'];
+            $education = $_POST['education'];
             $ig = $_POST['ig'];
+            $tw = $_POST['tw'];
             $user = new User();
             $user->setUsername($_SESSION["user"]["username"]);
             $user->setEmail($_SESSION["user"]["email"]);
         
-        
+            $user->setBio($bio);
+            $user->setEducation($education);
             $user->setIg($ig);
+            $user->setTw($tw);
             
-            }
+    }
 
 
+              ?><!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <?php include_once("inc/header.inc.php"); ?>
+                <title>Account settings</title>
+            </head>
+            <body>
+            <?php include_once("inc/nav.inc.php"); ?>
+                
+            <form class="postForm" action="" method="POST" enctype="multipart/form-data">
 
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php include_once("inc/header.inc.php"); ?>
-    <title>Account settings</title>
-</head>
-<body>
-<?php include_once("inc/nav.inc.php"); ?>
-
-<button class="changePass">Change password</button>
-<a href="removeAccount.php">Delete account</a>
-    
-<button>Change profile picture</button>
-
-<form method="POST"
-        action=""
-        enctype="multipart/form-data">
-
-<div id="divUploadProfilePic">
-	<input type="file"
-                name="uploadfile"
-                value="" />
-
-        <div>
-            <button type="submit"
-                    name="uploadProfilePicture">
-                Update
-            </button>
+        <div id="divUploadProfilePic">
+        <label for="file">Change Profile Picture</label>    
+        <input class="fileInput" type="file" name="file">   
+        <button type="submit" name="submit">Update</button>
         </div>
-</div>
-</form>
-
-    <form method="POST"
-            action=""
-            enctype="multipart/form-data">
-            <div>
-        <h2>Change password</h2>
-        <div>
+        </form>
+            
+            <form class="postForm" method="POST" action="" enctype="multipart/form-data"> 
+            <h2>Change password</h2>
             <div class="error">
                 <?php echo $error ?>
             </div>
             <label for="pass">Old password</label>
-                <input type="password" id="oldPassword" name="oldPassword">
-            </div>
-
+            <input type="password" id="oldPassword" name="oldPassword">
+       
             <label for="pass">New password</label>
-                <input type="password" id="newPassword" name="newPassword">
-            </div>
-
+            <input type="password" id="newPassword" name="newPassword">
+            
             <label for="pass">Repeat password</label>
-                <input type="password" id="repeatPassword" name="repeatPassword">
-            </div>
-        </div>
+            <input type="password" id="repeatPassword" name="repeatPassword">
 
-        <button type="submit"
-                    name="changePassword">
-                Change password
-            </button>
-    </form>
-
-    <form action="" method="post">
-    <label for="bio">Biography</label>
-    <input type="text" id="bio" value="" name="bio">
-
-    <input type="submit" value="Update bio" name="updateBio">
-
-    </form>
-
-    <form action="" method="post">
-    <label for="education">Education</label>
-    <input type="text" id="education" value="" name="education">
-
-    <input type="submit" value="Update education" name="updateEducation">
-
-    </form>
-
-
+            <button type="submit" name="changePassword">Change password</button>
+        </form>
+        
     <form action="" method="post">
     <label for="ig">Instagram</label>
     <input type="text" id="ig" value="" name="ig">
@@ -172,3 +98,31 @@ if(isset($_POST['updateBio'])){
 </body>
 </html>
 
+
+            
+            <form class="postForm" action="" method="POST">
+                <label for="bio">Biography</label>
+                <input type="text" id="bio" value="<?php echo $_SESSION['user']['bio']?>" name="bio">
+            
+            
+            
+            
+                <label for="education">Education</label>
+                <input type="text" id="education" value="<?php echo $_SESSION['user']['education']?>" name="education">
+            
+            
+            
+                <label for="ig">Instagram username</label>
+                <input type="text" id="ig" value="<?php echo $_SESSION['user']['ig']?>" name="ig">
+            
+                <label for="tw">Twitter username</label>
+                <input type="text" id="tw" value="<?php echo $_SESSION['user']['tw'];?>" name="tw">
+            
+                <input type="submit" value="Update" name="update">
+            </form>
+                
+            <a href="removeAccount.php">Delete account</a>
+
+            <script type="module" src="main.js"></script>
+            </body>
+            </html>
