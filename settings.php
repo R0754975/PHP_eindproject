@@ -99,8 +99,6 @@ if(isset($_POST['updateBio'])){
 <body >
 <?php include_once("inc/nav.inc.php"); ?>
 
-<a href="removeAccount.php">Delete account</a>
-
 <div class="updateSettings">
 <form class="postForm" method="POST"
             action=""
@@ -179,6 +177,8 @@ if(isset($_POST['updateBio'])){
         </form>
 
 </div>
+
+<a class="deleteBtn" href="removeAccount.php">Delete account</a>
 
     <script type="module" src="./js/sass.js"></script>
 </body>

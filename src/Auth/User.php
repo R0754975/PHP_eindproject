@@ -305,21 +305,17 @@
         }
 
         public static function validateUser($username, $password){
-            var_dump("in validatefunction");
             $conn = DB::getConnection();
             $statement = $conn->prepare("select * from users where username = :username");
             $statement->bindValue(":username", $username);
             $statement->execute();
             $validatedUser = $statement->fetch();//(PDO::FETCH_ASSOC);
             if(!empty($validatedUser)){
-                var_dump("in if functie");
                 $hash = $validatedUser["password"];
                     if (password_verify($password, $hash)) {
-                        var_dump($password);
-                        var_dump($hash);
                         return true;
                     } else {
-                        throw new Exception("Wrong password");
+                        throw new Exception("Your password is not correct");
                     }
             }
         }
@@ -329,10 +325,16 @@
                 $conn = DB::getConnection();
                 $statementA=$conn->prepare("DELETE FROM users where email = :email");
                 $statementB=$conn->prepare("DELETE FROM posts where userid = :id");
+                $statementC=$conn->prepare("DELETE FROM comments where userId = :id");
+                $statementD=$conn->prepare("DELETE FROM likes where userId = :id");
                 $statementA->bindValue("email", $email);
                 $statementB->bindValue("id", $id);
+                $statementC->bindValue("id", $id);
+                $statementD->bindValue("id", $id);
                 $statementA->execute();
                 $statementB->execute();
+                $statementC->execute();
+                $statementD->execute();
                 return true;
         }
 
