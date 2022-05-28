@@ -2,11 +2,11 @@
 
     use imdmedia\Feed\Post;
     use imdmedia\Auth\Security;
+    use imdmedia\Feed\Like;
 
     require __DIR__ . '/vendor/autoload.php';
-    include_once("inc/functions.inc.php");
   
-        boot();
+        session_start();
         $auth = Security::checkLoggedIn();
 
         // determine how many items are allowed per page
@@ -27,14 +27,16 @@
             $posts = Post::searchAll($_GET['search']);
             if (empty($posts)){
                 $requestNotFound = true;
-                $posts = Post::getPage($page);
+                $pageNumber = (($page - 1) * $maxResults);
+                $posts = Post::getPage($pageNumber);
             }
 
         }else{
-            $posts = Post::getPage($page);
+            $pageNumber = (($page - 1) * $maxResults);
+            $posts = Post::getPage($pageNumber);
         }
-
-
+     
+    
         ?><!DOCTYPE html>
         <html lang="en">
         <head>
@@ -49,35 +51,48 @@
                 <?php endif; ?>
             </div>
             <section class="feed">
-                <?php foreach ($posts as $key => $post): ?>
-                <a href="postDetails.php?Post=<?php echo htmlspecialchars($post['id']); ?>">
+                <?php foreach ($posts as $key => $post): ?> 
+                <?php    
+                
+                $like = "Like";
+                    if(isset($_SESSION['user']['id'])){
+                        $checklike = Like::checkLiked($_SESSION['user']['id'], $post[('id')]);
+                    if($checklike == 1) {
+                        $like = "Unlike";
+                     }
+                    else {
+                        $like = "Like";
+                    }
+                }
+    
+                $totalLikes = Like::getAll($post[('id')]);   
+                ?>
+                <?php
+                    if($auth == true) {
+                        $url = "postDetails.php?Post=" . htmlspecialchars($post['id']);
+                    }
+                    else $url = "#"
+                ?>
+                <a href="<?php echo $url; ?>">
                     <div class="post">
-                        <img src="<?php echo $post['filePath']; ?>" alt="<?php echo $post['title']; ?>">
+                        <img src="<?php echo $post['filePath']; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>">
                         <h3><?php echo htmlspecialchars($post['title']); ?></h3>
                         <?php if ($auth == true): ?>
                         <a href="account.php?Account=<?php echo htmlspecialchars($post['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($post['userName']); ?></a>
                         <?php $tags = json_decode($post['tags']); ?>
                         <?php foreach ($tags as $tag): ?>
-                        <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="text__tags">#<?php echo htmlspecialchars($tag); ?></a>
+                        <a href="?search=<?php echo htmlspecialchars($tag); ?>" class="text__tags">#<?php echo htmlspecialchars($tag); ?></a>
                         <?php endforeach ?>
                         <?php endif ?>
                         <p class="likes">
-                            <a href="#" id="btnAddLike">&hearts;</a>
-                            <span id="likes_counter">x</span> people like this
+                        <a style="text-decoration: none;" href="#" id="likeButton-<?php echo htmlspecialchars($post[('id')]); ?>"
+                        onclick="likePost(this, <?php echo htmlspecialchars($post[('id')]); ?>)" 
+                        >
+                        <?php echo $like;?>
+                        </a>
+                            <span id="totalLikes-<?php echo htmlspecialchars($post[('id')]); ?>"><?php echo $totalLikes;?></span>
                         </p>
 
-                        <div class="post__comments">
-                            <div class="post__comments__form">
-                                <input type="text" id="commentText" style="color:black">
-                                <a href="#" class="btn" id="btnAddComment" data-postId="<?php echo $_GET['post']?>">Add comment</a>
-                            </div>  
-                            
-                            <ul class="post__comments__list">
-                                <?php foreach($allComments as $c): ?>
-                                <li><?php echo $c['message']; ?></li>  
-                                <?php endforeach; ?>
-                            </ul>
-                        </div> 
                     </div>
                 </a>
                 <?php endforeach; ?> 
@@ -85,5 +100,6 @@
             </section>
             <?php include_once("inc/footer.inc.php"); ?>
             <script type="module" src="./js/sass.js"></script>
+            <script src="js/like.js"></script>
         </body>
         </html>

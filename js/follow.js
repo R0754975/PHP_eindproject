@@ -1,15 +1,10 @@
 document.querySelector("#followbtn").addEventListener("click", function() {
 
-    let followingUser = this.dataset.followingUser;
     let followedUser = this.dataset.followedUser;
     let follow = this.dataset.follow;
 
-    console.log(followingUser);
-    console.log(followedUser);
-
 
     let formData = new FormData();
-    formData.append("followingUser", followingUser);
     formData.append("followedUser", followedUser);
     formData.append("follow", follow);
 

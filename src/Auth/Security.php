@@ -23,11 +23,10 @@
             if (isset($_SESSION['user'])) {
                 return true;
             } else {
-                header("Location: login.php");
                 return false;
             }
         }
-        
+
         // sends the mail to the user with the reset link
         public static function resetRequest()
         {
@@ -41,6 +40,9 @@
 
             $conn = DB::getConnection();
 
+            if(empty($_POST['email'])) {
+                throw new Exception("Email is required");
+            };
             $userEmail = $_POST['email'];
 
             $config = Config::getConfig();

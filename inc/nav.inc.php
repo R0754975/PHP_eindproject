@@ -28,12 +28,12 @@
       </div>
       <div class="navRight">
           <?php if(isset($user)): ?>
-            <a href="upload.php" class="primarybtn">Upload project</a>
+            <a href="upload.php" class="primarybtn">Upload</a>
           <?php endif; ?>
           <div class="account">
             <?php if(isset($profilePic)): ?>
               <div class="circleDrop">
-                <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1653732745/IMDMedia_Pictures/account.png" alt="ProfilePic"></button>
+                <button class="dropbtn"><img src="<?php echo $user['profile_pic'];?>" alt="ProfilePic"></button>
               </div>
             <?php else: ?>
                 <div class="circleDrop">
@@ -41,7 +41,7 @@
               </div>            <?php endif; ?>
               <div class="dropdownContent"> 
                   <?php if(isset($username)): ?>
-                    <a href="./account.php?Account=<?php echo $username; ?>">Profile</a>
+                    <a href="./account.php?Account=<?php echo htmlspecialchars($username); ?>">Profile</a>
                     <a href="./settings.php">Settings</a>
                     <hr>
                     <a href="./logout.php">Logout</a>

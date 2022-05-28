@@ -1,16 +1,11 @@
 <?php
-    //add alert in javascript
+    use imdmedia\Auth\Security;
     use imdmedia\Auth\User;
 
     require __DIR__ . '/vendor/autoload.php';
-    include_once("inc/functions.inc.php");
-        boot();
-        //checkAuthorisation();
-
-    //add search function
-    if(isset($_GET['search'])){
-        header("Location: index.php?search=" . $_GET['search']);
-    }
+    session_start();
+    Security::onlyLoggedInUsers();
+   
 
     $user = $_SESSION['user'];
     if(!empty($_POST)){

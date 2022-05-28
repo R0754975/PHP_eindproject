@@ -57,19 +57,11 @@ Configuration::instance([
             return $result;
         }
 
-        /**
-         * Get the value of username
-         */
         public function getUsername()
         {
             return $this->username;
         }
 
-        /**
-         * Set the value of username
-         *
-         * @return  self
-         */
         public function setUsername($username)
         {
             if (empty($username)) {
@@ -79,19 +71,11 @@ Configuration::instance([
             return $this;
         }
 
-        /**
-         * Get the value of email
-         */
         public function getEmail()
         {
             return $this->email;
         }
 
-        /**
-         * Set the value of email
-         *
-         * @return  self
-         */
         public function setEmail($email)
         {
             $conn = DB::getConnection();
@@ -107,38 +91,24 @@ Configuration::instance([
             return $this;
         }
 
-        /**
-         * Get the value of initialPassword
-         */
         public function getPassword()
         {
             return $this->initialPassword;
         }
 
-        /**
-         * Set the value of initialPassword
-         *
-         * @return  self
-         */
         public function setPassword($initialPassword)
         {
             User::checkPassword($initialPassword);
             $this->initialPassword = $initialPassword;
             return $this;
         }
-        /**
-         * Get the value of repeatPassword
-         */
+
         public function getRepeatPassword()
         {
             return $this->repeatPassword;
         }
 
-        /**
-         * Set the value of repeatPassword
-         *
-         * @return  self
-         */
+
         public function setRepeatPassword($repeatPassword)
         {
             if ($this->initialPassword != $repeatPassword) {
@@ -149,105 +119,59 @@ Configuration::instance([
             return $this;
         }
 
-
-        /**
-         * Get the value of bio
-         */
         
-        public function getBio() {
-            return $this->bio;
+        public function getBio()
+        {
+                return $this->bio;
+        }
+        public function setBio($bio)
+        {
+                $this->bio = $bio;
+
+                return $this;
         }
 
-
-        
-
-        /**
-         * Set the value of bio
-         */
-        
-        public function setBio($bio) {
-            $conn = DB::getConnection();
-            $statement = $conn->prepare("UPDATE users SET bio = :bio where email = :email");
-            $statement->bindValue(":email", $this->email);
-            $statement->bindValue(":bio", $bio);
-            //execute returns boolean, see if upload was succesful
-            $this->bio = $bio;
-            $_SESSION["user"]["bio"] = $bio;
-            return $statement->execute();
-        }
-
-        /**
-         * Get the value of education
-         */
         
         public function getEducation() {
             return $this->education;
         }
 
-         /**
-         * Set the value of education
-         */
         
         public function setEducation($education) {
-            $conn = DB::getConnection();
-            $statement = $conn->prepare("UPDATE users SET education = :education where email = :email");
-            $statement->bindValue(":email", $this->email);
-            $statement->bindValue(":education", $education);
-            //execute returns boolean, see if upload was succesful
             $this->education = $education;
-            $_SESSION["user"]["education"] = $education;
-            return $statement->execute();
+
+            return $this;
         }
 
+    
 
-        /**
-         * Get the value of instagram
-         */
-        
+
         public function getIg() {
             return $this->ig;
         }
 
-         /**
-         * Set the value of instagram
-         */
         
         public function setIg($ig) {
-            $conn = DB::getConnection();
-            $statement = $conn->prepare("UPDATE users SET ig = :ig where email = :email");
-            $statement->bindValue(":email", $this->email);
-            $statement->bindValue(":ig", $ig);
-            //execute returns boolean, see if upload was succesful
+
             $this->ig = $ig;
-            $_SESSION["user"]["ig"] = $ig;
-            return $statement->execute();
+
+            return $this;
         }
 
 
-        /**
-         * Get the value of twitter
-         */
+
         
         public function getTw() {
             return $this->tw;
         }
 
-         /**
-         * Set the value of twitter
-         */
         
         public function setTw($tw) {
-            $conn = DB::getConnection();
-            $statement = $conn->prepare("UPDATE users SET tw = :tw where email = :email");
-            $statement->bindValue(":email", $this->email);
-            $statement->bindValue(":tw", $tw);
-            //execute returns boolean, see if upload was succesful
             $this->tw = $tw;
-            $_SESSION["user"]["tw"] = $tw;
-            return $statement->execute();
+
+            return $this;
         }
 
-        
          
              
         /**
@@ -266,7 +190,6 @@ Configuration::instance([
             $this->profile_pic = $profile_pic;
             return $this;
         }
-
         public function saveProfile_pic() {
             $conn = DB::getConnection();
             $statement = $conn->prepare("UPDATE users SET profile_pic = :profile_pic where email = :email");
@@ -337,9 +260,8 @@ Configuration::instance([
             }
         }
 
-        public function canLogin()
+        public function canLogin($password)
         {
-            $password = $this->initialPassword;
             $conn = DB::getConnection();
             $statement = $conn->prepare("select * from users where email = :email");
             $statement->bindValue(":email", $this->email);
@@ -402,14 +324,17 @@ Configuration::instance([
                 $statementB=$conn->prepare("DELETE FROM posts where userid = :id");
                 $statementC=$conn->prepare("DELETE FROM comments where userId = :id");
                 $statementD=$conn->prepare("DELETE FROM likes where userId = :id");
+                $statementE=$conn->prepare("DELETE FROM follows where following_user = :id or followed_user = :id");
                 $statementA->bindValue("email", $email);
                 $statementB->bindValue("id", $id);
                 $statementC->bindValue("id", $id);
                 $statementD->bindValue("id", $id);
+                $statementE->bindValue("id", $id);
                 $statementA->execute();
                 $statementB->execute();
                 $statementC->execute();
                 $statementD->execute();
+                $statementE->execute();
                 return true;
         }
 
@@ -455,5 +380,42 @@ Configuration::instance([
             return $rowcount;
         }
 
+
+        public function updatebio(){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET bio = :bio where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":bio", $this->bio);
+            $_SESSION["user"]["bio"] = $this->bio;
+            return $statement->execute();
+        }
+
+        public function updateEducation(){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET education = :education where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":education", $this->education);
+            $_SESSION["user"]["education"] = $this->education;
+            return $statement->execute();
+        }
+
+        public function updateIg() {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET ig = :ig where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":ig", $this->ig);
+            $_SESSION["user"]["ig"] = $this->ig;
+            return $statement->execute();
+
+        }
+        
+        public function updateTw(){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET tw = :tw where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":tw", $this->tw);
+            $_SESSION["user"]["tw"] = $this->tw;
+            return $statement->execute();
+        }
 
     }

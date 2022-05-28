@@ -80,8 +80,20 @@ input{
 }
 
 .nav img{
-    max-width: 3em;
+    max-width: 7em;
 }
+@media only screen and (max-width: 750px) {
+    .nav img{
+        max-width: 5em;
+    }
+
+}  
+@media only screen and (max-width: 500px) {
+    .nav img{
+        max-width: 3em;
+    }
+
+}    
 
 .status-not-available, .status-available {
     color: colors.$offWhite;

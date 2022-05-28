@@ -2,9 +2,8 @@
 use imdmedia\Feed\Post;
 use imdmedia\Auth\Security;
 
- require __DIR__ . '/vendor/autoload.php';
- include_once("inc/functions.inc.php");
-boot(); 
+require __DIR__ . '/vendor/autoload.php';
+session_start();
 Security::onlyLoggedInUsers();
 
 //add search function
@@ -29,6 +28,7 @@ if (isset($_SESSION['user'])) {
             $post->setFile($file);
             $post->setUsername($username);
             $post->setTags($tags);
+            $post->setDescription($description);
             $post->upload();
             $post->save();
             header("Location: ./index.php?uploadsuccess");

@@ -1,63 +1,76 @@
 <?php
-namespace imdmedia\Feed;
 
-use imdmedia\Data\DB;
-use PDO;
+    namespace imdmedia\Feed;
 
-    class Comment{
-        private $message;
+    use imdmedia\Data\DB;
+    use PDO;
+
+    class Comment {
+
+        private $comment;
         private $postId;
         private $userId;
 
-        public function getMessage() {
-            return $this->message;
+        public function getComment()
+        {
+                return $this->comment;
+        }
+        public function setComment($comment)
+        {
+                $this->comment = $comment;
+
+                return $this;
+        }
+        public function getPostId()
+        {
+                return $this->postId;
+        }
+        public function setPostId($postId)
+        {
+                $this->postId = $postId;
+
+                return $this;
+        }
+        public function getUserId()
+        {
+                return $this->userId;
+        }
+        public function setUserId($userId)
+        {
+                $this->userId = $userId;
+
+                return $this;
         }
 
-        public function setMessage($message) {
-            $this->message = $message;
-            return $this;
-        }
+        public function save() {
 
-        public function getPostId() {
-            return $this->postId;
-        }
-
-        public function setPostId($postId) {
-            $this->postId = $postId;
-            return $this;
-        }
-
-        public function getUserId() {
-            return $this->userId;
-        }
-
-        public function setUserId($userId) {
-            $this->userId = $userId;
-            return $this;
-        }
-
-        public function save(){
             $conn = DB::getConnection();
-            $statement = $conn->prepare("insert into comments (message, postId, userId) values (:message, :postId, :userId)");
-            
-            $message = $this->getMessage();
-            $postId = $this->getPostId();
-            $userId = $this->getUserId();
-
-            $statement->bindValue(":message", $message);
-            $statement->bindValue(":postId", $postId);
-            $statement->bindValue(":userId", $userId);
-
+            $statement = $conn->prepare("INSERT INTO comments (comment, postId, userId) VALUES (:comment, :postId, :userId)");
+            $statement->bindValue(":comment", $this->comment);
+            $statement->bindValue(":postId", $this->postId);
+            $statement->bindValue(":userId", $this->userId);
             $result = $statement->execute();
             return $result;
-        }
 
-        public static function getAll($postId){
+        }
+        public static function getAll($postId) {
+                
             $conn = DB::getConnection();
-            $statement = $conn->prepare("select * from comments where postId = :postId");
+            $statement = $conn->prepare("SELECT * FROM comments WHERE postId = :postId");
             $statement->bindValue(":postId", $postId);
             $statement->execute();
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $result;
+    
+        }
+        public static function deletePostComments($postId) {
+                
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("DELETE FROM comments WHERE postId = :postId");
+            $statement->bindValue(":postId", $postId);
+            $result = $statement->execute();
+            return $result;
+    
         }
     }
-?>

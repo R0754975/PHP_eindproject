@@ -8,8 +8,7 @@ if (!empty($_POST)) {
     try {
         $user = new User();
         $user->setEmail($_POST['email']);
-        $user->setPassword($_POST['password']);
-		$loggedUser = $user->canLogin();
+		$loggedUser = $user->canLogin($_POST['password']);
         if ($loggedUser) {
             session_start();
             $_SESSION['user'] = $loggedUser;

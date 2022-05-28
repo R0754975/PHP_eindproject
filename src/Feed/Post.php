@@ -3,9 +3,11 @@
 namespace imdmedia\Feed;
 
 use imdmedia\Data\DB;
+use imdmedia\Feed\Comment;
+use imdmedia\Feed\Like;
 use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Configuration\Configuration;
-
+use PDO;
 use Exception;
 
 Configuration::instance([
@@ -204,9 +206,10 @@ Configuration::instance([
         }
         public static function getPage($page)
         {
-            $maxResults = 10;
             $conn = DB::getConnection();
-            $result = $conn->query("select * from posts limit " . (($page - 1) * $maxResults) . ", 10;");
+            $result = $conn->prepare("select * from posts limit :page , 10;");
+            $result->bindValue(":page", $page, PDO::PARAM_INT);
+            $result->execute();
             return $result->fetchAll();
         }
 
@@ -215,8 +218,7 @@ Configuration::instance([
             $statement = $conn->prepare("select * from posts where id = :id");
             $statement->bindValue(':id', $postId);
             $statement->execute();
-            $result = $statement->fetch();
-            return $result;
+            return $statement->fetch();
         }
 
         public static function getPostByTags($postTags){
@@ -227,15 +229,26 @@ Configuration::instance([
             $result = $statement->fetchAll();
             return $result;
         }
+        public static function getDetailPostsByTags($postTags, $postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from posts where tags like :tags and id != :id limit 4");
+            $statement->bindValue(':tags', "%" . $postTags ."%");
+            $statement->bindValue(':id', $postId);
+            $statement->execute();
+            $result = $statement->fetchAll();
+            return $result;
+        }
 
         public static function deletePostById($postId){
             $conn = DB::getConnection();
+            Comment::deletePostComments($postId);
+            Like::deletePostLikes($postId);
             $statement = $conn->prepare("delete from posts where id like :id");
             $statement->bindValue(':id', $postId);
             return $statement->execute();
         }
 
-        public function changeTital($title, $postId){
+        public function changeTitle($title, $postId){
             $conn = DB::getConnection();
             $statement = $conn->prepare("UPDATE posts SET title = :title where id = :id");
             $statement->bindValue(':title',  $title);
@@ -244,13 +257,21 @@ Configuration::instance([
             return $statement->execute();
         }
 
-        public function changeTag($tags, $postId){
+        public function changeTag($postId){
             $conn = DB::getConnection();
             $statement = $conn->prepare("UPDATE posts SET tags = :tags where id = :id");
-            $statement->bindValue(':tags',  $tags);
+            $statement->bindValue(':tags', $this->tags);
             $statement->bindValue(':id', $postId);
-            $_SESSION["post"]["tags"] = $tags;
+            $_SESSION["post"]["tags"] = $this->tags;
             return $statement->execute();
+        }
+
+        public static function getAllUserPosts($user) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from posts where userid = :userid");
+            $statement->bindValue(':userid', $user);
+            $statement->execute();
+            return $statement->fetchAll();
         }
 
     }

@@ -29,15 +29,15 @@ reportBtn.addEventListener("click", (e) => {
         console.log("not an error");
         console.log(data.status)
         if(data.status === "success" && data.message === "report was successful"){
-            console.log("loll");
+            console.log("success");
             reportBtn.innerHTML = "Undo report";
             data.status === "false";
-        }else if(data.status === "success" && data.message === "Dereport was successful"){
-            console.log("helllllooo");
+        }else if(data.status === "success" && data.message === "De report was successful"){
+            console.log("success");
             reportBtn.innerHTML = "Report";
         }else if(data.status === "error"){
             reportBtn.innerHTML = "loser";
-            console.log("loser");
+            console.log("error");
         }
     })
     .catch((error) => {

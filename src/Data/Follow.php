@@ -78,8 +78,6 @@
            
         }
         public static function checkFollow($user, $profile) {
-            $user;
-            $profile;
             $conn = DB::getConnection();
             $statement = $conn->prepare("SELECT * FROM follows WHERE following_user = :following_user AND followed_user = :followed_user");
             $statement->bindValue(":following_user", $user);

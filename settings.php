@@ -1,20 +1,11 @@
 <?php
 use imdmedia\Auth\Security;
 use imdmedia\Auth\User;
-use imdmedia\Feed\Post;
 
 
     require __DIR__ . '/vendor/autoload.php';
-    include_once("inc/functions.inc.php");
-        boot();
-        Security::onlyLoggedInUsers();
-
-    $error = "";
-
-    //add search function
-    if(isset($_GET['search'])){
-        header("Location: index.php?search=" . $_GET['search']);
-    }
+    session_start();
+    Security::onlyLoggedInUsers();
 
     if(isset($_POST['changePassword'])){
         $newPassword = $_POST["newPassword"];
@@ -32,30 +23,48 @@ use imdmedia\Feed\Post;
         }
     }
 
-if (isset($_POST['submit'])) {
-    $file = $_FILES['file'];
+if (isset($_POST['uploadProfilePicture'])) {
+    $file = $_FILES['uploadfile'];
     $user = new User();
     $user->setEmail($_SESSION['user']["email"]);
     $user->uploadProfile_Pic($file);
 }
 
+    if(isset($_POST['updateBio'])){   
 
-    if(isset($_POST['update'])){
-            
             $bio = $_POST['bio'];
-            $education = $_POST['education'];
-            $ig = $_POST['ig'];
-            $tw = $_POST['tw'];
             $user = new User();
-            $user->setUsername($_SESSION["user"]["username"]);
             $user->setEmail($_SESSION["user"]["email"]);
-        
             $user->setBio($bio);
+            $user->updateBio();
+    }
+    if(isset($_POST['updateEducation'])){   
+
+            $education = $_POST['education'];
+            $user = new User();
+            $user->setEmail($_SESSION["user"]["email"]);
             $user->setEducation($education);
+            $user->updateEducation();
+    }
+    if(isset($_POST['updateIg'])){   
+
+            $ig = $_POST['ig'];
+            $user = new User();
+            $user->setEmail($_SESSION["user"]["email"]);
             $user->setIg($ig);
-            $user->setTw($tw);
-            
-            }
+            $user->updateIg();
+    }
+    if(isset($_POST['updateTw'])){   
+
+        $tw = $_POST['tw'];
+        $user = new User();
+        $user->setEmail($_SESSION["user"]["email"]);
+        $user->setTw($tw);
+        $user->updateTw();
+}
+
+        
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -94,9 +103,13 @@ if (isset($_POST['submit'])) {
                 <div>
             <h2 class="upload__title" >Change password</h2>
             <div>
-                <div class="error">
-                    <?php echo $error ?>
-                </div>
+            <?php if (isset($error)) : ?>
+				<div class="formError">
+					<p>
+						<?php echo $error; ?>
+					</p>
+				</div>
+				<?php endif; ?>	
                 <div class="form__field form__field--upload">
                     <label class="upload__text__subtitle" for="pass">Old password</label>
                     <input class="upload__text__input" type="password" id="oldPassword" name="oldPassword">
@@ -122,7 +135,7 @@ if (isset($_POST['submit'])) {
         <form class="postForm" action="" method="post">
             <div class="form__field form__field--upload">
                 <label class="upload__text__subtitle" for="bio">Biography</label>
-                <input class="upload__text__input" type="text" id="bio" value="" name="bio">
+                <input class="upload__text__input" type="text" id="bio" value="<?php echo htmlspecialchars($_SESSION['user']['bio'])?>" name="bio">
             </div>
             <input class="upload__text__btn" type="submit" value="Update bio" name="updateBio">
         </form>
@@ -130,7 +143,7 @@ if (isset($_POST['submit'])) {
         <form class="postForm" action="" method="post">
             <div class="form__field form__field--upload">
                 <label class="upload__text__subtitle" for="education">Education</label>
-                <input class="upload__text__input" type="text" id="education" value="" name="education">
+                <input class="upload__text__input" type="text" id="education" value="<?php echo htmlspecialchars($_SESSION['user']['education'])?>" name="education">
             </div>
             <input class="upload__text__btn" type="submit" value="Update education" name="updateEducation">
         </form>
@@ -138,9 +151,16 @@ if (isset($_POST['submit'])) {
         <form class="postForm" action="" method="post">
             <div class="form__field form__field--upload">
                 <label class="upload__text__subtitle" for="ig">Instagram</label>
-                <input class="upload__text__input" type="text" id="ig" value="" name="ig">
+                <input class="upload__text__input" type="text" id="ig" value="<?php echo htmlspecialchars($_SESSION['user']['ig'])?>" name="ig">
             </div>
             <input class="upload__text__btn" type="submit" value="Update instagram" name="updateIg">
+        </form>
+        <form class="postForm" action="" method="post">
+            <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="tw">Twitter</label>
+                <input class="upload__text__input" type="text" id="tw" value="<?php echo htmlspecialchars($_SESSION['user']['tw'])?>" name="tw">
+            </div>
+            <input class="upload__text__btn" type="submit" value="Update twitter" name="updateTw">
         </form>
 
 </div>
@@ -150,32 +170,3 @@ if (isset($_POST['submit'])) {
     <script type="module" src="./js/sass.js"></script>
 </body>
 </html>
-
-
-            
-            <form class="postForm" action="" method="POST">
-                <label for="bio">Biography</label>
-                <input type="text" id="bio" value="<?php echo $_SESSION['user']['bio']?>" name="bio">
-            
-            
-            
-            
-                <label for="education">Education</label>
-                <input type="text" id="education" value="<?php echo $_SESSION['user']['education']?>" name="education">
-            
-            
-            
-                <label for="ig">Instagram username</label>
-                <input type="text" id="ig" value="<?php echo $_SESSION['user']['ig']?>" name="ig">
-            
-                <label for="tw">Twitter username</label>
-                <input type="text" id="tw" value="<?php echo $_SESSION['user']['tw'];?>" name="tw">
-            
-                <input type="submit" value="Update" name="update">
-            </form>
-                
-            <a href="removeAccount.php">Delete account</a>
-
-            <script type="module" src="main.js"></script>
-            </body>
-            </html>

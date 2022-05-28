@@ -1,26 +1,29 @@
 <?php
-require_once dirname(__DIR__, 1) . "/vendor/autoload.php";
-use imdmedia\Feed\Comment;
 
-    if(!empty($_POST)){
-        $c = new Comment();
+    use imdmedia\Feed\Comment;
+    use imdmedia\Auth\User;
+    require_once dirname(__DIR__, 1) . "/vendor/autoload.php";
+    session_start();
 
-        $c->setPostId($_GET['Post']);
+    if(!empty($_POST)) {
 
-        $c->setMessage($_POST['message']);
+        $username = User::getUserbyId($_SESSION['user']['id']);
 
-        $c->setUserId(1);
+        $comment = new Comment();
+        $comment->setComment($_POST['comment']);
+        $comment->setPostId($_POST['postId']);
+        $comment->setUserId($_SESSION['user']['id']);
 
-        $c->save();
+        $comment->save();
 
         $response = [
-            'status' => 'succes',
-            'body' => 'test',
+            'status' => 'success',
+            'username' => htmlspecialchars($username['username']),
+            'body' => htmlspecialchars($comment->getComment()),
             'message' => 'Comment saved'
         ];
-
         
+        header('Content-Type: application/json');
         echo json_encode($response);
-    }
 
-?>
+    }

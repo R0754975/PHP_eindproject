@@ -1,22 +1,39 @@
 <?php
+
 use imdmedia\Feed\Like;
+require dirname(__DIR__, 1) . "/vendor/autoload.php";
+session_start();
 
-    if(!empty($_POST)){
-        $c = new Like();
+if(!empty($_POST)) {
 
-        $c->setPostId($_GET['Post']);
+    $like = new Like();
+    $like->setPostId($_POST['postId']);
+    $like->setUserId($_SESSION['user']['id']);
+    
+    $liked = Like::checkLiked($_SESSION['user']['id'], $_POST['postId']);
 
-        $c->setUserId(session_id());
-
-        $c->save();
-
+    if($liked == "0") {
+        $like->saveLike();
+        $totalLikes = Like::getAll($_POST['postId']);
         $response = [
-            'status' => 'succes',
-            'message' => 'Like saved'
+            'status' => 'success',
+            'body' => '1',
+            'likes' => htmlspecialchars($totalLikes),
+            'message' => 'You are now like this post.'
         ];
-
-        header('Content-Type: application/json');
-        echo json_encode($response);
+    } else if ($liked == "1") {
+        $like->unLike();
+        $totalLikes = Like::getAll($_POST['postId']);
+        $response = [
+            'status' => 'success',
+            'body' => '0',
+            'likes' => htmlspecialchars($totalLikes),
+            'message' => 'You are no longer like this post.'
+        ];
     }
+    header('Content-Type: application/json');
+    echo json_encode($response);
 
-?>
+
+
+}

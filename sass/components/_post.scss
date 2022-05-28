@@ -15,6 +15,31 @@
     column-count: 4;
     column-fill:initial;
 }
+@media only screen and (max-width: 750px) {
+    .feed{
+        column-count: 2;
+    }
+} 
+@media only screen and (max-width: 500px) {
+    .feed{
+        column-count: 1;
+    }
+    .detailsblock {
+        display: flex;
+        flex-direction: column-reverse;
+
+    }
+    .postL {
+        width: 100%!important;
+    }
+    .postDetails {
+        width: 100%!important;
+    }
+    .details__details {
+        width: 100%!important;
+    }
+}    
+
 
 .post{
     max-width: 100%;
@@ -51,11 +76,11 @@
 }
 
 .text__tags{
-    background-color: colors.$input;
+    background-color: colors.$tags;
     border-radius: 2px;
     color: rgba(128, 128, 128, 0.666);
     padding-left:0px;
-    padding: 0.1em 0.4em;
+    padding: 0.1em 0.4em 0.1em 0.4em;
     margin: 0.1em;
 }
 
@@ -70,6 +95,76 @@
 .fileInput {
     text-align: center;
 }
+.postL {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.postL .feed.profileFeed {
+    display: flex;
+    width: 100%;
+    transform: translateX(0%);
+    left: 0%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.postL .feed.profileFeed .post img {
+    width: 200px;
+}
+.postL .feed.profileFeed .post{
+    margin-left: 5%;
+}
+.postDetails {
+    display: flex;
+    width: 50%;
+}
+.detailsblock {
+    margin-top: 2%;
+    display:flex;
+}
+.changePostInfo {
+    display: flex;
+}
+
+
+.postData {
+    margin-top: 3%;
+    display: flex;
+    width: 100%;
+    padding-bottom: 2%;
+}
+
+.CommentInfo {
+    margin-left: 30px;
+}
+
+.post__comments {
+    margin-top: 10%;
+}
+
+.post__comments .upload__text__btn {
+    margin-top: 2%;
+    text-decoration: none;
+}
+#commentText {
+    color: black;
+}
+#commentText::placeholder{
+    color: grey;
+}
+
+.post__comments__form {
+    display:flex;
+    flex-direction: column;
+}
+
+.post__comments li{
+    margin-top: 3%;
+    list-style-type: none;
+}
+
 
 .details{
     padding-top: 30px;
@@ -91,7 +186,8 @@
 }
 
 .details__details{
-    max-width: 70%;
+    width: 50%;
+    margin-left: 3%;
 }
 
 .details__text{
@@ -130,8 +226,7 @@
 
 .details__text--tags{
     color: rgba(101, 100, 100, 0.666);
-    margin: 30px 5px;
-    margin-top: 500px;
+    margin:  0 0 0 30px;
 }
 
 .details__drop{
@@ -185,5 +280,9 @@
     margin: 20px 0 10px 0;
 }
 
+.likes {
+    padding-left:0.8em;
+    padding-bottom: 1%;
+}
 
 
