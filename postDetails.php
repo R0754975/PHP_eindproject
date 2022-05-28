@@ -2,6 +2,8 @@
     use imdmedia\Feed\Post;
     use imdmedia\Auth\Security;
     use imdmedia\Auth\User;
+use imdmedia\Feed\ReportPost;
+
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
     
@@ -12,7 +14,10 @@
         $postId = $_GET['Post'];
         $postDetails = Post::getPostById($postId);
         $posts = Post::getPostByTags($postDetails['tags']);
-
+        $reportCheck = ReportPost::reportCheck($postId ,$_SESSION['user']['id']);
+        var_dump(intval($postId));
+        var_dump($_SESSION['user']['id']);
+        var_dump($reportCheck);
         
         if($postDetails['userid'] == $_SESSION['user']['id']){
             $ownProfile = true;
@@ -27,6 +32,7 @@
     }
 
 
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +43,10 @@
     <?php include_once("inc/nav.inc.php"); ?>
 
     <section class="postDetails">
-        <img src="<?php echo $postDetails['filePath']; ?>" alt="<?php echo $postDetails['title']; ?>">
+        <div class="postDetails__img">
+            <img class="postDetails__imgSRC" src="<?php echo $postDetails['filePath']; ?>" alt="<?php echo $postDetails['title']; ?>">
+        </div>
+        <div>
         <h3><?php echo htmlspecialchars($postDetails['title']); ?></h3>
         <?php if ($auth == true): ?>
         <a href="account.php?Account=<?php echo htmlspecialchars($postDetails['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($postDetails['userName']); ?></a>
@@ -46,7 +55,6 @@
         <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
         <?php endforeach ?>
         <?php if(isset($ownProfile)): ?>
-
         <button class="deleteBtn">Delete</button>
         <form class="delete" action="" method="post">
             <div class="confirmation">
@@ -57,15 +65,16 @@
             </div>
             </div>
         </form>
+        <?php if ($reportCheck): ?>
+            <p class="report" data-check="reported" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">You reported this!</p>
+            <input class="session" type="hidden" value="">
         <?php else: ?>
-            <div>
-                <a href="#" class="rapport" data-post="1">Rapport</a>
-            </div>
+            <p class="report" data-check="report" data-post="<?php echo $postId; ?>" data-id="<?php echo $_SESSION['user']['id'];?>">Report this</p>
+            <input class="session" type="hidden" value="">
         <?php endif; ?>
-
-
+        <?php endif; ?>
         <?php endif ?>
-
+        </div>
     </section>
 
     <section class="feed profileFeed">
