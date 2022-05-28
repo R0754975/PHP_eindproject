@@ -32,10 +32,13 @@
           <?php endif; ?>
           <div class="account">
             <?php if(isset($profilePic)): ?>
-              <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321618/IMDMedia_Pictures/searchIcon.png" alt="ProfilePic"></button>
+              <div class="circleDrop">
+                <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1653732745/IMDMedia_Pictures/account.png" alt="ProfilePic"></button>
+              </div>
             <?php else: ?>
-                <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1653685238/IMDMedia_Pictures/IMD_MEDIA.svg" alt="ProfilePic"></button>
-            <?php endif; ?>
+                <div class="circleDrop">
+                <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1653732745/IMDMedia_Pictures/account.png" alt="ProfilePic"></button>
+              </div>            <?php endif; ?>
               <div class="dropdownContent"> 
                   <?php if(isset($username)): ?>
                     <a href="./account.php?Account=<?php echo $username; ?>">Profile</a>

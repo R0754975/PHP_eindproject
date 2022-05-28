@@ -7,6 +7,7 @@
     background-color: colors.$primary;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
     padding: 7px;
 }
 
@@ -22,12 +23,24 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: -10px;
+
 }
 
 .searchIcon{
     width:3em;
     padding-top: 1em;
     background-color: transparent;
+}
+
+.searchBar form{
+    margin: none;
+    padding: none;
+}
+
+.searchBar input{
+    margin-top: 0;
+    padding-top: none;
 }
 
 .navRight{
@@ -69,4 +82,21 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
+}
+
+.circleDrop{
+    margin: 0 10px;
+    border-radius: 50px;
+}
+
+.circleDrop img{
+    height: 2.5em;
+    border-radius: 50%;
+}
+
+.logodiv img{
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
