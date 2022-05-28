@@ -2,6 +2,7 @@
     if(isset($_SESSION['user'])){
         $user = $_SESSION['user'];
         $username = $user['username'];
+        $profilePic = $user['profile_pic'];
     }
 
   if (!empty($_GET["search"])) {
@@ -12,8 +13,8 @@
     }
 }
 ?><div class="nav">
-      <div>
-          <a href="./index.php"><img src="./images/computer.png" alt="IMDMedia logo" class="logo"></a>
+      <div class="logodiv">
+          <a class="logo"href="./index.php"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1653685238/IMDMedia_Pictures/IMD_MEDIA.svg" alt="IMDMedia logo" class="logo"></a>
       </div>
       <div>
           <form action="" method="get" class="searchBar">
@@ -30,7 +31,11 @@
             <a href="upload.php" class="primarybtn">Upload project</a>
           <?php endif; ?>
           <div class="account">
+            <?php if(isset($profilePic)): ?>
               <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1651321618/IMDMedia_Pictures/searchIcon.png" alt="ProfilePic"></button>
+            <?php else: ?>
+                <button class="dropbtn"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1653685238/IMDMedia_Pictures/IMD_MEDIA.svg" alt="ProfilePic"></button>
+            <?php endif; ?>
               <div class="dropdownContent"> 
                   <?php if(isset($username)): ?>
                     <a href="./account.php?Account=<?php echo $username; ?>">Profile</a>

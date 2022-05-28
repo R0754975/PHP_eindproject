@@ -84,3 +84,18 @@
 .fileInput {
     text-align: center;
 }
+
+.postDetails{
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start;
+    justify-content: center;
+}
+
+.postDetails__img{
+    margin-left: none;
+    padding-left: none;
+    max-width: 50%;
+    object-fit: cover;
+}
+
