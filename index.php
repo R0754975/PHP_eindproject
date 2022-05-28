@@ -56,7 +56,7 @@
                         <a href="account.php?Account=<?php echo htmlspecialchars($post['userName']); ?>" class="postUsername"><?php echo htmlspecialchars($post['userName']); ?></a>
                         <?php $tags = json_decode($post['tags']); ?>
                         <?php foreach ($tags as $tag): ?>
-                        <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
+                        <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="text__tags">#<?php echo htmlspecialchars($tag); ?></a>
                         <?php endforeach ?>
                         <?php endif ?>
                     </div>
