@@ -3,6 +3,7 @@
     use imdmedia\Auth\Security;
     use imdmedia\Auth\User;
     use imdmedia\Data\Follow;
+    use imdmedia\Data\Report;
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -49,6 +50,20 @@
         }
     }
 
+    $reportData = 0;
+    $report = "report";
+    if(isset($_SESSION['user']['id'])){
+        $reportCheck = Report::checkReport($_SESSION['user']['id'], $user = $profileUser['id']);
+        if($reportCheck === true) {
+            $reportData = 1;
+            $report = "unreport";
+        }
+        else {
+            $reportData = 0;
+            $report = "report";
+        }
+    }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +103,17 @@
                 <h2 id="followTxt"><?php echo $follow;?></h2>
                 </a>
                 </div>
+
+                <div>
+                <a style="text-decoration: none;" href="#" id="reportbtn" 
+                data-reporting-User="<?php echo $_SESSION['user']['id'];?>" 
+                data-reported-User="<?php echo $profileUser['id'];?>"
+                data-report="<?php echo $reportData;?>"
+                >
+                <h2 id="reportTxt"><?php echo $report;?></h2>
+                </a>
+                </div>
+
                 <div class="education">
                     <h2>Education</h2>
                     <ul>
@@ -130,5 +156,6 @@
     <?php include_once("inc/footer.inc.php"); ?>
     <script type="module" src="main.js"></script>
     <script src="js/follow.js"></script>
+    <script src="js/report.js"></script>
 </body>
 </html>

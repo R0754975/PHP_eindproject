@@ -36,6 +36,18 @@ CREATE TABLE `follows` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reports`
+--
+
+CREATE TABLE `reports` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `reporting_user` int(11) NOT NULL,
+  `reported_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
@@ -91,6 +103,12 @@ ALTER TABLE `follows`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
@@ -116,6 +134,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `follows`
 --
 ALTER TABLE `follows`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+  --
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
