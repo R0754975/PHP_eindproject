@@ -6,7 +6,6 @@ include_once("inc/functions.inc.php");
 // password reset system
 
 $validator = $_GET["validator"];
-$selector = $_GET["selector"];
 
 if (empty($validator)) {
     echo "Could not validate your request!";
@@ -15,7 +14,6 @@ if (empty($validator)) {
 if (isset($_POST['reset-password-submit'])) {
     try {
         Security::resetPassword();
-        echo $_POST['password'];
     } catch (Throwable $e) {
         $error = $e->getMessage();
     }
@@ -29,8 +27,6 @@ if (isset($_POST['reset-password-submit'])) {
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-    <?php include_once("inc/nav.inc.php"); ?>
-
 	<div id="header">
 		<div class="logo"></div>
 	</div>
@@ -44,7 +40,6 @@ if (isset($_POST['reset-password-submit'])) {
 				</div>
 		<?php endif; ?>
                  <form action="" method="post">
-                        <input type="hidden" name="selector" value="<?php echo $selector;?>">
                         <input type="hidden" name="validator" value="<?php echo $validator;?>">
                         <input type="password" name="password" placeholder="Enter a new password...">
                         <input type="password" name="passwordrepeat" placeholder="Repeat new password...">

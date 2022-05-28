@@ -5,6 +5,16 @@
     use Exception;
     use imdmedia\Data\DB;
     use PDO;
+    use Cloudinary\Api\Upload\UploadApi;
+    use Cloudinary\Configuration\Configuration;
+
+Configuration::instance([
+        'cloud' => [
+          'cloud_name' => 'dzhrxvqre',
+          'api_key' => '387513213267173',
+          'api_secret' => '1lBrjQy2GXP39NT1pwnvD1SxyKo'],
+        'url' => [
+          'secure' => true]]);
 
     class User
     {
@@ -13,7 +23,30 @@
         protected $initialPassword;
         protected $repeatPassword;
         protected $profile_pic;
+        protected $bio;
+        protected $education;
+        protected $ig;
+        protected $tw;
         
+        private function hashPassword($password){
+            $options=[
+                'cost' => 12,
+            ];
+
+            return password_hash($password, PASSWORD_DEFAULT, $options);
+        }
+
+        public static function checkPassword($password){
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number = preg_match('@[0-9]@', $password);
+            $specialChars = preg_match('@[^\w]@', $password);
+
+            if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 6) {
+                throw new Exception("Password should be at least 6 characters in length and should include at least one upper case letter, one number, and one special character.");
+            }
+            return true;
+        }
 
         public static function getUserbyId($id){
             $conn = DB::getConnection();
@@ -89,14 +122,7 @@
          */
         public function setPassword($initialPassword)
         {
-            $uppercase = preg_match('@[A-Z]@', $initialPassword);
-            $lowercase = preg_match('@[a-z]@', $initialPassword);
-            $number = preg_match('@[0-9]@', $initialPassword);
-            $specialChars = preg_match('@[^\w]@', $initialPassword);
-
-            if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($initialPassword) < 6) {
-                throw new Exception("Password should be at least 6 characters in length and should include at least one upper case letter, one number, and one special character.");
-            }
+            User::checkPassword($initialPassword);
             $this->initialPassword = $initialPassword;
             return $this;
         }
@@ -122,14 +148,114 @@
 
             return $this;
         }
-                
+
+
+        /**
+         * Get the value of bio
+         */
+        
+        public function getBio() {
+            return $this->bio;
+        }
+
+
+        
+
+        /**
+         * Set the value of bio
+         */
+        
+        public function setBio($bio) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET bio = :bio where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":bio", $bio);
+            //execute returns boolean, see if upload was succesful
+            $this->bio = $bio;
+            $_SESSION["user"]["bio"] = $bio;
+            return $statement->execute();
+        }
+
+        /**
+         * Get the value of education
+         */
+        
+        public function getEducation() {
+            return $this->education;
+        }
+
+         /**
+         * Set the value of education
+         */
+        
+        public function setEducation($education) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET education = :education where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":education", $education);
+            //execute returns boolean, see if upload was succesful
+            $this->education = $education;
+            $_SESSION["user"]["education"] = $education;
+            return $statement->execute();
+        }
+
+
+        /**
+         * Get the value of instagram
+         */
+        
+        public function getIg() {
+            return $this->ig;
+        }
+
+         /**
+         * Set the value of instagram
+         */
+        
+        public function setIg($ig) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET ig = :ig where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":ig", $ig);
+            //execute returns boolean, see if upload was succesful
+            $this->ig = $ig;
+            $_SESSION["user"]["ig"] = $ig;
+            return $statement->execute();
+        }
+
+
+        /**
+         * Get the value of twitter
+         */
+        
+        public function getTw() {
+            return $this->tw;
+        }
+
+         /**
+         * Set the value of twitter
+         */
+        
+        public function setTw($tw) {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET tw = :tw where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":tw", $tw);
+            //execute returns boolean, see if upload was succesful
+            $this->tw = $tw;
+            $_SESSION["user"]["tw"] = $tw;
+            return $statement->execute();
+        }
+
+        
+         
              
         /**
          * Get the value of profile_pic
          */
         public function getProfile_pic()
         {
-            return $this->repeatPassword;
+            return $this->profile_pic;
         }
 
         /**
@@ -139,6 +265,76 @@
         {
             $this->profile_pic = $profile_pic;
             return $this;
+        }
+
+        public function saveProfile_pic() {
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE users SET profile_pic = :profile_pic where email = :email");
+            $statement->bindValue(":profile_pic", $this->profile_pic);
+            $statement->bindValue(":email", $this->email);
+            //execute returns boolean, see if upload was succesful
+            $_SESSION["user"]["profile_pic"] = $this->profile_pic;
+            return $statement->execute();
+        }
+
+        public function uploadProfile_Pic($file) {
+            $fileTmpName = $file['tmp_name'];
+            $fileSize = $file['size'];
+            $fileError = $file['error'];
+
+            if ($fileError === 0) {
+                if ($fileSize < 5000000) {
+
+                            //uploads file to cloudinary
+                    $cloudinary = (new uploadApi())->upload(
+                        $fileTmpName,
+                        [
+                                'folder' => 'Profile_Pictures/',
+                                "format" => "webp",
+                                ]
+                    );
+                    //stores the new url in the class
+                    $this->setProfile_pic($cloudinary['url']);
+                    $this->saveProfile_pic();
+                } else {
+                    throw new Exception("Your file is too big!");
+                }
+            } else {
+                throw new Exception("There was an error uploading your file!");
+            }
+        }
+
+
+
+        
+
+
+
+
+
+
+        public function verifyPassword($password){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from users where email = :email");
+            $statement->bindValue(":email", $this->email);
+            $statement->execute();
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+            $hash = $user["password"];
+            if (password_verify($password, $hash)) {
+                return true;
+            } else {
+                throw new Exception("Wrong password");
+            }
+        }
+
+        public function changePassword($oldPassword, $newPassword){
+            if($this->verifyPassword($oldPassword) && User::checkPassword($newPassword)){
+                $conn = DB::getConnection();
+                $statement = $conn->prepare("UPDATE users SET password = :pw where email = :email");
+                $statement->bindValue(":pw", $this->hashPassword($newPassword));
+                $statement->bindValue(":email", $this->email);
+                return $statement->execute();
+            }
         }
 
         public function canLogin()
@@ -176,6 +372,7 @@
             $statement->bindValue("username", $this->username);
             $statement->bindValue("email", $this->email);
             $statement->bindValue("password", $passwordHash);
+            
             $statement->execute();
 
             $userId = $conn->lastInsertId();
@@ -214,6 +411,16 @@
                 return true;
         }
 
+        
+        public static function getUserbyUsername($user){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from users where username = :username");
+            $statement->bindValue(':username', $user);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+
         public function __toString()
         {
             return $this->username . " " . $this->email;
@@ -228,4 +435,6 @@
             $user = $statement->fetch();
             return $user;
         }
+
+
     }

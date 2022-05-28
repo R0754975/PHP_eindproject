@@ -1,11 +1,12 @@
 <?php
     use imdmedia\Feed\Post;
-
+    use imdmedia\Auth\Security;
+    use imdmedia\Auth\User;
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
-
+    
     boot();
-    $auth = checkLoggedIn();
+    $auth = Security::checkLoggedIn();
 
     // determine how many items are allowed per page
     $maxResults = 10;
@@ -22,7 +23,15 @@
     // retrieve the posts for the current page
 
     $posts = Post::getPage($page);
+    
+    if(isset($_GET['Account'])){
+        $user = $_GET['Account'];
+        $profileUser = User::getUserByUsername($user);
 
+        if($profileUser['id'] == $_SESSION['user']['id']){
+            $ownProfile = true;
+        }
+    }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -36,60 +45,39 @@
     <div class="info">
         <div class="globalInfo">
             <div class="pic">
-                <div class="userPic"></div>
+                <div>
+                    <img class="userPic" src="<?php echo $profileUser['profile_pic'];?>">
+                </div>
                 <button class="changePic"></button>
             </div>
             <div class="bioInfo">
-<<<<<<< HEAD
-                <h1 class="profileUsername"><?php echo $_SESSION['user']['username']; ?></h1>
-                <h3 class="profileEmail"><?php echo $_SESSION['user']['email']; ?></h3>
-                <div class="bio">
-                    <p class="bioInput">Bla bla bla bla bla bla </p>
-=======
-                <h1 class="profileUsername profile"><?php echo $_SESSION['user']['username']; ?></h1>
-                <h3 class="profileEmail profile"><?php echo $_SESSION['user']['email']; ?></h3>
+                <h1 class="profileUsername profile"><?php echo htmlspecialchars($profileUser['username']); ?></h1>
+                <h3 class="profileEmail profile"><?php echo htmlspecialchars($profileUser['email']); ?></h3>
                 <div class="bio profile">
-                    <p class="bioInput">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn libero. Incididunt ut labore et.</p>
->>>>>>> sienvdb
-                    <button class="changeButton"></button>
+                    <p class="bioInput"><?php echo htmlspecialchars($profileUser['bio']); ?></p>
+                    <?php if(isset($ownProfile)): ?>
+                        <button class="changeButton">Button</button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="extraIfo">
-            <div class="education">
-                <h2>Education</h2>
-                <ul>
-                    <li>No education selected</li>
-                </ul>
-            </div>
-            <div class="socialMedia">
-                <h2>Social Media</h2>
-                <div class="icons">
-                    <a href="https://www.instagram.com/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652127860/IMDMedia_Pictures/instagramIcon.svg" alt="link to Instagram"></a>    
-                    <a href="https://twitter.com/?lang=en"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128151/IMDMedia_Pictures/TwitterIcon.svg" alt="link to Twitter"></a>    
-                    <a href="https://www.linkedin.com/feed/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128088/IMDMedia_Pictures/LinkedInIcon.svg" alt="link to LinkedIn"></a>    
-                </div>
-            </div>
-=======
         <div class="extraInfo">
             <section>
                 <div class="education">
                     <h2>Education</h2>
                     <ul>
-                        <li>No education selected</li>
+                        <li><?php echo htmlspecialchars($profileUser['education']); ?></li>
                     </ul>
                 </div>
                 <div class="socialMedia">
                     <h2>Social Media</h2>
                     <div class="icons">
-                        <a href="https://www.instagram.com/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652127860/IMDMedia_Pictures/instagramIcon.svg" alt="link to Instagram"></a>    
-                        <a href="https://twitter.com/?lang=en"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128151/IMDMedia_Pictures/TwitterIcon.svg" alt="link to Twitter"></a>    
-                        <a href="https://www.linkedin.com/feed/"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128088/IMDMedia_Pictures/LinkedInIcon.svg" alt="link to LinkedIn"></a>    
+                        <a href="https://www.instagram.com/<?php echo $profileUser['ig']; ?>"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652127860/IMDMedia_Pictures/instagramIcon.svg" alt="link to Instagram"></a>    
+                        <a href="https://twitter.com/<?php echo $profileUser['tw']; ?>"><img src="https://res.cloudinary.com/dzhrxvqre/image/upload/v1652128151/IMDMedia_Pictures/TwitterIcon.svg" alt="link to Twitter"></a>    
+                           
                     </div>
                 </div>
             </section>
->>>>>>> sienvdb
         </div>
     </div>
     <section class="feed profileFeed">
@@ -114,6 +102,7 @@
         <button class="changeSocialPic userSession"></button>
     </div>
 
+    <?php include_once("inc/footer.inc.php"); ?>
     <script type="module" src="main.js"></script>
 </body>
 </html>

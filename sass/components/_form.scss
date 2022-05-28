@@ -44,7 +44,7 @@ label{
 }
 
 input{
-    color: colors.$offWhite;
+    color: colors.$offBlack;
     background-color: transparent;
     border-color: colors.$offWhite;
     border-width: 2px;
@@ -81,4 +81,8 @@ input{
 
 .nav img{
     max-width: 3em;
+}
+
+.status-not-available, .status-available {
+    color: colors.$offWhite;
 }

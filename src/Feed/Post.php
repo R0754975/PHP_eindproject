@@ -7,6 +7,7 @@ use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Configuration\Configuration;
 
 use Exception;
+use LDAP\Result;
 
 Configuration::instance([
         'cloud' => [
@@ -17,7 +18,7 @@ Configuration::instance([
           'secure' => true]]);
 
     class Post
-    {
+    {   
         private $title;
         private $userid;
         private $username;
@@ -25,7 +26,8 @@ Configuration::instance([
         private $filePath;
         private $file;
         private $search;
-
+        private $description;
+       
         public function getTitle()
         {
             return $this->title;
@@ -103,6 +105,18 @@ Configuration::instance([
             return $this;
         }
 
+        public function getDescription()
+        {
+                return $this->description;
+        }
+
+        public function setDescription($description)
+        {
+                $this->description = $description;
+
+                return $this;
+        }
+
         public function upload()
         {
             $file = $this->file;
@@ -113,7 +127,7 @@ Configuration::instance([
    
   
             if ($fileError === 0) {
-                if ($fileSize < 1000000) {
+                if ($fileSize < 5000000) {
 
                             //uploads file to cloudinary
                     $cloudinary = (new uploadApi())->upload(
@@ -135,12 +149,13 @@ Configuration::instance([
         public function save()
         {
             $conn = DB::getConnection();
-            $statement = $conn->prepare("insert into posts (title, userid, tags, filePath, userName) values (:title, :userid, :tags, :filepath, :username)");
+            $statement = $conn->prepare("insert into posts (title, userid, tags, filePath, userName, description) values (:title, :userid, :tags, :filepath, :username, :description)");
             $statement->bindValue(":title", $this->title);
             $statement->bindValue(":userid", $this->userid);
             $statement->bindValue(":tags", $this->tags);
             $statement->bindValue(":filepath", $this->filePath);
             $statement->bindValue(":username", $this->username);
+            $statement->bindValue(":description", $this->description);
             return $statement->execute();
         }
         
@@ -195,4 +210,48 @@ Configuration::instance([
             $result = $conn->query("select * from posts limit " . (($page - 1) * $maxResults) . ", 10;");
             return $result->fetchAll();
         }
+
+        public static function getPostById($postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from posts where id = :id");
+            $statement->bindValue(':id', $postId);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+
+        public static function getPostByTags($postTags){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("select * from posts where tags like :tags");
+            $statement->bindValue(':tags', "%" . $postTags ."%");
+            $statement->execute();
+            $result = $statement->fetchAll();
+            return $result;
+        }
+
+        public static function deletePostById($postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("delete from posts where id like :id");
+            $statement->bindValue(':id', $postId);
+            return $statement->execute();
+        }
+
+        public function changeTital($title, $postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE posts SET title = :title where id = :id");
+            $statement->bindValue(':title',  $title);
+            $statement->bindValue(':id', $postId);
+            $_SESSION["post"]["title"] = $title;
+            return $statement->execute();
+        }
+
+        public function changeTag($tags, $postId){
+            $conn = DB::getConnection();
+            $statement = $conn->prepare("UPDATE posts SET tags = :tags where id = :id");
+            $statement->bindValue(':tags',  $tags);
+            $statement->bindValue(':id', $postId);
+            $_SESSION["post"]["tags"] = $tags;
+            return $statement->execute();
+        }
+
     }

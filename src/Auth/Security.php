@@ -11,18 +11,30 @@
     {
         public static function onlyLoggedInUsers()
         {
-            session_start();
+            
             if (!isset($_SESSION['user'])) {
                 header("Location: login.php");
             }
-        }  
+        }
+
+        public static function checkLoggedIn()
+        {
+            //check if a user is logged in
+            if (isset($_SESSION['user'])) {
+                return true;
+            } else {
+                header("Location: login.php");
+                return false;
+            }
+        }
         
         // sends the mail to the user with the reset link
         public static function resetRequest()
         {
 
             //generates a random string of bytes
-            $token = random_bytes(32);
+            $tokenbin = random_bytes(32);
+            $token = bin2hex($tokenbin);
 
             //defines how long the token is valid
             $expires = date("U") + 86400;
@@ -33,20 +45,15 @@
 
             $config = Config::getConfig();
 
-            $url = $config['url'] . "create-new-password.php?validator=" . bin2hex($token) . "&selector=" . $userEmail;
+            $url = $config['url'] . "create-new-password.php?validator=" . $token;
             
             $statement = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
             $statement->bindValue(":email", $userEmail);
             $statement->execute();
 
-            $options = [
-                'cost' => 12,
-            ];
-            $tokenHash = password_hash($token, PASSWORD_DEFAULT, $options);
-            
             $statementTwo = $conn->prepare("INSERT INTO pwdreset (pwdResetEmail, pwdResetToken, pwdResetExpires) VALUES (:email, :token, :expires)");
             $statementTwo->bindValue(":email", $userEmail);
-            $statementTwo->bindValue(":token", $tokenHash);
+            $statementTwo->bindValue(":token", $token);
             $statementTwo->bindValue(":expires", $expires);
             $statementTwo->execute();
 
@@ -56,17 +63,17 @@
         public static function resetPassword()
         {
             $conn = DB::getConnection();
-            $token = $_POST['validator'];
-            $userEmail = $_POST['selector'];
+            $tokenHex = $_POST['validator'];
             $newPassword = $_POST['password'];
             $newPasswordRepeat = $_POST['passwordrepeat'];
-            $statement = $conn->prepare("SELECT * FROM pwdreset WHERE pwdResetEmail=:email");
-            $statement->bindValue(":email", $userEmail);
+            $statement = $conn->prepare("SELECT * FROM pwdreset WHERE pwdResetToken=:token");
+            $statement->bindValue(":token", $tokenHex);
             $statement->execute();
             $user = $statement->fetch();
-            $tokenHash = $user["pwdResetToken"];
+            $token = $user["pwdResetToken"];
             $expires = $user["pwdResetExpires"];
-            $tokenBin = hex2bin($token);
+            $email = $user["pwdResetEmail"];
+
 
             //for password check
             $uppercase = preg_match('@[A-Z]@', $newPasswordRepeat);
@@ -74,7 +81,7 @@
             $number = preg_match('@[0-9]@', $newPasswordRepeat);
             $specialChars = preg_match('@[^\w]@', $newPasswordRepeat);
 
-            if (password_verify($tokenBin, $tokenHash)) {
+            if ($tokenHex == $token) {
                 if ($expires < time()) {
                     throw new Exception("Link has expired");
                 } else {
@@ -91,14 +98,14 @@
                     $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT, $options);
                     $statement = $conn->prepare("UPDATE users SET password=:password WHERE email=:email");
                     $statement->bindValue(":password", $newPasswordHash);
-                    $statement->bindValue(":email", $userEmail);
+                    $statement->bindValue(":email", $email);
                     $statement->execute();
                     $statement = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
-                    $statement->bindValue(":email", $userEmail);
+                    $statement->bindValue(":email", $email);
                     $statement->execute();
 
                     $statementFour = $conn->prepare("DELETE FROM pwdreset WHERE pwdResetEmail=:email");
-                    $statementFour->bindValue(":email", $userEmail);
+                    $statementFour->bindValue(":email", $email);
                     $statementFour->execute();
 
                     header("Location: login.php?pwreset=success");
@@ -108,4 +115,3 @@
             }
         }
     }
-
