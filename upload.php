@@ -7,6 +7,12 @@ use imdmedia\Auth\Security;
  boot();
 Security::onlyLoggedInUsers();
 
+//add search function
+if(isset($_GET['search'])){
+    header("Location: index.php?search=" . $_GET['search']);
+}
+
+
 if (isset($_SESSION['user'])) {
     if (isset($_POST['submit'])) {
         try {

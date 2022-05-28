@@ -12,6 +12,11 @@ if (empty($validator)) {
     echo "Could not validate your request!";
 }
 
+//add search function
+if(isset($_GET['search'])){
+    header("Location: index.php?search=" . $_GET['search']);
+}
+
 if (isset($_POST['reset-password-submit'])) {
     try {
         Security::resetPassword();

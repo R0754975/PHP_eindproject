@@ -8,6 +8,11 @@
     boot();
     $auth = Security::checkLoggedIn();
 
+    //add search function
+    if(isset($_GET['search'])){
+        header("Location: index.php?search=" . $_GET['search']);
+    }
+
     // determine how many items are allowed per page
     $maxResults = 10;
     // determine how many items are in the database

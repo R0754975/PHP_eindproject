@@ -7,6 +7,11 @@
         boot();
         //checkAuthorisation();
 
+    //add search function
+    if(isset($_GET['search'])){
+        header("Location: index.php?search=" . $_GET['search']);
+    }
+
     $user = $_SESSION['user'];
     var_dump($user);
     if(!empty($_POST)){

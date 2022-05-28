@@ -8,6 +8,11 @@ if (isset($_POST['reset-request-submit'])) {
     Security::resetRequest();
 }
 
+//add search function
+if(isset($_GET['search'])){
+    header("Location: index.php?search=" . $_GET['search']);
+}
+
 
 ?><!DOCTYPE html>
 <html>

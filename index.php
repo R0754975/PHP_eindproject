@@ -43,9 +43,11 @@
         </head>
         <body>
             <?php include_once("inc/nav.inc.php"); ?>
-            <?php if (isset($requestNotFound)): ?>
-                <h2>We didn't find an item with that title or tag. Please type another one.</h2>		
-            <?php endif; ?>
+            <div class="centerError">
+                <?php if (isset($requestNotFound)): ?>
+                    <h2 class="errorPostNotFound">We didn't find an item with that title or tag. Please type another one.</h2>		
+                <?php endif; ?>
+            </div>
             <section class="feed">
                 <?php foreach ($posts as $key => $post): ?>
                 <a href="postDetails.php?Post=<?php echo htmlspecialchars($post['id']); ?>">

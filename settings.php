@@ -1,6 +1,8 @@
 <?php
 use imdmedia\Auth\Security;
 use imdmedia\Auth\User;
+use imdmedia\Feed\Post;
+
 
     require __DIR__ . '/vendor/autoload.php';
     include_once("inc/functions.inc.php");
@@ -8,6 +10,11 @@ use imdmedia\Auth\User;
         Security::onlyLoggedInUsers();
 
     $error = "";
+
+    //add search function
+    if(isset($_GET['search'])){
+        header("Location: index.php?search=" . $_GET['search']);
+    }
 
     if(isset($_POST['changePassword'])){
         $newPassword = $_POST["newPassword"];
@@ -89,84 +96,89 @@ if(isset($_POST['updateBio'])){
     <?php include_once("inc/header.inc.php"); ?>
     <title>Account settings</title>
 </head>
-<body>
+<body >
 <?php include_once("inc/nav.inc.php"); ?>
 
-<button class="changePass">Change password</button>
 <a href="removeAccount.php">Delete account</a>
-    
-<button>Change profile picture</button>
 
-<form method="POST"
-        action=""
-        enctype="multipart/form-data">
-
-<div id="divUploadProfilePic">
-	<input type="file"
-                name="uploadfile"
-                value="" />
-
-        <div>
-            <button type="submit"
-                    name="uploadProfilePicture">
-                Update
-            </button>
-        </div>
-</div>
-</form>
-
-    <form method="POST"
+<div class="updateSettings">
+<form class="postForm" method="POST"
             action=""
             enctype="multipart/form-data">
-            <div>
-        <h2>Change password</h2>
-        <div>
-            <div class="error">
-                <?php echo $error ?>
-            </div>
-            <label for="pass">Old password</label>
-                <input type="password" id="oldPassword" name="oldPassword">
-            </div>
 
-            <label for="pass">New password</label>
-                <input type="password" id="newPassword" name="newPassword">
-            </div>
+        <div id="divUploadProfilePic">
+            <h2 class="upload__title" >Change profile picture</h2>
+            <div class="form__field--upload--updateimage ">
+                <input class="upload__text__input" type="file"
+                        name="uploadfile"
+                        value="" />
 
-            <label for="pass">Repeat password</label>
-                <input type="password" id="repeatPassword" name="repeatPassword">
             </div>
+                <div>
+                    <button class="upload__text__btn" type="submit"
+                            name="uploadProfilePicture">
+                        Update
+                    </button>
+                </div>
         </div>
-
-        <button type="submit"
-                    name="changePassword">
-                Change password
-            </button>
-    </form>
-
-    <form action="" method="post">
-    <label for="bio">Biography</label>
-    <input type="text" id="bio" value="" name="bio">
-
-    <input type="submit" value="Update bio" name="updateBio">
-
-    </form>
-
-    <form action="" method="post">
-    <label for="education">Education</label>
-    <input type="text" id="education" value="" name="education">
-
-    <input type="submit" value="Update education" name="updateEducation">
-
     </form>
 
 
-    <form action="" method="post">
-    <label for="ig">Instagram</label>
-    <input type="text" id="ig" value="" name="ig">
+    <form class="postForm" action="" method="post"
+                enctype="multipart/form-data">
+                <div>
+            <h2 class="upload__title" >Change password</h2>
+            <div>
+                <div class="error">
+                    <?php echo $error ?>
+                </div>
+                <div class="form__field form__field--upload">
+                    <label class="upload__text__subtitle" for="pass">Old password</label>
+                    <input class="upload__text__input" type="password" id="oldPassword" name="oldPassword">
+                </div>
 
-    <input type="submit" value="Update instagram" name="updateIg">
+                <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="pass">New password</label>
+                    <input class="upload__text__input" type="password" id="newPassword" name="newPassword">
+                </div>
 
-    </form>
+                <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="pass">Repeat password</label>
+                    <input class="upload__text__input" type="password" id="repeatPassword" name="repeatPassword">
+                </div>
+            </div>
+
+            <button class="upload__text__btn" type="submit"
+                        name="changePassword">
+                    Change password
+                </button>
+        </form>
+
+        <form class="postForm" action="" method="post">
+            <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="bio">Biography</label>
+                <input class="upload__text__input" type="text" id="bio" value="" name="bio">
+            </div>
+            <input class="upload__text__btn" type="submit" value="Update bio" name="updateBio">
+        </form>
+
+        <form class="postForm" action="" method="post">
+            <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="education">Education</label>
+                <input class="upload__text__input" type="text" id="education" value="" name="education">
+            </div>
+            <input class="upload__text__btn" type="submit" value="Update education" name="updateEducation">
+        </form>
+
+        <form class="postForm" action="" method="post">
+            <div class="form__field form__field--upload">
+                <label class="upload__text__subtitle" for="ig">Instagram</label>
+                <input class="upload__text__input" type="text" id="ig" value="" name="ig">
+            </div>
+            <input class="upload__text__btn" type="submit" value="Update instagram" name="updateIg">
+        </form>
+
+</div>
 
     <script type="module" src="./js/sass.js"></script>
 </body>

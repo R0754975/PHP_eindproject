@@ -10,6 +10,11 @@ use imdmedia\Feed\ReportPost;
     boot();
     $auth = Security::checkLoggedIn();
 
+    //add search function
+    if(isset($_GET['search'])){
+        header("Location: index.php?search=" . $_GET['search']);
+    }
+
     if(isset($_GET['Post'])){
         $postId = $_GET['Post'];
         $postDetails = Post::getPostById($postId);
