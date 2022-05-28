@@ -23,8 +23,8 @@
         }
         // retrieve the posts for the current page
 
-        if(isset($_POST['search'])){
-            $posts = Post::searchAll($_POST['search']);
+        if(isset($_GET['search'])){
+            $posts = Post::searchAll($_GET['search']);
             if (empty($posts)){
                 $requestNotFound = true;
                 $posts = Post::getPage($page);
