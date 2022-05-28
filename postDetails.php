@@ -144,8 +144,26 @@ use imdmedia\Feed\ReportPost;
             <a href="?tags=<?php echo htmlspecialchars($tag); ?>" class="postTags">#<?php echo htmlspecialchars($tag); ?></a>
             <?php endforeach ?>
             <?php endif ?>
+            <p class="likes">
+                            <a href="#" id="btnAddLike">&hearts;</a>
+                            <span id="likes_counter">x</span> people like this
+                        </p>
+
+            <div class="post__comments">
+                <div class="post__comments__form">
+                    <input type="text" id="commentText" style="color:black">
+                    <a href="#" class="btn" id="btnAddComment" data-postId="<?php echo $_GET['post']?>">Add comment</a>
+                </div>  
+                
+                <ul class="post__comments__list">
+                    <?php foreach($allComments as $c): ?>
+                    <li><?php echo $c['message']; ?></li>  
+                    <?php endforeach; ?>
+                </ul>
+            </div>   
         </div>
-        <?php endforeach; ?> 
+        <?php endforeach; ?>
+         
         
         <form class="postForm" method="POST" action="" enctype="multipart/form-data"> 
             <h2>Change title</h2>
