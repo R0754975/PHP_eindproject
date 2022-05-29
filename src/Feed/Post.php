@@ -5,18 +5,21 @@ namespace imdmedia\Feed;
 use imdmedia\Data\DB;
 use imdmedia\Feed\Comment;
 use imdmedia\Feed\Like;
+use imdmedia\Data\Config;
 use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Configuration\Configuration;
 use PDO;
 use Exception;
 
+$config = Config::getConfig();
+
 Configuration::instance([
-        'cloud' => [
-          'cloud_name' => 'dzhrxvqre',
-          'api_key' => '387513213267173',
-          'api_secret' => '1lBrjQy2GXP39NT1pwnvD1SxyKo'],
-        'url' => [
-          'secure' => true]]);
+    'cloud' => [
+      'cloud_name' => $config['cloud_name'],
+      'api_key' => $config['api_key'],
+      'api_secret' => $config['api_secret']],
+    'url' => [
+      'secure' => true]]);
 
     class Post
     {
