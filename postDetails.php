@@ -22,7 +22,8 @@
         try { 
             $postId = $_GET['Post'];
             $postDetails = Post::getPostById($postId);
-            $posts = Post::getDetailPostsByTags($postDetails['tags'], $postId);
+            $tagArray = json_decode($postDetails['tags']);
+            $posts = Post::getDetailPostsByTags($tagArray[0], $postId);
             $reportCheck = ReportPost::reportCheck($postId ,$_SESSION['user']['id']);
             if($postDetails['userid'] == $_SESSION['user']['id']){
                 $ownProfile = true;
@@ -206,24 +207,6 @@
                         <a href="index.php?search=<?php echo htmlspecialchars($tag); ?>" class="details__text text__tags details__text--tags">#<?php echo htmlspecialchars($tag); ?></a>
                     <?php endforeach ?>
                 </div>
-                <?php if($ownProfile == true): ?>
-                    <form class="delete" action="" method="post">
-                        <div class="confirmation">
-                        <p>Are you sure?</p>
-                        <div class="deleteBtns">
-                            <input class="yesBtn confirmationBtn" type="submit" name="confirm" value="Yes">
-                            <input class="noBtn confirmationBtn" type="submit" name="confirm" value="No">
-                        </div>
-                        </div>
-                    </form>
-                    <?php if ($reportCheck): ?>
-                        <p class="report" data-check="reported" data-post="<?php echo htmlspecialchars($postId); ?>" data-id="<?php echo $_SESSION['user']['id'];?>">You reported this!</p>
-                        <input class="session" type="hidden" value="">
-                    <?php else: ?>
-                        <p class="report" data-check="report" data-post="<?php echo htmlspecialchars($postId); ?>" data-id="<?php echo $_SESSION['user']['id'];?>">Report this</p>
-                        <input class="session" type="hidden" value="">
-                    <?php endif; ?>
-                <?php endif; ?>
                 <?php if($ownProfile == true): ?>
                     <div class="changePostInfo">  
                     <form class="postForm" method="POST" action="" enctype="multipart/form-data"> 

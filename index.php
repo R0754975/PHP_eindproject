@@ -50,6 +50,11 @@
                     <h2 class="errorPostNotFound">We didn't find an item with that title or tag. Please type another one.</h2>		
                 <?php endif; ?>
             </div>
+            <?php if(isset($_GET['search'])): ?>
+            <div>
+               <a href="index.php" style="text-decoration:none;"><button class="formbtn">reset filters</button></a>
+            </div>
+            <?php endif; ?>
             <section class="feed">
                 <?php foreach ($posts as $key => $post): ?> 
                 <?php    

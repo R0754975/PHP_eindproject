@@ -21,6 +21,14 @@ a {
   color: black;
 }
 
+.upload__image {
+  color: white !important;
+}
+
+.dropbtn {
+  padding: 10px;
+}
+
 .splitForm {
   display: flex;
   flex-direction: row;
